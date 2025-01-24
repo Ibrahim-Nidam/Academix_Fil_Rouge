@@ -120,4 +120,16 @@ class Model {
         return $stmt->rowCount();
     }
 
+    public function delete(string $table, array $conditions): int {
+        $where = [];
+        foreach ($conditions as $key => $value) {
+            $where[] = "{$key} = :{$key}";
+        }
+
+        $sql = "DELETE FROM {$table} WHERE " . implode(" AND ", $where);
+        $stmt = $this->db->prepare($sql);
+
+        $stmt->execute($conditions);
+        return $stmt->rowCount();
+    }
 }
