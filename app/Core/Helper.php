@@ -20,6 +20,11 @@ class Helper
     {
         return array_keys($array) !== range(0, count($array) - 1);
     }
+
+    public static function formatDate(string $date, string $format = 'Y-m-d H:i:s'): string
+    {
+        return date($format, strtotime($date));
+    }
 }
 
 ?>
