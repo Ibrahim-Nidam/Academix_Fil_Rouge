@@ -7,7 +7,7 @@
             "Middleware\\": "app/Middleware/",
             "Model\\": "app/Models/"
         }
-    },
+    }, 
     "authors": [
         {
             "name": "Ibrahim-Nidam",
