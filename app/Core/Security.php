@@ -13,4 +13,11 @@ class Security {
             session_start();
         }
     }
+
+    public function validePassword($password){
+        if(preg_match($this->passwordPattern, $password)){
+            return true;
+        }
+        return false;
+    }
 }
