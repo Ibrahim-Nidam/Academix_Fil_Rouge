@@ -51,6 +51,12 @@ class Helper
         $offset = ($currentPage - 1) * $perPage;
         return array_slice($items, $offset, $perPage);
     }
+
+    public static function jsonToArray(string $json): array
+    {
+        $result = json_decode($json, true);
+        return $result === null ? [] : $result;
+    }
 }
 
 ?>
