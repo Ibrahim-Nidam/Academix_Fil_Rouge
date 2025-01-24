@@ -39,6 +39,12 @@ class Helper
         $factor = floor((strlen($bytes) - 1) / 3);
         return sprintf("%.2f %s", $bytes / pow(1024, $factor), $sizes[$factor]);
     }
+
+    public static function generateSlug(string $string): string
+    {
+        $string = preg_replace('/[^a-zA-Z0-9-]/', '-', strtolower(trim($string)));
+        return preg_replace('/-+/', '-', $string);
+    }
 }
 
 ?>
