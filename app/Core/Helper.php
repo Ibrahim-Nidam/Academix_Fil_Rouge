@@ -57,6 +57,11 @@ class Helper
         $result = json_decode($json, true);
         return $result === null ? [] : $result;
     }
+
+    public static function encryptString(string $string, string $key): string
+    {
+        return base64_encode(openssl_encrypt($string, 'AES-128-ECB', $key));
+    }
 }
 
 ?>
