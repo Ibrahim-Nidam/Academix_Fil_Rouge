@@ -62,6 +62,11 @@ class Helper
     {
         return base64_encode(openssl_encrypt($string, 'AES-128-ECB', $key));
     }
+
+    public static function decryptString(string $encrypted, string $key): string
+    {
+        return openssl_decrypt(base64_decode($encrypted), 'AES-128-ECB', $key);
+    }
 }
 
 ?>
