@@ -48,4 +48,9 @@ class Security {
     public function sanitizeInput(string $input): string{
         return htmlspecialchars(strip_tags($input), ENT_QUOTES, "UTF-8");
     }
+
+    public static function isValidEmail(string $email): bool
+    {
+        return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
+    }
 }
