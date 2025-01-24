@@ -11,6 +11,10 @@ class Helper
         return ucwords(strtolower($string));
     }
 
+    public static function randomString(int $length = 16): string
+    {
+        return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
+    }
 }
 
 ?>
