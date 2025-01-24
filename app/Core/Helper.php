@@ -30,6 +30,13 @@ class Helper
     {
         return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
     }
+
+    public static function dateDiffInDays(string $date1, string $date2): int
+    {
+        $d1 = new \DateTime($date1);
+        $d2 = new \DateTime($date2);
+        return $d1->diff($d2)->days;
+    }
 }
 
 ?>
