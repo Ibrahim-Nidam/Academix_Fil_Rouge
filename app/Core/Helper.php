@@ -26,11 +26,6 @@ class Helper
         return date($format, strtotime($date));
     }
 
-    public static function sanitizeString(string $string): string
-    {
-        return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
-    }
-
     public static function dateDiffInDays(string $date1, string $date2): int
     {
         $d1 = new \DateTime($date1);
