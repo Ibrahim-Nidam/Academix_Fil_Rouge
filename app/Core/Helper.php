@@ -45,6 +45,12 @@ class Helper
         $string = preg_replace('/[^a-zA-Z0-9-]/', '-', strtolower(trim($string)));
         return preg_replace('/-+/', '-', $string);
     }
+
+    public static function paginateArray(array $items, int $perPage, int $currentPage = 1): array
+    {
+        $offset = ($currentPage - 1) * $perPage;
+        return array_slice($items, $offset, $perPage);
+    }
 }
 
 ?>
