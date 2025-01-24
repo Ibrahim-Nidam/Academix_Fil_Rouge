@@ -50,4 +50,21 @@ class Model {
             die("An error occurred during database setup. Please try again later.");
         }
     }
+
+    public function read(string $table, array $conditions = [], array $columns = ['*']): array {
+        $sql = "SELECT " . implode(", ", $columns) . " FROM {$table}";
+        
+        if (!empty($conditions)) {
+            $where = [];
+            foreach ($conditions as $key => $value) {
+                $where[] = "{$key} = :{$key}";
+            }
+            $sql .= " WHERE " . implode(" AND ", $where);
+        }
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute($conditions);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
