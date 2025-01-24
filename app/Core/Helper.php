@@ -82,6 +82,11 @@ class Helper
         var_dump($value);
         echo "</pre>";
     }
+
+    public static function prettyPrint($value): void
+    {
+        echo "<pre>" . print_r($value, true) . "</pre>";
+    }
 }
 
 ?>
