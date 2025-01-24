@@ -94,4 +94,30 @@ class Model {
         $stmt = $this->db->prepare($sql);
         $stmt->execute($flatData);
     }
+
+    public function update(string $table, array $data, array $conditions): int {
+        $set = [];
+        $where = [];
+        foreach ($data as $key => $value) {
+            $set[] = "{$key} = :set_{$key}";
+        }
+        foreach ($conditions as $key => $value) {
+            $where[] = "{$key} = :where_{$key}";
+        }
+
+        $sql = "UPDATE {$table} SET " . implode(", ", $set) . " WHERE " . implode(" AND ", $where);
+        $stmt = $this->db->prepare($sql);
+
+        $params = [];
+        foreach ($data as $key => $value) {
+            $params["set_{$key}"] = $value;
+        }
+        foreach ($conditions as $key => $value) {
+            $params["where_{$key}"] = $value;
+        }
+
+        $stmt->execute($params);
+        return $stmt->rowCount();
+    }
+
 }
