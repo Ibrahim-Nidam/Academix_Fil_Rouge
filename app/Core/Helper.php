@@ -25,6 +25,11 @@ class Helper
     {
         return date($format, strtotime($date));
     }
+
+    public static function sanitizeString(string $string): string
+    {
+        return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
+    }
 }
 
 ?>
