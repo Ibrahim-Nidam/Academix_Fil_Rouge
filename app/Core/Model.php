@@ -78,4 +78,20 @@ class Model {
         return $this->db->lastInsertId();
     }
 
+    public function createBulk(string $table, array $data): void {
+        if (empty($data)) {
+            return;
+        }
+        $columns = implode(",", array_keys($data[0]));
+        $placeholders = "(" . implode(",", array_fill(0, count($data[0]), "?")) . ")";
+        $sql = "INSERT IGNORE INTO {$table} ({$columns}) VALUES " . implode(",", array_fill(0, count($data), $placeholders));
+
+        $flatData = [];
+        foreach ($data as $row) {
+            $flatData = array_merge($flatData, array_values($row));
+        }
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute($flatData);
+    }
 }
