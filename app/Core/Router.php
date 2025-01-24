@@ -36,4 +36,19 @@ class Router {
     
         $this->handleError(404);
     }
+
+    public function handleError($code){
+        http_response_code($code);
+        switch($code){
+            case 404:
+                require_once __DIR__ . "/../Views/errors/404.php";
+            break;
+            case 403 : 
+                require_once __DIR__ . "/../Views/errors/403.php";
+            break;
+            default : 
+            echo "{$code}";
+        }
+        exit();
+    }
 }
