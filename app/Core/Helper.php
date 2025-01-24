@@ -67,6 +67,14 @@ class Helper
     {
         return openssl_decrypt(base64_decode($encrypted), 'AES-128-ECB', $key);
     }
+
+    public static function dd($value): void
+    {
+        echo "<pre>";
+        var_dump($value);
+        echo "</pre>";
+        die();
+    }
 }
 
 ?>
