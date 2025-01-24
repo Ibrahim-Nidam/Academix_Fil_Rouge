@@ -15,6 +15,11 @@ class Helper
     {
         return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
     }
+
+    public static function isAssocArray(array $array): bool
+    {
+        return array_keys($array) !== range(0, count($array) - 1);
+    }
 }
 
 ?>
