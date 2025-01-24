@@ -20,4 +20,11 @@ class Security {
         }
         return false;
     }
+
+    public function generateCsrfToken(){
+        $token = bin2hex(random_bytes(32));
+        $_SESSION[$this->csrfTokenKey] = $token;
+        $_SESSION["csrf_token_time"] = time();
+        return $token;
+    }
 }
