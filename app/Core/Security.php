@@ -27,4 +27,21 @@ class Security {
         $_SESSION["csrf_token_time"] = time();
         return $token;
     }
+
+    public function verifyCsrfToken($token){
+        $tokenLifeTime = 600;
+
+        if(isset($_SESSION[$this->csrfTokenKey], $_SESSION["csrf_token_time"]) 
+            && hash_equals($_SESSION[$this->csrfTokenKey], $token)){
+            
+            if(time() - $_SESSION["csrf_token_time"] > $tokenLifeTime){
+                unset($_SESSION[$this->csrfTokenKey], $_SESSION["csrf_token_time"]);
+                die("CSRF token expired. Please refresh the form.");
+            }
+
+            unset($_SESSION[$this->csrfTokenKey], $_SESSION["csrf_token_time"]);
+            return true;
+        }
+        return false;
+    }
 }
