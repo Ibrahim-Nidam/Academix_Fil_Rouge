@@ -1,0 +1,19 @@
+# Enable URL rewriting
+RewriteEngine On
+
+# Allow access to assets (CSS, JS, images)
+RewriteCond %{REQUEST_URI} ^/assets/ [NC]
+RewriteRule ^ - [L]
+
+# Redirect all other requests to index.php for routing
+<IfModule mod_rewrite.c>
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>
+
+# Prevent access to .env and sensitive files
+<FilesMatch "(\.env|config\.php|\.htaccess)">
+    Require all denied
+</FilesMatch>
+
