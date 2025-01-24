@@ -44,4 +44,8 @@ class Security {
         }
         return false;
     }
+
+    public function sanitizeInput(string $input): string{
+        return htmlspecialchars(strip_tags($input), ENT_QUOTES, "UTF-8");
+    }
 }
