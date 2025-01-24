@@ -75,6 +75,13 @@ class Helper
         echo "</pre>";
         die();
     }
+
+    public static function dump($value): void
+    {
+        echo "<pre>";
+        var_dump($value);
+        echo "</pre>";
+    }
 }
 
 ?>
