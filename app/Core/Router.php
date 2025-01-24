@@ -20,20 +20,16 @@ class Router {
             $pattern = preg_replace('/\{[a-zA-Z0-9_]+\}/', '([0-9]+)', $route);
             if (preg_match("#^$pattern$#", $uri, $matches)) {
                 array_shift($matches);
-    
                 if (is_array($controller)) {
                     [$class, $method] = $controller;
-    
                     if (!class_exists($class)) {
                         die("Class not found: $class");
                     }
-    
                     $controller = new $class();
                     return call_user_func_array([$controller, $method], $matches);
                 }
             }
         }
-    
         $this->handleError(404);
     }
 
