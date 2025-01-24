@@ -32,6 +32,13 @@ class Helper
         $d2 = new \DateTime($date2);
         return $d1->diff($d2)->days;
     }
+
+    public static function bytesToHumanReadable(int $bytes): string
+    {
+        $sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
+        $factor = floor((strlen($bytes) - 1) / 3);
+        return sprintf("%.2f %s", $bytes / pow(1024, $factor), $sizes[$factor]);
+    }
 }
 
 ?>
