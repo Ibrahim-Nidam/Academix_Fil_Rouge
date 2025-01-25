@@ -7,6 +7,15 @@
 **Author:** Ibrahim Nidam.
 
 ### Créé : 21/12/24
+
+## License
+
+This project is proprietary and confidential. All rights reserved. Unauthorized copying, modification, distribution, or use of this software is strictly prohibited.
+
+For permissions or inquiries, please contact:
+**Ibrahim Nidam** at **ibrahim.nidam22@gmail.com**.
+
+
 ## Links
 
 - **Cahier Charge Link :** [View Cahier Charge](https://docs.google.com/document/d/1pBDmOu85xV_cRApyiOfCaoxyoeNwIs5aZCUvQey0KdU/edit?tab=t.0)
