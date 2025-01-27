@@ -15,7 +15,6 @@ This project is proprietary and confidential. All rights reserved. Unauthorized 
 For permissions or inquiries, please contact:
 **Ibrahim Nidam** at **ibrahim.nidam22@gmail.com**.
 
-
 ## Links
 
 - **Cahier Charge Link :** [View Cahier Charge](https://docs.google.com/document/d/1pBDmOu85xV_cRApyiOfCaoxyoeNwIs5aZCUvQey0KdU/edit?tab=t.0)
@@ -25,7 +24,6 @@ For permissions or inquiries, please contact:
 - **Figma Link :** [View Figma](https://www.figma.com/design/jhM4tVSxYdO0INOTeB1eUA/Fil-Rouge-%3A-Low%2FHigh-fidelity-%2B-Prototype?node-id=2-3&t=esY8Q5E2aJBqKwW6-1)
 - **Backlog Link :** [View on Backlog]()
 - **GitHub Repository Link :** [View on GitHub](https://github.com/Ibrahim-Nidam/Academix_Fil_Rouge.git)
-
 
 ## Configuration et Exécution du Projet
 
@@ -38,7 +36,9 @@ For permissions or inquiries, please contact:
 
 1. **Cloner le projet** :
    - Ouvrir un terminal et exécuter :  
-     `git clone https://github.com/Ibrahim-Nidam/Academix_Fil_Rouge.git`
+     ```bash
+     git clone https://github.com/Ibrahim-Nidam/Academix_Fil_Rouge.git
+     ```
 
 2. **Placer le projet dans le dossier Laragon** :
    - Cliquez sur le bouton **Root** dans Laragon pour ouvrir le dossier `www` (par défaut, `C:\laragon\www`).
@@ -52,19 +52,55 @@ For permissions or inquiries, please contact:
 
 4. **Installer les dépendances Node.js** :
    - Ouvrez un terminal dans le dossier du projet cloné.
-   - Exécutez :  `npm install` ou `npm i`
+   - Exécutez :  
+     ```bash
+     npm install
+     ```
 
-5. **Installer Composer** :
-   - Téléchargez et installez Composer depuis [getcomposer.org](https://getcomposer.org/).
-   - Ajoutez Composer à votre PATH pour une utilisation globale.
+5. **Télécharger l'installateur de Composer :**  
+  - Rendez-vous sur [https://getcomposer.org/Composer-Setup.exe](https://getcomposer.org/Composer-Setup.exe) pour télécharger l'installateur pour Windows.
 
-6. **Installer les dépendances PHP** :
+- **Exécuter l'installateur :**  
+  - Double-cliquez sur le fichier `Composer-Setup.exe` téléchargé.  
+  - Suivez les instructions à l'écran :  
+    - Assurez-vous que PHP est déjà installé et disponible dans le PATH de votre système. Sinon, ajoutez le chemin vers `php.exe` lors de l'installation.  
+    - L'installateur configurera automatiquement la variable d'environnement PATH pour Composer.
+
+
+   **Alternative :**
+   Ouvrez un terminal dans le dossier du projet cloné et exécutez les commandes suivantes :
+   ```cmd
+   REM Télécharger l'installateur Composer
+   php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+
+   REM Vérifier le hash SHA-384 de l'installateur
+   php -r "if (hash_file('sha384', 'composer-setup.php') === 'dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6') echo Installer verified && exit; echo Installer corrupt && del composer-setup.php && exit /b 1"
+
+   REM Exécuter l'installateur
+   php composer-setup.php
+
+   REM Supprimer le script d'installation
+   php -r "unlink('composer-setup.php');"
+
+   REM Déplacer composer.phar dans un répertoire du PATH (optionnel pour un usage global)
+   move composer.phar C:\bin\composer.phar
+   ```
+   Ajoutez le dossier `C:\bin` à votre variable d'environnement PATH pour utiliser Composer globalement.
+
+6. **Initialiser Composer dans le projet** :
    - Dans le dossier racine du projet, exécutez :
+     ```bash
+     composer init
+     ```
+   - Suivez les instructions pour générer un fichier `composer.json` et acceptez `psr-4`.
+
+7. **Installer les dépendances PHP** :
+   - Une fois le fichier `composer.json` généré, exécutez :
      ```bash
      composer install
      ```
 
-7. **Configurer le fichier `.env`** :
+8. **Configurer le fichier `.env`** :
    - Copiez le fichier `.env.example` en `.env` :
      ```bash
      cp .env.example .env
@@ -79,35 +115,32 @@ For permissions or inquiries, please contact:
      DB_PASSWORD=
      ```
 
-8. **Générer la clé de l’application** :
+9. **Générer la clé de l’application** :
    - Exécutez la commande suivante dans le terminal :
      ```bash
      php artisan key:generate
      ```
 
-9. **Migrer les tables de la base de données** :
-   - Lancez les migrations avec :
-     ```bash
-     php artisan migrate
-     ```
+10. **Migrer les tables de la base de données** :
+    - Lancez les migrations avec :
+      ```bash
+      php artisan migrate
+      ```
 
-10. **Exécuter le projet localement** :
+11. **Exécuter le projet localement** :
     - Lancez le serveur de développement Laravel avec :
       ```bash
       php artisan serve
       ```
     - Accédez à l’application via `http://127.0.0.1:8000`.
 
-
-
-
-# Contexte du projet:
+## Contexte du projet:
 
 - **Contexte :** Le système actuel de gestion des élèves, des enseignants, des parents et des étudiants est fragmenté. Le but est de centraliser et d'automatiser les processus pour améliorer l'efficacité et la communication au sein de l'école.
 
 - **Objectif principal :** Développer une application web permettant à différents utilisateurs (administrateurs, enseignants, parents, étudiants) de gérer et suivre les informations scolaires de manière centralisée et efficace.
 
-# Périmètre du Projet
+## Périmètre du Projet
 ### Utilisateurs cibles :
 
 - Administrateur (Directeur de l'école)
@@ -121,7 +154,6 @@ For permissions or inquiries, please contact:
 - Suivi des performances des étudiants
 - Communication entre les différents acteurs
 - Affichage des statistiques
-
 
 ## Fonctionnalités par Rôle
 
@@ -192,13 +224,10 @@ For permissions or inquiries, please contact:
     - ⏳ Date de lancement de brief : 12/12/2024 à 09 :30
     - ⏳ Date limite de soumission: 05/05/2025
 
-
-
 ## **Modalités d'évaluation**
 - Pour défendre votre travail devant un jury, vous devrez présenter individuellement votre projet en 45 minutes. Vous devrez démontrer l'application web en montrant le code source et en expliquant brièvement comment il fonctionne, et montrer que le code est valide aussi pour les livrables demandés.
 
 - Pour une présentation efficace, il est conseillé de bien vous préparer pour montrer le plus de votre travail en un minimum de temps. Il est également recommandé d'ouvrir toutes les ressources du projet à l'avance pour gagner du temps, comme ouvrir votre site dans un navigateur ou montrer les journaux de commit sur votre dépôt. Il est important d'être strict dans le timing de votre présentation.
-
 
 ## **Livrables**
 
