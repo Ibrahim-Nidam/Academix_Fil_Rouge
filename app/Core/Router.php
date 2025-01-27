@@ -10,46 +10,46 @@ namespace Core;
 class Router {
     protected $routes = [];
 
-    public function get($uri, $controller) {
-        $this->routes["GET"][$uri] = $controller;
+    public function get($uri, $controller, $middleware = null) {
+        $this->routes["GET"][$uri] = ['controller' => $controller, 'middleware' => $middleware];
     }
 
-    public function post($uri, $controller){
-        $this->routes["POST"][$uri] = $controller;
+    public function post($uri, $controller, $middleware = null) {
+        $this->routes["POST"][$uri] = ['controller' => $controller, 'middleware' => $middleware];
     }
 
     public function route($uri, $method) {
         $routes = $this->routes[$method] ?? [];
     
-        foreach ($routes as $route => $controller) {
+        foreach ($routes as $route => $options) {
             $pattern = preg_replace('/\{[a-zA-Z0-9_]+\}/', '([0-9]+)', $route);
+    
             if (preg_match("#^$pattern$#", $uri, $matches)) {
                 array_shift($matches);
+    
+                $middleware = $options['middleware'];
+                if ($middleware) {
+                    if (is_callable($middleware)) {
+                        $middleware = $middleware();
+                    }
+                    if ($middleware instanceof Middleware) {
+                        $middleware->handle();
+                    }
+                }
+    
+                $controller = $options['controller'];
                 if (is_array($controller)) {
                     [$class, $method] = $controller;
                     if (!class_exists($class)) {
-                        die("Class not found: $class");
+                        ErrorHandler::handle(500, "Class not found: $class");
                     }
                     $controller = new $class();
                     return call_user_func_array([$controller, $method], $matches);
                 }
             }
         }
-        $this->handleError(404);
+    
+        ErrorHandler::handle(404, "Route not found: $uri");
     }
-
-    public function handleError($code){
-        http_response_code($code);
-        switch($code){
-            case 404:
-                require_once __DIR__ . "/../Views/errors/404.php";
-            break;
-            case 403 : 
-                require_once __DIR__ . "/../Views/errors/403.php";
-            break;
-            default : 
-            echo "{$code}";
-        }
-        exit();
-    }
+    
 }
