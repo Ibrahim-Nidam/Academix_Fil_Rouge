@@ -19,8 +19,8 @@ For permissions or inquiries, please contact:
 
 - **Cahier Charge Link :** [View Cahier Charge](https://docs.google.com/document/d/1pBDmOu85xV_cRApyiOfCaoxyoeNwIs5aZCUvQey0KdU/edit?tab=t.0)
 - **Presentation Link :** [View Presentation](https://www.canva.com/design/DAGaGEgqC3U/US-EUtYLaKpGtz_Kn2ezQw/view?utm_content=DAGaGEgqC3U&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h588869fb5c)
-- **UML USE CASE Link :** [View UML USE CASE]()
-- **UML CLASS DIAGRAM Link :** [View UML CLASS DIAGRAM]()
+- **UML USE CASE Link :** [View UML USE CASE](https://lucid.app/lucidchart/dc4e4f89-5ecd-4692-937e-75bcdec76b33/edit?viewport_loc=-11%2C-11%2C1629%2C808%2C0_0&invitationId=inv_c3a5750e-1574-4ab5-b14f-5097e0b453a1)
+- **UML CLASS DIAGRAM Link :** [View UML CLASS DIAGRAM](https://lucid.app/lucidchart/47300f7f-4625-486c-89b8-8c6ca26a2178/edit?viewport_loc=-1197%2C-11%2C1629%2C808%2C0_0&invitationId=inv_d655986b-27a8-4346-8d76-18e74ce7cdba)
 - **Figma Link :** [View Figma](https://www.figma.com/design/jhM4tVSxYdO0INOTeB1eUA/Fil-Rouge-%3A-Low%2FHigh-fidelity-%2B-Prototype?node-id=2-3&t=esY8Q5E2aJBqKwW6-1)
 - **Backlog Link :** [View on Backlog]()
 - **GitHub Repository Link :** [View on GitHub](https://github.com/Ibrahim-Nidam/Academix_Fil_Rouge.git)
