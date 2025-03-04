@@ -14,7 +14,7 @@
 - **UML USE CASE Link :** [View UML USE CASE](https://asset.cloudinary.com/dgrkuq5an/7b97c5c643e4d956e4398ae52ba1ebdd)
 - **UML CLASS DIAGRAM Link :** [View UML CLASS DIAGRAM](https://lucid.app/lucidchart/47300f7f-4625-486c-89b8-8c6ca26a2178/edit?invitationId=inv_d655986b-27a8-4346-8d76-18e74ce7cdba&page=0_0#)
 - **Figma Link :** [View Figma](https://www.figma.com/design/bLfsYySlB110VscKWNOehD/Academix---Fil-Rouge?node-id=0-1&t=JhfkdNaRrkCyHKO0-1)
-- **Backlog Link :** [View on Backlog]()
+- **Backlog Link :** [View on Backlog](https://github.com/users/Ibrahim-Nidam/projects/3/views/1)
 - **GitHub Repository Link :** [View on GitHub](https://github.com/Ibrahim-Nidam/Academix_Fil_Rouge.git)
 - **UML Diagrams:** [View in public/UML]()
 
