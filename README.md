@@ -14,13 +14,20 @@
 - **UML USE CASE Link :** [View UML USE CASE](https://asset.cloudinary.com/dgrkuq5an/7b97c5c643e4d956e4398ae52ba1ebdd)
 - **UML CLASS DIAGRAM Link :** [View UML CLASS DIAGRAM](https://lucid.app/lucidchart/47300f7f-4625-486c-89b8-8c6ca26a2178/edit?invitationId=inv_d655986b-27a8-4346-8d76-18e74ce7cdba&page=0_0#)
 - **Figma Link :** [View Figma](https://www.figma.com/design/bLfsYySlB110VscKWNOehD/Academix---Fil-Rouge?node-id=0-1&t=JhfkdNaRrkCyHKO0-1)
+- **Color Palette Link :** [View Colors](https://coolors.co/0d1321-1f2937-4b5563-d4af37-f3f4f6)
 - **Backlog Link :** [View on Backlog](https://github.com/users/Ibrahim-Nidam/projects/3/views/1)
 - **GitHub Repository Link :** [View on GitHub](https://github.com/Ibrahim-Nidam/Academix_Fil_Rouge.git)
 - **UML Diagrams:** [View in public/UML]()
-
+___
+### UML USE CASE:
 ![Diagram](public/UML/Academix-Use-Case-UML-V2.svg)
 ___
+### UML CLASS DIAGRAM:
 ![Diagram](public/UML/File_Rouge_Academix_UML_CLASS_DIAGRAM.svg)
+___
+### COLOR PALLETE:
+![Diagram](public/PALLETE/palette.svg)
+
 
 ### Créé : 21/12/24
 
