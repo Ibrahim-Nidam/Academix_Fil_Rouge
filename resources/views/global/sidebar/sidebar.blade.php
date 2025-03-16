@@ -48,3 +48,8 @@
         </div>
     </div>
 </aside>
+
+{{-- Mobile Sidebar Toggle  --}}
+<button id="mobile-sidebar-toggle" class="fixed bottom-4 right-4 z-50 p-3 rounded-full bg-primary-accent text-white shadow-lg md:hidden flex items-center justify-center">
+    <i class="fas fa-bars"></i>
+</button>
