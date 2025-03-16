@@ -261,4 +261,9 @@
     </div>
   </div>
 
+{{-- Success Notification --}}
+  <div id="success-toast" class="fixed bottom-4 right-4 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-100 px-4 py-3 rounded-lg shadow-lg flex items-center z-50 transform translate-y-20 opacity-0 transition-all duration-300">
+    <i class="fas fa-check-circle text-green-500 mr-2 text-xl"></i>
+    <span id="toast-message">User updated successfully!</span>
+  </div>
 @endsection
