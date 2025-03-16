@@ -46,5 +46,19 @@
     </div>
 
 
+    <div id="file-info" class="hidden bg-gray-100 dark:bg-gray-700 rounded-lg p-3 mb-4">
+      <div class="flex items-center">
+        <i class="fas fa-file-excel text-primary-blue dark:text-primary-yellow mr-3"></i>
+        <div class="flex-1">
+          <p id="file-name" class="font-medium text-sm md:text-base truncate">example-file.xlsx</p>
+          <p id="file-size" class="text-xs text-gray-500 dark:text-gray-400">Size: 2.4 MB</p>
+        </div>
+        <button id="remove-file" class="text-red-500 hover:text-red-700 dark:hover:text-red-400">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+
+
   </div>
 @endsection
