@@ -130,7 +130,7 @@
     </form>
   </div>
 
-
+{{-- event creation form Mobile --}}
   <div id="mobile-event-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 w-full max-w-md max-h-[90vh] overflow-y-auto">
       <div class="flex justify-between items-center mb-4">
