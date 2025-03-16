@@ -27,6 +27,7 @@
     </div>
   </div>
 
+{{-- calendar section --}}
   <div class="flex flex-col lg:flex-row gap-4 md:gap-6">
     <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 md:p-6 flex-1">
       {{-- FullCalendar --}}
