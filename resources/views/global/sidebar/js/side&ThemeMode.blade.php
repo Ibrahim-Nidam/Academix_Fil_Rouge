@@ -6,7 +6,13 @@ themeToggle.addEventListener('click', () => {
     localStorage.setItem('darkMode', isDarkMode);
 });
 
+const mobileSidebarToggle = document.getElementById('mobile-sidebar-toggle');
+const sidebar = document.querySelector('.fixed.top-0.left-0.h-screen');
 
+mobileSidebarToggle.addEventListener('click', () => {
+sidebar.classList.toggle('-translate-x-full');
+sidebar.classList.toggle('translate-x-0');
+});
 
 function getThemeColors() {
 const isDarkMode = document.documentElement.classList.contains('dark');
