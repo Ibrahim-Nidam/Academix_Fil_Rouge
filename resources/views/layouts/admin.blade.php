@@ -9,22 +9,17 @@
 
     <title>@yield('title', 'Administrator Dashboard')</title>
 
-    <!-- Favicon -->
     <link rel="icon" href="{{ asset('images/Favicon/favicon-32x32.png') }}" type="image/x-icon">
-    <!-- Styles -->
     @include('partials.admin.styles')
 
 </head>
 <body class="bg-primary-light dark:bg-primary-dark text-primary-text-light dark:text-primary-text-dark flex">
-    <!-- Sidebar -->
     @include('global.sidebar.sidebar')
     
-    <!-- Main Content -->
     <div class="flex flex-col flex-1 md:ml-20 p-4 md:p-6 w-full">
         @yield('content')
     </div>
     
-    <!-- Scripts -->
     @if(Route::currentRouteName() == 'admin.dashboard')
         @include('partials.admin.js.dashScript')
     @elseif(Route::currentRouteName() == 'admin.importData')
