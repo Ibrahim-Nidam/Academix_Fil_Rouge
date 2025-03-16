@@ -104,5 +104,72 @@
       </div>
     </div>
 
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 md:p-6 mb-4 md:mb-6">
+      <h2 class="text-lg md:text-xl font-semibold mb-3 md:mb-4">Student Performance Analysis</h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full">
+          <thead>
+            <tr class="text-xs md:text-sm">
+              <th class="px-2 md:px-4 py-2 text-left">Subject</th>
+              <th class="px-2 md:px-4 py-2 text-center">Grade 9</th>
+              <th class="px-2 md:px-4 py-2 text-center">Grade 10</th>
+              <th class="px-2 md:px-4 py-2 text-center">Grade 11</th>
+              <th class="px-2 md:px-4 py-2 text-center">Grade 12</th>
+              <th class="px-2 md:px-4 py-2 text-center">Average</th>
+            </tr>
+          </thead>
+          <tbody class="text-xs md:text-sm">
+            <tr class="border-t dark:border-gray-700">
+              <td class="px-2 md:px-4 py-2 md:py-3">Mathematics</td>
+              <td class="px-2 md:px-4 py-2 md:py-3">
+                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 md:h-2.5">
+                  <div class="bg-primary-performance-high h-1.5 md:h-2.5 rounded-full" style="width: 85%"></div>
+                </div>
+                <p class="text-center mt-1 text-xs">85</p>
+              </td>
+              <td class="px-2 md:px-4 py-2 md:py-3">
+                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 md:h-2.5">
+                  <div class="bg-primary-performance-high h-1.5 md:h-2.5 rounded-full" style="width: 82%"></div>
+                </div>
+                <p class="text-center mt-1 text-xs">82</p>
+              </td>
+              <td class="px-2 md:px-4 py-2 md:py-3">
+                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 md:h-2.5">
+                  <div class="bg-primary-performance-medium h-1.5 md:h-2.5 rounded-full" style="width: 78%"></div>
+                </div>
+                <p class="text-center mt-1 text-xs">78</p>
+              </td>
+              <td class="px-2 md:px-4 py-2 md:py-3">
+                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 md:h-2.5">
+                  <div class="bg-primary-performance-medium h-1.5 md:h-2.5 rounded-full" style="width: 75%"></div>
+                </div>
+                <p class="text-center mt-1 text-xs">75</p>
+              </td>
+              <td class="px-2 md:px-4 py-2 md:py-3">
+                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 md:h-2.5">
+                  <div class="bg-primary-performance-high h-1.5 md:h-2.5 rounded-full" style="width: 80%"></div>
+                </div>
+                <p class="text-center mt-1 text-xs">80</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="flex flex-wrap justify-center mt-4 md:mt-6 gap-2 md:gap-6">
+        <div class="flex items-center">
+          <div class="w-3 h-3 md:w-4 md:h-4 rounded-sm bg-primary-performance-high mr-1 md:mr-2"></div>
+          <span class="text-xs md:text-sm">High (80-100)</span>
+        </div>
+        <div class="flex items-center">
+          <div class="w-3 h-3 md:w-4 md:h-4 rounded-sm bg-primary-performance-medium mr-1 md:mr-2"></div>
+          <span class="text-xs md:text-sm">Medium (70-79)</span>
+        </div>
+        <div class="flex items-center">
+          <div class="w-3 h-3 md:w-4 md:h-4 rounded-sm bg-primary-performance-low mr-1 md:mr-2"></div>
+          <span class="text-xs md:text-sm">Low (Below 70)</span>
+        </div>
+      </div>
+    </div>
+
   </div>
 @endsection
