@@ -63,6 +63,45 @@
       </div>
     </div>
 
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-6">
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 md:p-6">
+        <h2 class="text-lg md:text-xl font-semibold mb-3 md:mb-4">Student Attendance</h2>
+        <div class="h-56 md:h-64">
+          <div class="h-44 md:h-52">
+            <canvas id="studentAttendanceChart"></canvas>
+          </div>
+          <div class="flex flex-wrap justify-center mt-3 md:mt-4 gap-2 md:gap-4">
+            <div class="flex items-center">
+              <div class="w-3 h-3 rounded-sm bg-primary-present mr-1"></div>
+              <span class="text-xs">Present</span>
+            </div>
+            <div class="flex items-center">
+              <div class="w-3 h-3 rounded-sm bg-primary-absent mr-1"></div>
+              <span class="text-xs">Absent</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 md:p-6">
+        <h2 class="text-lg md:text-xl font-semibold mb-3 md:mb-4">Teacher Attendance</h2>
+        <div class="h-56 md:h-64">
+          <div class="h-44 md:h-52">
+            <canvas id="teacherAttendanceChart"></canvas>
+          </div>
+          <div class="flex flex-wrap justify-center mt-3 md:mt-4 gap-2 md:gap-4">
+            <div class="flex items-center">
+              <div class="w-3 h-3 rounded-sm bg-primary-present mr-1"></div>
+              <span class="text-xs">Present</span>
+            </div>
+            <div class="flex items-center">
+              <div class="w-3 h-3 rounded-sm bg-primary-late mr-1"></div>
+              <span class="text-xs">Absent</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
 @endsection
