@@ -96,4 +96,78 @@
         </div>
       </div>
 
+{{-- Edit User Form  --}}
+      <div id="edit-form-container" class="hidden bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 md:p-6 lg:w-1/3 transition-all duration-300 ease-in-out">
+        <div class="flex justify-between items-center mb-4">
+          <h2 id="form-title" class="text-lg md:text-xl font-semibold">Edit User</h2>
+          <button id="close-form-btn" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        
+        <form id="user-form">
+          <input type="hidden" id="user-id" value="">
+          
+          <div class="mb-4">
+            <label for="first-name" class="form-label">First Name</label>
+            <input type="text" id="first-name" class="form-input" placeholder="First Name">
+          </div>
+          
+          <div class="mb-4">
+            <label for="last-name" class="form-label">Last Name</label>
+            <input type="text" id="last-name" class="form-input" placeholder="Last Name">
+          </div>
+          
+          <div class="mb-4">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" class="form-input" placeholder="Email Address">
+          </div>
+          
+          <div class="mb-4">
+            <label for="role" class="form-label">Role</label>
+            <select id="role" class="form-select">
+              <option value="teacher">Teacher</option>
+              <option value="student">Student</option>
+            </select>
+          </div>
+          
+          <div class="mb-4">
+            <label for="status" class="form-label">Status</label>
+            <select id="status" class="form-select">
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+          
+          <div id="teacher-fields" class="mb-4">
+            <label for="department" class="form-label">Department</label>
+            <select id="department" class="form-select">
+              <option value="mathematics">Mathematics</option>
+              <option value="science">Science</option>
+              <option value="english">English</option>
+              <option value="history">History</option>
+              <option value="art">Art</option>
+            </select>
+          </div>
+          
+          <div id="student-fields" class="mb-4 hidden">
+            <label for="grade" class="form-label">Grade</label>
+            <select id="grade" class="form-select">
+              <option value="9">Grade 9</option>
+              <option value="10">Grade 10</option>
+              <option value="11">Grade 11</option>
+              <option value="12">Grade 12</option>
+            </select>
+          </div>
+          
+          <div class="flex justify-end space-x-2 mt-6">
+            <button type="button" id="cancel-btn" class="btn btn-secondary">Cancel</button>
+            <button type="submit" id="save-btn" class="btn btn-primary">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
 @endsection
