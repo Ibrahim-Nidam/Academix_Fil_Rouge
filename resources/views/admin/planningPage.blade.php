@@ -216,7 +216,6 @@
           <textarea id="mobile-event-description" class="form-input h-24" placeholder="Event description"></textarea>
         </div>
         
-        <!-- Form Actions -->
         <div class="flex justify-between mt-6">
           <button type="button" id="mobile-delete-event-btn" class="btn btn-danger">Delete</button>
           <div class="flex space-x-2">
