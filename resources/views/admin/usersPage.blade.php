@@ -80,4 +80,20 @@
           </table>
         </div>
         
+{{-- Pagination --}}
+        <div class="flex flex-wrap justify-between items-center mt-4">
+          <div class="text-sm text-gray-600 dark:text-gray-400 mb-2 md:mb-0">
+            Showing 1 to 6 of 24 entries
+          </div>
+          <div class="flex space-x-1">
+            <button class="px-3 py-1 rounded bg-gray-100 dark:bg-gray-700 text-sm">Previous</button>
+            <button class="px-3 py-1 rounded bg-primary-accent text-white text-sm">1</button>
+            <button class="px-3 py-1 rounded bg-gray-100 dark:bg-gray-700 text-sm">2</button>
+            <button class="px-3 py-1 rounded bg-gray-100 dark:bg-gray-700 text-sm">3</button>
+            <button class="px-3 py-1 rounded bg-gray-100 dark:bg-gray-700 text-sm">4</button>
+            <button class="px-3 py-1 rounded bg-gray-100 dark:bg-gray-700 text-sm">Next</button>
+          </div>
+        </div>
+      </div>
+
 @endsection
