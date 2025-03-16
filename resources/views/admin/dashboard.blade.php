@@ -172,5 +172,33 @@
       </div>
     </div>
 
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 md:p-6">
+      <h2 class="text-lg md:text-xl font-semibold mb-3 md:mb-4">Report Generation</h2>
+      <div class="flex flex-col items-center">
+        <p class="text-gray-600 dark:text-gray-400 mb-4 text-sm md:text-base text-center">Generate comprehensive reports for your institution</p>
+        
+        <button id="generate-report" class="bg-primary-accent text-white px-4 py-2 md:px-6 md:py-3 rounded-lg font-medium shadow-md hover:bg-opacity-90 transition-all duration-300 flex items-center mb-4 md:mb-6 text-sm md:text-base">
+          <i class="fas fa-file-alt mr-2"></i>
+          Generate Report
+        </button>
+        
+        <div class="grid grid-cols-3 gap-2 md:gap-4 w-full max-w-lg">
+          <button class="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-2 py-1 md:px-4 md:py-2 rounded-lg font-medium shadow-sm hover:bg-gray-50 dark:hover:bg-gray-600 transition-all duration-300 flex items-center justify-center text-xs md:text-sm">
+            <i class="fas fa-file-pdf text-red-500 mr-1 md:mr-2"></i>
+            PDF
+          </button>
+          <button class="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-2 py-1 md:px-4 md:py-2 rounded-lg font-medium shadow-sm hover:bg-gray-50 dark:hover:bg-gray-600 transition-all duration-300 flex items-center justify-center text-xs md:text-sm">
+            <i class="fas fa-file-csv text-green-500 mr-1 md:mr-2"></i>
+            CSV
+          </button>
+          <button class="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-2 py-1 md:px-4 md:py-2 rounded-lg font-medium shadow-sm hover:bg-gray-50 dark:hover:bg-gray-600 transition-all duration-300 flex items-center justify-center text-xs md:text-sm">
+            <i class="fas fa-file-excel text-green-600 mr-1 md:mr-2"></i>
+            Excel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    
   </div>
 @endsection
