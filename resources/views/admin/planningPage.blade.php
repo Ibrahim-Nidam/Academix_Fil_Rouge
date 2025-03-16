@@ -131,6 +131,104 @@
   </div>
 
 
+  <div id="mobile-event-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 w-full max-w-md max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center mb-4">
+        <h2 id="mobile-form-title" class="text-lg font-semibold">Event Details</h2>
+        <button id="close-mobile-modal" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <form id="mobile-event-form">
+        <input type="hidden" id="mobile-event-id" value="">
+        
+        <div class="mb-4">
+          <label for="mobile-schedule-type" class="form-label">Schedule Type</label>
+          <select id="mobile-schedule-type" class="form-select" required>
+            <option value="">Select Type</option>
+            <option value="teacher">Teacher Schedule</option>
+            <option value="class">Class Schedule</option>
+          </select>
+          <div id="mobile-schedule-type-error" class="text-red-500 text-xs mt-1 hidden">Please select a schedule type</div>
+        </div>
+        
+        <!-- Event Details -->
+        <div class="mb-4">
+          <label for="mobile-event-title" class="form-label">Event Title</label>
+          <input type="text" id="mobile-event-title" class="form-input" placeholder="Event Title" required>
+          <div id="mobile-title-error" class="text-red-500 text-xs mt-1 hidden">Please enter an event title</div>
+        </div>
+        
+        <div class="mb-4">
+          <label for="mobile-event-type" class="form-label">Subject</label>
+          <select id="mobile-event-type" class="form-select" required>
+            <option value="">Select Subject</option>
+            <option value="math">Math</option>
+          </select>
+          <div id="mobile-type-error" class="text-red-500 text-xs mt-1 hidden">Please select a subject</div>
+        </div>
+        
+        <div id="mobile-teacher-fields" class="mb-4 hidden">
+          <label for="mobile-event-teacher" class="form-label">Teacher</label>
+          <select id="mobile-event-teacher" class="form-select">
+            <option value="">Select Teacher</option>
+            <option value="Mr. Johnson">Mr. Johnson</option>
+          </select>
+          <div id="mobile-teacher-error" class="text-red-500 text-xs mt-1 hidden">Please select a teacher</div>
+        </div>
+        
+        <div id="mobile-class-fields" class="mb-4 hidden">
+          <label for="mobile-event-class" class="form-label">Class</label>
+          <select id="mobile-event-class" class="form-select">
+            <option value="">Select Class</option>
+            <option value="Grade 9A">Grade 9A</option>
+          </select>
+          <div id="mobile-class-error" class="text-red-500 text-xs mt-1 hidden">Please select a class</div>
+        </div>
+        
+        <div class="mb-4">
+          <label for="mobile-event-date" class="form-label">Date</label>
+          <input type="date" id="mobile-event-date" class="form-input" required>
+          <div id="mobile-date-error" class="text-red-500 text-xs mt-1 hidden">Please select a date</div>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <div>
+            <label for="mobile-event-start-time" class="form-label">Start Time</label>
+            <input type="time" id="mobile-event-start-time" class="form-input" required>
+            <div id="mobile-start-time-error" class="text-red-500 text-xs mt-1 hidden">Please select a start time</div>
+          </div>
+          <div>
+            <label for="mobile-event-end-time" class="form-label">End Time</label>
+            <input type="time" id="mobile-event-end-time" class="form-input" required>
+            <div id="mobile-end-time-error" class="text-red-500 text-xs mt-1 hidden">Please select an end time</div>
+          </div>
+        </div>
+        
+        <div class="mb-4">
+          <label for="mobile-event-location" class="form-label">Location</label>
+          <input type="text" id="mobile-event-location" class="form-input" placeholder="Location" required>
+          <div id="mobile-location-error" class="text-red-500 text-xs mt-1 hidden">Please enter a location</div>
+        </div>
+        
+        <div class="mb-4">
+          <label for="mobile-event-description" class="form-label">Description</label>
+          <textarea id="mobile-event-description" class="form-input h-24" placeholder="Event description"></textarea>
+        </div>
+        
+        <!-- Form Actions -->
+        <div class="flex justify-between mt-6">
+          <button type="button" id="mobile-delete-event-btn" class="btn btn-danger">Delete</button>
+          <div class="flex space-x-2">
+            <button type="button" id="mobile-cancel-event-btn" class="btn btn-secondary">Cancel</button>
+            <button type="submit" id="mobile-save-event-btn" class="btn btn-primary">Save</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
 
 </div>
 @endsection
