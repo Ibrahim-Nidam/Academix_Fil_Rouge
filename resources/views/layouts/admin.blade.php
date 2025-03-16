@@ -15,11 +15,11 @@
 </head>
 <body class="bg-primary-light dark:bg-primary-dark text-primary-text-light dark:text-primary-text-dark flex">
     @include('global.sidebar.sidebar')
-    
+
     <div class="flex flex-col flex-1 md:ml-20 p-4 md:p-6 w-full">
         @yield('content')
     </div>
-    
+
     @if(Route::currentRouteName() == 'admin.dashboard')
         @include('partials.admin.js.dashScript')
     @elseif(Route::currentRouteName() == 'admin.importData')
@@ -29,7 +29,7 @@
     @elseif(Route::currentRouteName() == 'admin.planningPage')
         @include('partials.admin.js.planningScript')
     @endif
-    
+
     @include('global.sidebar.js.side&ThemeMode')
 </body>
 </html>
