@@ -200,6 +200,10 @@
       </div>
     </div>
 
+    <div id="success-notification" class="hidden mt-4 md:mt-6 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-100 px-3 py-2 md:px-4 md:py-3 rounded-lg w-full max-w-lg flex items-center text-xs md:text-sm">
+      <i class="fas fa-check-circle text-green-500 mr-2"></i>
+      <span>Your report has been generated successfully!</span>
+    </div>
 
   </div>
 @endsection
