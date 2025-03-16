@@ -172,6 +172,7 @@
       </div>
     </div>
 
+{{-- Report Generation section --}}
     <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 md:p-6">
       <h2 class="text-lg md:text-xl font-semibold mb-3 md:mb-4">Report Generation</h2>
       <div class="flex flex-col items-center">
@@ -199,6 +200,6 @@
       </div>
     </div>
 
-    
+
   </div>
 @endsection
