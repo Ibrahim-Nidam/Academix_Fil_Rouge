@@ -228,24 +228,29 @@
   </div>
 
 {{-- Delete Confirmation Modal --}}
-<div id="delete-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
-  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 md:p-6 w-full max-w-md">
-    <div class="text-center mb-4">
-      <div class="inline-flex items-center justify-center h-16 w-16 rounded-full bg-red-100 dark:bg-red-900 text-red-500 mb-4">
-        <i class="fas fa-exclamation-triangle text-2xl"></i>
+  <div id="delete-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 md:p-6 w-full max-w-md">
+      <div class="text-center mb-4">
+        <div class="inline-flex items-center justify-center h-16 w-16 rounded-full bg-red-100 dark:bg-red-900 text-red-500 mb-4">
+          <i class="fas fa-exclamation-triangle text-2xl"></i>
+        </div>
+        <h3 class="text-lg md:text-xl font-medium mb-2">Delete Event</h3>
+        <p class="text-gray-600 dark:text-gray-400 text-sm md:text-base">
+          Are you sure you want to delete this event? This action cannot be undone.
+        </p>
       </div>
-      <h3 class="text-lg md:text-xl font-medium mb-2">Delete Event</h3>
-      <p class="text-gray-600 dark:text-gray-400 text-sm md:text-base">
-        Are you sure you want to delete this event? This action cannot be undone.
-      </p>
-    </div>
-    
-    <div class="flex justify-center space-x-3">
-      <button id="cancel-delete" class="btn btn-secondary">Cancel</button>
-      <button id="confirm-delete" class="btn btn-danger">Delete</button>
+      
+      <div class="flex justify-center space-x-3">
+        <button id="cancel-delete" class="btn btn-secondary">Cancel</button>
+        <button id="confirm-delete" class="btn btn-danger">Delete</button>
+      </div>
     </div>
   </div>
-</div>
+
+  <div id="success-toast" class="fixed bottom-4 right-4 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-100 px-4 py-3 rounded-lg shadow-lg flex items-center z-50 transform translate-y-20 opacity-0 transition-all duration-300">
+    <i class="fas fa-check-circle text-green-500 mr-2 text-xl"></i>
+    <span id="toast-message">Event updated successfully!</span>
+  </div>
 
 
 </div>
