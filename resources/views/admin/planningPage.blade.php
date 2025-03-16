@@ -5,7 +5,7 @@
 @section('content')
 <div class="flex flex-col flex-1 w-full">
 
-
+{{-- page header --}}
   <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 md:p-6 mb-4 md:mb-6">
     <div class="flex flex-wrap justify-between items-center">
       <div>
