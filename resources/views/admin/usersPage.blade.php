@@ -169,5 +169,78 @@
     </div>
   </div>
 
+{{-- Mobile Edit Form Modal --}}
+  <div id="mobile-edit-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 w-full max-w-md max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center mb-4">
+        <h2 id="mobile-form-title" class="text-lg font-semibold">Edit User</h2>
+        <button id="close-mobile-modal" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <form id="mobile-user-form">
+        <input type="hidden" id="mobile-user-id" value="">
+        
+        <div class="mb-4">
+          <label for="mobile-first-name" class="form-label">First Name</label>
+          <input type="text" id="mobile-first-name" class="form-input" placeholder="First Name">
+        </div>
+        
+        <div class="mb-4">
+          <label for="mobile-last-name" class="form-label">Last Name</label>
+          <input type="text" id="mobile-last-name" class="form-input" placeholder="Last Name">
+        </div>
+        
+        <div class="mb-4">
+          <label for="mobile-email" class="form-label">Email</label>
+          <input type="email" id="mobile-email" class="form-input" placeholder="Email Address">
+        </div>
+        
+        <div class="mb-4">
+          <label for="mobile-role" class="form-label">Role</label>
+          <select id="mobile-role" class="form-select">
+            <option value="teacher">Teacher</option>
+            <option value="student">Student</option>
+          </select>
+        </div>
+        
+        <div class="mb-4">
+          <label for="mobile-status" class="form-label">Status</label>
+          <select id="mobile-status" class="form-select">
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
+        </div>
+        
+        <div id="mobile-teacher-fields" class="mb-4">
+          <label for="mobile-department" class="form-label">Department</label>
+          <select id="mobile-department" class="form-select">
+            <option value="mathematics">Mathematics</option>
+            <option value="science">Science</option>
+            <option value="english">English</option>
+            <option value="history">History</option>
+            <option value="art">Art</option>
+          </select>
+        </div>
+        
+        <div id="mobile-student-fields" class="mb-4 hidden">
+          <label for="mobile-grade" class="form-label">Grade</label>
+          <select id="mobile-grade" class="form-select">
+            <option value="9">Grade 9</option>
+            <option value="10">Grade 10</option>
+            <option value="11">Grade 11</option>
+            <option value="12">Grade 12</option>
+          </select>
+        </div>
+        
+        <div class="flex justify-end space-x-2 mt-6">
+          <button type="button" id="mobile-cancel-btn" class="btn btn-secondary">Cancel</button>
+          <button type="submit" id="mobile-save-btn" class="btn btn-primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
+  
 @endsection
