@@ -14,6 +14,7 @@
       </p>
     </div>
 
+{{-- Distribution section --}}
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-6">
       <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 md:p-6">
         <h2 class="text-lg md:text-xl font-semibold mb-3 md:mb-4">Students Distribution</h2>
@@ -62,6 +63,6 @@
       </div>
     </div>
 
-    
+
   </div>
 @endsection
