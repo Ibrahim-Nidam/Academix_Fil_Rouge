@@ -35,7 +35,7 @@
     </div>
   </div>
 
-
+{{-- event creation form section --}}
   <div id="event-details" class="hidden bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 md:p-6 lg:w-1/3 transition-all duration-300 ease-in-out">
     <div class="flex justify-between items-center mb-4">
       <h2 id="event-form-title" class="text-lg md:text-xl font-semibold">Event Details</h2>
