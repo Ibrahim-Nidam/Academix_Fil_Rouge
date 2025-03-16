@@ -45,7 +45,7 @@
       </div>
     </div>
 
-
+{{-- selected file info  --}}
     <div id="file-info" class="hidden bg-gray-100 dark:bg-gray-700 rounded-lg p-3 mb-4">
       <div class="flex items-center">
         <i class="fas fa-file-excel text-primary-blue dark:text-primary-yellow mr-3"></i>
