@@ -153,7 +153,6 @@
           <div id="mobile-schedule-type-error" class="text-red-500 text-xs mt-1 hidden">Please select a schedule type</div>
         </div>
         
-        <!-- Event Details -->
         <div class="mb-4">
           <label for="mobile-event-title" class="form-label">Event Title</label>
           <input type="text" id="mobile-event-title" class="form-input" placeholder="Event Title" required>
