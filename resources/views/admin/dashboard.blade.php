@@ -104,6 +104,7 @@
       </div>
     </div>
 
+{{-- Performance section --}}
     <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 md:p-6 mb-4 md:mb-6">
       <h2 class="text-lg md:text-xl font-semibold mb-3 md:mb-4">Student Performance Analysis</h2>
       <div class="overflow-x-auto">
