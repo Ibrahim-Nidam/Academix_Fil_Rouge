@@ -242,5 +242,23 @@
     </div>
   </div>
 
-  
+  {{-- Delete Confirmation Modal --}}
+  <div id="delete-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 md:p-6 w-full max-w-md">
+      <div class="text-center mb-4">
+        <div class="inline-flex items-center justify-center h-16 w-16 rounded-full bg-red-100 dark:bg-red-900 text-red-500 mb-4">
+          <i class="fas fa-exclamation-triangle text-2xl"></i>
+        </div>
+        <h3 class="text-lg md:text-xl font-medium mb-2">Delete User Account</h3>
+        <p class="text-gray-600 dark:text-gray-400 text-sm md:text-base">
+          Are you sure you want to delete this user account? This action cannot be undone.
+        </p>
+      </div>
+      <div class="flex justify-center space-x-3">
+        <button id="cancel-delete" class="btn btn-secondary">Cancel</button>
+        <button id="confirm-delete" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+
 @endsection
