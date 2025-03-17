@@ -1,5 +1,4 @@
 <script>
-
     const dropArea = document.getElementById('drop-area');
     const fileInput = document.getElementById('fileInput');
     const browseBtn = document.getElementById('browse-btn');
