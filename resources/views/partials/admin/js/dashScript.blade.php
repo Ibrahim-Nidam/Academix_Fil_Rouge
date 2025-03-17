@@ -23,4 +23,57 @@
             }, 5000);
         }, 2000);
     });
+    
+    // doghnut charts
+    let studentsChart, staffChart, studentAttendanceChart, teacherAttendanceChart;
+    
+    function initCharts() {
+        const colors = getThemeColors();
+        Chart.defaults.color = colors.textColor;
+        Chart.defaults.borderColor = colors.gridColor;
+    
+    const studentsCtx = document.getElementById('studentsChart').getContext('2d');
+    studentsChart = new Chart(studentsCtx, {
+        type: 'doughnut',
+        data: {
+        labels: ['Male', 'Female'],
+        datasets: [{
+            data: [60, 40],
+            backgroundColor: ['#4260a6', '#e5cf86'],
+            borderWidth: 0,
+            cutout: '70%'
+        }]
+        },
+        options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { display: false },
+            tooltip: { enabled: false }
+        }
+        }
+    });
+    
+    const staffCtx = document.getElementById('staffChart').getContext('2d');
+    staffChart = new Chart(staffCtx, {
+        type: 'doughnut',
+        data: {
+        labels: ['Male', 'Female'],
+        datasets: [{
+            data: [45, 55],
+            backgroundColor: ['#4260a6', '#e5cf86'],
+            borderWidth: 0,
+            cutout: '70%'
+        }]
+        },
+        options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { display: false },
+            tooltip: { enabled: false }
+        }
+        }
+    });
+    }
 </script>
