@@ -83,4 +83,67 @@
         }
     }
 
+    // Populate event form fields
+    function populateEventForm(prefix, event) {
+        const formId = prefix ? prefix + 'event-form' : 'event-form';
+        document.getElementById(prefix + 'event-id').value = event.id;
+        document.getElementById(prefix + 'event-title').value = event.title;
+        document.getElementById(prefix + 'event-type').value = event.extendedProps.type;
+        document.getElementById(prefix + 'schedule-type').value = event.extendedProps.scheduleType;
+        toggleScheduleTypeFields(formId, event.extendedProps.scheduleType);
+        if (event.extendedProps.scheduleType === 'teacher') {
+            document.getElementById(prefix + 'event-teacher').value = event.extendedProps.teacher;
+        } else if (event.extendedProps.scheduleType === 'class') {
+            document.getElementById(prefix + 'event-class').value = event.extendedProps.class;
+        }
+        const startDate = event.start;
+        const formattedDate = startDate.toISOString().split('T')[0];
+        document.getElementById(prefix + 'event-date').value = formattedDate;
+        document.getElementById(prefix + 'event-start-time').value = startDate.toTimeString().slice(0, 5);
+        document.getElementById(prefix + 'event-end-time').value = event.end.toTimeString().slice(0, 5);
+        document.getElementById(prefix + 'event-location').value = event.extendedProps.location;
+        document.getElementById(prefix + 'event-description').value = event.extendedProps.description;
+    }
+
+    // Show add event form for both teacher and class events
+    function showAddEventForm(scheduleType, titleText) {
+        selectedEvent = null;
+        const formattedDate = selectedDate.toISOString().split('T')[0];
+        const now = new Date();
+        now.setMinutes(Math.ceil(now.getMinutes() / 30) * 30);
+        now.setSeconds(0);
+        const formattedStartTime = now.toTimeString().slice(0, 5);
+        const endTime = new Date(now);
+        endTime.setHours(endTime.getHours() + 1);
+        const formattedEndTime = endTime.toTimeString().slice(0, 5);
+        const useDesktopForm = !isMobileView;
+
+        if (!useDesktopForm) {
+            const form = document.getElementById('mobile-event-form');
+            form.reset();
+            document.getElementById('mobile-event-id').value = '';
+            document.getElementById('mobile-event-date').value = formattedDate;
+            document.getElementById('mobile-event-start-time').value = formattedStartTime;
+            document.getElementById('mobile-event-end-time').value = formattedEndTime;
+            document.getElementById('mobile-form-title').textContent = titleText;
+            document.getElementById('mobile-schedule-type').value = scheduleType;
+            toggleScheduleTypeFields('mobile-event-form', scheduleType);
+            document.querySelectorAll('#mobile-event-form [id$="-error"]').forEach(el => el.classList.add('hidden'));
+            mobileEventModal.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        } else {
+            const form = document.getElementById('event-form');
+            form.reset();
+            document.getElementById('event-id').value = '';
+            document.getElementById('event-date').value = formattedDate;
+            document.getElementById('event-start-time').value = formattedStartTime;
+            document.getElementById('event-end-time').value = formattedEndTime;
+            document.getElementById('event-form-title').textContent = titleText;
+            document.getElementById('schedule-type').value = scheduleType;
+            toggleScheduleTypeFields('event-form', scheduleType);
+            document.querySelectorAll('#event-form [id$="-error"]').forEach(el => el.classList.add('hidden'));
+            eventDetails.classList.remove('hidden');
+        }
+    }
+    
 </script>
