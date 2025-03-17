@@ -78,5 +78,118 @@
         }, 3000);
     }
     
+    // Edit button clicks
+    editButtons.forEach(button => {
+        button.addEventListener('click', () => {
+        const userId = button.getAttribute('data-user-id');
+        showEditForm(userId);
+        });
+    });
+    
+    // Delete button clicks
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', () => {
+        const userId = button.getAttribute('data-user-id');
+        showDeleteConfirmation(userId);
+        });
+    });
+    
+    // Add user button
+    addUserBtn.addEventListener('click', showAddUserForm);
+    
+    // Close/cancel form buttons
+    closeFormBtn.addEventListener('click', hideEditForms);
+    cancelBtn.addEventListener('click', hideEditForms);
+    closeMobileModal.addEventListener('click', hideEditForms);
+    mobileCancelBtn.addEventListener('click', hideEditForms);
+    
+    // Delete modal buttons
+    cancelDelete.addEventListener('click', hideDeleteConfirmation);
+    confirmDelete.addEventListener('click', () => {
+        const userId = confirmDelete.getAttribute('data-user-id');
+        hideDeleteConfirmation();
+        showSuccessToast('User deleted successfully!');
+    });
+    
+    // Form submissions
+    document.getElementById('user-form').addEventListener('submit', e => {
+        e.preventDefault();
+        hideEditForms();
+        showSuccessToast('User updated successfully!');
+    });
+    document.getElementById('mobile-user-form').addEventListener('submit', e => {
+        e.preventDefault();
+        hideEditForms();
+        showSuccessToast('User updated successfully!');
+    });
+    
+    // Role change handlers
+    roleSelect.addEventListener('change', e => {
+        if (e.target.value === 'teacher') {
+        teacherFields.classList.remove('hidden');
+        studentFields.classList.add('hidden');
+        } else {
+        teacherFields.classList.add('hidden');
+        studentFields.classList.remove('hidden');
+        }
+    });
+    mobileRoleSelect.addEventListener('change', e => {
+        if (e.target.value === 'teacher') {
+        mobileTeacherFields.classList.remove('hidden');
+        mobileStudentFields.classList.add('hidden');
+        } else {
+        mobileTeacherFields.classList.add('hidden');
+        mobileStudentFields.classList.remove('hidden');
+        }
+    });
+    
+    function getPrefix() {
+        return window.innerWidth < 1024 ? 'mobile-' : '';
+    }
+    
+    //Populate user form fields for the given prefix
+    function populateUserForm(prefix, user) {
+        document.getElementById(prefix + 'user-id').value = user.id;
+        document.getElementById(prefix + 'first-name').value = user.firstName;
+        document.getElementById(prefix + 'last-name').value = user.lastName;
+        document.getElementById(prefix + 'email').value = user.email;
+        document.getElementById(prefix + 'role').value = user.role;
+        document.getElementById(prefix + 'status').value = user.status;
+        
+        if (user.role === 'teacher') {
+        document.getElementById(prefix + 'department').value = user.department;
+        if (prefix === 'mobile-') {
+            mobileTeacherFields.classList.remove('hidden');
+            mobileStudentFields.classList.add('hidden');
+        } else {
+            teacherFields.classList.remove('hidden');
+            studentFields.classList.add('hidden');
+        }
+        } else {
+        document.getElementById(prefix + 'grade').value = user.grade;
+        if (prefix === 'mobile-') {
+            mobileTeacherFields.classList.add('hidden');
+            mobileStudentFields.classList.remove('hidden');
+        } else {
+            teacherFields.classList.add('hidden');
+            studentFields.classList.remove('hidden');
+        }
+        }
+    }
+    
+    // Reset the user form for adding a new user
+    function resetUserForm(prefix, titleText) {
+        document.getElementById(prefix + 'user-form').reset();
+        document.getElementById(prefix + 'user-id').value = '';
+        document.getElementById(prefix + 'form-title').textContent = titleText;
+        if (prefix === 'mobile-') {
+        mobileTeacherFields.classList.remove('hidden');
+        mobileStudentFields.classList.add('hidden');
+        } else {
+        teacherFields.classList.remove('hidden');
+        studentFields.classList.add('hidden');
+        }
+    }
+    
     
 </script>
