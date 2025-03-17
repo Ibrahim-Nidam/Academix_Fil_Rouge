@@ -186,7 +186,36 @@ document.addEventListener('DOMContentLoaded', function() {
         updateAttendanceCounts(recordKey);
     }
 
+    // attendance counter
+    function updateAttendanceCounts(recordKey) {
+        let presentCount = 0;
+        let absentCount = 0;
+        
+        Object.values(attendanceRecords[recordKey]).forEach(status => {
+            if (status === 'present') {
+                presentCount++;
+            } else {
+                absentCount++;
+            }
+        });
 
+        const presentCountEl = document.querySelector('.attendance-status-present');
+        const absentCountEl = document.querySelector('.attendance-status-absent');
+        
+        if (presentCountEl) {
+            presentCountEl.textContent = `${presentCount} Present`;
+        }
+        
+        if (absentCountEl) {
+            absentCountEl.textContent = `${absentCount} Absent`;
+            
+            if (absentCount > 0) {
+                absentCountEl.classList.remove('hidden');
+            } else {
+                absentCountEl.classList.add('hidden');
+            }
+        }
+    }
 });
 
 </script>
