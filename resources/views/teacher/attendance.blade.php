@@ -19,5 +19,16 @@
         </div>
       </section>
 
+      {{-- Weekly Attendance Selector --}}
+      <section class="animate-fade-in mb-8" style="animation-delay: 100ms;">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4">
+          <h2 class="text-lg font-semibold mb-4">Select Day</h2>
+          <div class="flex overflow-x-auto pb-2 gap-2 md:gap-4 justify-center">
+            <div id="weekDays" class="flex gap-2 md:gap-4"></div>
+          </div>
+        </div>
+      </section>
+
+      
     </main>
 @endsection
