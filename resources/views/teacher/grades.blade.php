@@ -43,5 +43,69 @@
         </div>
       </section>
 
-    
+      {{-- Exam Grading Section --}}
+      <section id="gradingSection" class="animate-fade-in" style="animation-delay: 150ms;">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-100 dark:border-gray-700 mb-8">
+          <div class="p-5 border-b border-gray-200 dark:border-gray-700 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+              <h2 class="text-xl font-semibold">Grade 10 - Section A</h2>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Mathematics</p>
+            </div>
+            <div class="w-full md:w-auto">
+              <select id="examSelector" class="form-select">
+                <option value="">Select an exam/assignment...</option>
+                <option value="exam3">Assignment 1 (2023-09-05)</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+              <thead class="bg-gray-50 dark:bg-gray-700">
+                <tr>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Student</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Grade (out of 20)</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Comments</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="h-10 w-10 flex-shrink-0 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center mr-3">
+                        <span class="font-medium">S</span>
+                      </div>
+                      <div>
+                        <div class="font-medium">Sophia Martinez</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400">ID: S005</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <input type="number" min="0" max="20" value="17" class="grade-input" data-student-id="S005">
+                  </td>
+                  <td class="px-6 py-4">
+                    <textarea class="form-textarea" rows="2" data-student-id="S005">Strong analytical skills. Could benefit from more attention to detail in complex problems.</textarea>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          {{-- Submit Button --}}
+          <div class="p-5 border-t border-gray-200 dark:border-gray-700 flex justify-end">
+            <button id="submitGradesBtn" class="btn btn-primary flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Submit Grades
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  
 @endsection
