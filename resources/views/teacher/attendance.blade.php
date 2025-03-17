@@ -29,6 +29,10 @@
         </div>
       </section>
 
+      {{-- Class Attendance Section --}}
+      <section id="classAttendanceSection" class="animate-fade-in" style="animation-delay: 200ms;">
+      </section>
+
       
     </main>
 @endsection
