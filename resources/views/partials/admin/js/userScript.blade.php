@@ -21,5 +21,39 @@
     const mobileTeacherFields = document.getElementById('mobile-teacher-fields');
     const mobileStudentFields = document.getElementById('mobile-student-fields');
     
-
+    // Show edit form
+    function showEditForm(userId) {
+        const user = users.find(u => u.id === parseInt(userId));
+        if (!user) return;
+        const prefix = getPrefix();
+        populateUserForm(prefix, user);
+        if (prefix === 'mobile-') {
+        mobileEditModal.classList.remove('hidden');
+        } else {
+        editFormContainer.classList.remove('hidden');
+        document.getElementById('form-title').textContent = 'Edit User';
+        }
+        document.body.classList.add('overflow-hidden');
+    }
+    
+    // Show add user form
+    function showAddUserForm() {
+        const prefix = getPrefix();
+        resetUserForm(prefix, 'Add User');
+        if (prefix === 'mobile-') {
+        mobileEditModal.classList.remove('hidden');
+        } else {
+        editFormContainer.classList.remove('hidden');
+        }
+        document.body.classList.add('overflow-hidden');
+    }
+    
+    // Hide forms
+    function hideEditForms() {
+        editFormContainer.classList.add('hidden');
+        mobileEditModal.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+    }
+    
+    
 </script>
