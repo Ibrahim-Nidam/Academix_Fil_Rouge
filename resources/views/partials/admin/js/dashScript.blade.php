@@ -24,7 +24,6 @@
         }, 2000);
     });
     
-    
     // doghnut charts
     let studentsChart, staffChart, studentAttendanceChart, teacherAttendanceChart;
     
@@ -182,5 +181,9 @@
         }
         }
     });
-}
+    }
+    
+    document.addEventListener('DOMContentLoaded', function(){ 
+        initCharts()
+    });
 </script>
