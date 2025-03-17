@@ -161,7 +161,32 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    
+    // attendance toggle
+    function handleAttendanceToggle() {
+        const studentId = this.dataset.studentId;
+        const recordKey = this.dataset.recordKey;
+        
+        this.classList.toggle('absent');
+        
+        const label = this.previousElementSibling;
+        const isAbsent = this.classList.contains('absent');
+        
+        if (isAbsent) {
+            label.textContent = 'Absent';
+            label.classList.add('text-absent');
+            label.classList.remove('text-green-500');
+            attendanceRecords[recordKey][studentId] = 'absent';
+        } else {
+            label.textContent = 'Present';
+            label.classList.remove('text-absent');
+            label.classList.add('text-green-500');
+            attendanceRecords[recordKey][studentId] = 'present';
+        }
+        
+        updateAttendanceCounts(recordKey);
+    }
+
+
 });
 
 </script>
