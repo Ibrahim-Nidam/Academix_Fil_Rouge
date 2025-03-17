@@ -8,7 +8,8 @@
         
         <div class="flex flex-col items-center w-full mt-3">
 
-
+            @if (0)
+            {{-- Auth::user()->role == 'admin' --}}
                 <a href="{{route("admin.dashboard")}}" class="sidebar-icon group">
                     <i class="fas fa-home "></i>
                     <span class="sidebar-tooltip group-hover:scale-100">Home</span>
@@ -25,6 +26,27 @@
                     <i class="fas fa-calendar-alt "></i>
                     <span class="sidebar-tooltip group-hover:scale-100">Calendar</span>
                 </a>
+
+            @elseif(1)
+            {{-- Auth::user()->role == 'teacher' --}}
+                <a href="{{route("teacher.dashboard")}}" class="sidebar-icon group">
+                    <i class="fas fa-home"></i>
+                    <span class="sidebar-tooltip group-hover:scale-100">Home</span>
+                </a>
+                <a href="{{route('teacher.attendance')}}" class="sidebar-icon group">
+                    <i class="fas fa-user-check"></i>
+                    <span class="sidebar-tooltip group-hover:scale-100">Attendance</span>
+                </a>
+                <a href="{{route('teacher.grades')}}" class="sidebar-icon group">
+                    <i class="fas fa-chart-bar"></i>
+                    <span class="sidebar-tooltip group-hover:scale-100">Grades</span>
+                </a>
+                <a href="{{route('teacher.resource')}}" class="sidebar-icon group">
+                    <i class="fas fa-book"></i>
+                    <span class="sidebar-tooltip group-hover:scale-100">Resources</span>
+                </a>
+
+            @endif
 
         </div>
         
