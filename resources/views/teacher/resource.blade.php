@@ -50,5 +50,38 @@
         </div>
       </section>
 
-      
+      {{-- placeholder Resources Grid  --}}
+      <section class="animate-fade-in mb-8" style="animation-delay: 200ms;">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <div class="resource-card group" data-resource-id="1">
+            <div class="flex items-start gap-3">
+              <div class="file-type-icon bg-red-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <h3 class="font-medium text-lg truncate">Algebra_Basics.pdf</h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Added on September 15, 2023</p>
+                <div class="mt-2 flex flex-wrap gap-2">
+                  <span class="text-xs bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-md">Mathematics</span>
+                  <span class="text-xs bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-md">PDF</span>
+                </div>
+              </div>
+            </div>
+            <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <button class="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          
+        </div>
+      </section>
+    </main>
+  </div>
+
+  
 @endsection
