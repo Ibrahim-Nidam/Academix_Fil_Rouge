@@ -83,5 +83,63 @@
     </main>
   </div>
 
+  {{-- Upload Modal  --}}
+  <div id="uploadModal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+    <div class="absolute inset-0 bg-black bg-opacity-50" id="modalOverlay"></div>
+    <div class="relative bg-white dark:bg-gray-800 rounded-2xl shadow-xl max-w-2xl w-full mx-4 p-6 animate-fade-in">
+      <button id="closeModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      
+      <h2 class="text-2xl font-bold mb-4">Upload New Resource</h2>
+      
+      <div id="uploadArea" class="upload-area mb-4">
+        <div id="uploadIdle" class="flex flex-col items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+          </svg>
+          <p class="text-lg font-medium mb-2">Drag and drop files here</p>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">or click to browse</p>
+          <input type="file" id="fileInput" class="hidden" multiple accept=".pdf,.docx,.pptx,.xlsx,.mp4,.mp3">
+          <button id="browseBtn" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">Browse Files</button>
+        </div>
+        
+        <div id="uploadProgress" class="hidden w-full">
+          <div class="flex items-center mb-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            <div class="flex-1">
+              <div class="flex justify-between mb-1">
+                <span id="fileName" class="text-sm font-medium">document.pdf</span>
+                <span id="fileSize" class="text-sm text-gray-500 dark:text-gray-400">2.5 MB</span>
+              </div>
+              <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                <div id="progressBar" class="bg-gold h-2.5 rounded-full animate-progress" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+          <p id="uploadStatus" class="text-sm text-gray-500 dark:text-gray-400 text-center mt-4">Uploading... 0%</p>
+        </div>
+        
+        <div id="uploadSuccess" class="hidden flex flex-col items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-green-500 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <p class="text-lg font-medium mb-2">Upload Complete!</p>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Your file has been uploaded successfully.</p>
+          <button id="uploadAnotherBtn" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">Upload Another File</button>
+        </div>
+      </div>
+      
+      <div class="mt-6 flex justify-end gap-3">
+        <button id="cancelUploadBtn" class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">Cancel</button>
+        <button id="confirmUploadBtn" class="px-4 py-2 bg-gold text-white rounded-lg hover:bg-gold/90 transition-colors">Upload</button>
+      </div>
+    </div>
+  </div>
+
   
 @endsection
