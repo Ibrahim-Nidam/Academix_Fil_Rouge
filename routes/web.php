@@ -20,3 +20,4 @@ Route::prefix('teacher')->middleware(['auth', 'teacher'])->group(function () {
 });
 
 Route::view('/dashboard', 'student.dashboard')->name('student.dashboard');
+Route::view('/attendance', 'student.attendance')->name('student.attendance');
