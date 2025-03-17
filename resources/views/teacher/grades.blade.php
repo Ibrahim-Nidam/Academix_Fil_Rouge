@@ -107,5 +107,45 @@
     </main>
   </div>
 
-  
+  {{-- Add Assignment Modal  --}}
+  <div id="addExamModal" class="modal">
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="modal-content">
+      <button id="closeExamModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      
+      <h2 class="text-2xl font-bold mb-2">Add New Exam/Assignment</h2>
+      <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Create a new assessment for Grade 10 - Section A</p>
+      
+      <form id="addExamForm">
+        <div class="mb-4">
+          <label for="examTitle" class="block text-sm font-medium mb-1">Exam Title</label>
+          <input type="text" id="examTitle" placeholder="e.g. Final Exam" class="form-input">
+        </div>
+        
+        <div class="mb-4">
+          <label for="examDate" class="block text-sm font-medium mb-1">Date</label>
+          <input type="date" id="examDate" class="form-input">
+        </div>
+        
+        <div class="mb-6">
+          <label for="examType" class="block text-sm font-medium mb-1">Type</label>
+          <select id="examType" class="form-select">
+            <option value="exam">Exam</option>
+            <option value="assignment">Assignment</option>
+            <option value="quiz">Quiz</option>
+            <option value="project">Project</option>
+          </select>
+        </div>
+        
+        <div class="flex justify-end gap-3">
+          <button type="button" id="cancelExamBtn" class="btn btn-outline">Cancel</button>
+          <button type="submit" class="btn btn-primary">Create Exam</button>
+        </div>
+      </form>
+    </div>
+  </div>
 @endsection
