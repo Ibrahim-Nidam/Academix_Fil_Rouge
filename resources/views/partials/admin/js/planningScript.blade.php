@@ -61,5 +61,11 @@
         }
     });
     
+    // Render the calendar
+    document.addEventListener('DOMContentLoaded', function() {
+        calendar.render();
+        isMobileView = window.innerWidth < 1024;
+    });
+    
     
 </script>
