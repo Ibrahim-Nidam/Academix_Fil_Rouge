@@ -56,4 +56,36 @@
         else return (bytes / 1048576).toFixed(1) + ' MB';
     }
 
+    // handle chosen file 
+    function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const file = dt.files[0];
+        handleFile(file);
+    }
+    
+    function handleFile(file) {
+        if (file) {
+        const validTypes = ['.xlsx', '.xls', '.csv'];
+        const fileType = file.type;
+        const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
+        
+        if (!validTypes.includes(fileType) && !validTypes.includes(fileExtension)) {
+            alert('Please select an Excel file (.xlsx, .xls or .csv)');
+            return;
+        }
+        
+        if (file.size > 10 * 1024 * 1024) {
+            alert('File size exceeds 10MB limit');
+            return;
+        }
+        
+        fileName.textContent = file.name;
+        fileSize.textContent = `Size: ${formatFileSize(file.size)}`;
+        fileInfo.classList.remove('hidden');
+        
+        dataPreview.classList.remove('hidden');
+        importSection.classList.remove('hidden');
+        }
+    }
+
 </script>
