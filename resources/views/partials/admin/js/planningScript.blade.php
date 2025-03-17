@@ -66,6 +66,33 @@
         calendar.render();
         isMobileView = window.innerWidth < 1024;
     });
+
+    // Toggle teacher/class forms
+    function toggleScheduleTypeFields(formId, scheduleType) {
+        const form = document.getElementById(formId);
+        const prefix = formId === 'event-form' ? '' : 'mobile-';
+        const teacherFields = document.getElementById(`${prefix}teacher-fields`);
+        const classFields = document.getElementById(`${prefix}class-fields`);
+    
+        if (scheduleType === 'teacher') {
+            teacherFields.classList.remove('hidden');
+            classFields.classList.add('hidden');
+            form.querySelector(`#${prefix}event-teacher`).setAttribute('required', '');
+            if (form.querySelector(`#${prefix}event-class`)) {
+            form.querySelector(`#${prefix}event-class`).removeAttribute('required');
+            }
+        } else if (scheduleType === 'class') {
+            teacherFields.classList.add('hidden');
+            classFields.classList.remove('hidden');
+            form.querySelector(`#${prefix}event-class`).setAttribute('required', '');
+            if (form.querySelector(`#${prefix}event-teacher`)) {
+            form.querySelector(`#${prefix}event-teacher`).removeAttribute('required');
+            }
+        } else {
+            teacherFields.classList.add('hidden');
+            classFields.classList.add('hidden');
+        }
+    }
     
     
 </script>
