@@ -191,5 +191,13 @@
         }
     }
     
-    
+    // show form with the proper form version.
+    window.addEventListener('resize', () => {
+        if (editFormContainer.classList.contains('hidden') && mobileEditModal.classList.contains('hidden')) return;
+        const userId = document.getElementById('user-id').value || document.getElementById('mobile-user-id').value;
+        if (userId) {
+        hideEditForms();
+        setTimeout(() => showEditForm(userId), 0);
+        }
+    });
 </script>
