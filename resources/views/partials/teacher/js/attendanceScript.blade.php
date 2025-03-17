@@ -76,6 +76,91 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // render students list
+    function renderAttendanceList(classId, date) {
+        const selectedClass = classes.find(c => c.id === classId);
+        const dateKey = date.toISOString().split('T')[0];
+        const recordKey = `${classId}_${dateKey}`;
+        
+        const classCard = document.createElement('div');
+        classCard.className = 'class-card';
+        
+        const classHeader = document.createElement('div');
+        classHeader.className = 'class-header';
+        
+        let presentCount = 0;
+        let absentCount = 0;
+        
+        Object.values(attendanceRecords[recordKey]).forEach(status => {
+            if (status === 'present') {
+                presentCount++;
+            } else {
+                absentCount++;
+            }
+        });
+        
+        classHeader.innerHTML = `
+            <div>
+                <h3 class="text-lg font-semibold">${selectedClass.name}</h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400">${selectedClass.time}</p>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-sm font-medium">${students[classId].length} Students</span>
+                <span class="attendance-status attendance-status-present">
+                    ${presentCount} Present
+                </span>
+                <span class="attendance-status attendance-status-absent ${absentCount === 0 ? 'hidden' : ''}">
+                    ${absentCount} Absent
+                </span>
+            </div>
+        `;
+        
+        classCard.appendChild(classHeader);
+        
+        const studentList = document.createElement('div');
+        studentList.className = 'student-list';
+        
+        students[classId].forEach(student => {
+            const studentRow = document.createElement('div');
+            studentRow.className = 'student-row';
+            
+            const currentStatus = attendanceRecords[recordKey][student.id] || 'present';
+            const isAbsent = currentStatus === 'absent';
+            
+            studentRow.innerHTML = `
+                <div class="flex items-center">
+                    <div class="h-10 w-10 flex-shrink-0 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center mr-3">
+                        <span class="font-medium">${student.name.charAt(0)}</span>
+                    </div>
+                    <div>
+                        <div class="font-medium">${student.name}</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400">ID: ${student.id}</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="text-sm font-medium attendance-label ${isAbsent ? 'text-absent' : 'text-green-500'}">
+                        ${isAbsent ? 'Absent' : 'Present'}
+                    </span>
+                    <div class="attendance-toggle ${isAbsent ? 'absent' : ''}" 
+                            data-student-id="${student.id}" 
+                            data-record-key="${recordKey}">
+                        <span class="attendance-toggle-thumb"></span>
+                    </div>
+                </div>
+            `;
+            
+            studentList.appendChild(studentRow);
+        });
+        
+        classCard.appendChild(studentList);
+        classAttendanceSection.innerHTML = '';
+        classAttendanceSection.appendChild(classCard);
+        
+        document.querySelectorAll('.attendance-toggle').forEach(toggle => {
+            toggle.addEventListener('click', handleAttendanceToggle);
+        });
+    }
+
     
 });
 
