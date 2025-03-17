@@ -78,5 +78,8 @@ function initCharts() {
     });
 }
 
-
+// Initialize all charts on load
+document.addEventListener('DOMContentLoaded', function() {
+    initCharts();
+});
 </script>
