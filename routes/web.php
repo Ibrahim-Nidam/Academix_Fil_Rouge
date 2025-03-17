@@ -15,3 +15,4 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 Route::view('/dashboard', 'teacher.dashboard')->name('teacher.dashboard');
 Route::view('/attendance', 'teacher.attendance')->name('teacher.attendance');
 Route::view('/grades', 'teacher.grades')->name('teacher.grades');
+Route::view('/resource', 'teacher.resource')->name('teacher.resource');
