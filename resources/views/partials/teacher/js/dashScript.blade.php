@@ -30,5 +30,53 @@ lowestPerformersBtn.addEventListener('click', () => {
     lowestPerformers.classList.remove('hidden');
 });
 
+// Initialize Charts
+function initCharts() {
+    const isDarkMode = document.documentElement.classList.contains('dark');
+    const textColor = isDarkMode ? '#f3f4f6' : '#1f2937';
+    const gridColor = isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
+
+    Chart.defaults.color = textColor;
+    Chart.defaults.borderColor = gridColor;
+
+    const canvas = document.getElementById('studentChart');
+
+    const studentCtx = canvas.getContext('2d');
+
+    if (window.studentChart && typeof window.studentChart.destroy === 'function') {
+        window.studentChart.destroy();
+    }
+
+    window.studentChart = new Chart(studentCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Male', 'Female'],
+            datasets: [{
+                data: [65, 55],
+                backgroundColor: ['#4260a6', '#e5cf86'],
+                borderWidth: 0,
+                cutout: '70%'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    enabled: true,
+                    callbacks: {
+                        label: function(context) {
+                            return context.label + ': ' + context.raw + ' students';
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
 
 </script>
