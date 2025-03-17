@@ -145,5 +145,21 @@
             eventDetails.classList.remove('hidden');
         }
     }
+
+    // Show event details
+    function showEventDetails(event) {
+        selectedEvent = event;
+        const useDesktopForm = !isMobileView;
+        if (!useDesktopForm) {
+            populateEventForm('mobile-', event);
+            mobileEventModal.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        } else {
+            populateEventForm('', event);
+            eventDetails.classList.remove('hidden');
+            document.getElementById('event-form-title').textContent = 'Edit Event';
+        }
+    }
+
     
 </script>
