@@ -41,5 +41,23 @@
     uploadArea.classList.remove('upload-area-active');
   });
   
+  const resourceCards = document.querySelectorAll('.resource-card');
+  const resourceModal = document.getElementById('resourceModal');
+  const resourceModalOverlay = document.getElementById('resourceModalOverlay');
+  const closeResourceModal = document.getElementById('closeResourceModal');
   
+  // Open Resource Modal on card click
+  resourceCards.forEach(card => {
+    card.addEventListener('click', () => {
+      resourceModal.classList.remove('hidden');
+    });
+  });
+  
+  // Close Resource Modal
+  const closeResourceModalFunc = () => {
+    resourceModal.classList.add('hidden');
+  };
+  
+  closeResourceModal.addEventListener('click', closeResourceModalFunc);
+  resourceModalOverlay.addEventListener('click', closeResourceModalFunc);
 </script>
