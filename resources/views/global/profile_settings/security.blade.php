@@ -21,7 +21,27 @@
                 </div>
             </div>
             
-            
+            <div class="max-w-5xl">
+                {{-- Two-factor Authentication --}}
+                <div class="mb-12">
+                    <h3 class="text-xl font-medium text-primary-blue dark:text-primary-text-dark mb-6">
+                        Two-factor Authentication
+                    </h3>
+                    <div class="flex items-center">
+                        <div class="relative inline-block w-14 h-6 mr-4 align-middle select-none">
+                            <input type="checkbox" id="toggle" class="peer sr-only" checked>
+                            <label for="toggle" class="block h-6 rounded-full bg-gray-300 peer-checked:bg-[#4260a6] cursor-pointer"></label>
+                            <div class="absolute top-0 left-0 w-6 h-6 bg-white border-4 border-gray-300 rounded-full transition-transform duration-300 transform peer-checked:translate-x-8 peer-checked:border-[#4260a6]"></div>
+                        </div>
+                        <span class="text-primary-text-light dark:text-primary-text-dark">
+                            Enable or disable two factor authentication 
+                            <span class="text-primary-present">(COMING SOON)</span>
+                        </span>
+                    </div>
+                </div>
+                
+                
+            </div>
         </div>
     </div>
 @endsection
