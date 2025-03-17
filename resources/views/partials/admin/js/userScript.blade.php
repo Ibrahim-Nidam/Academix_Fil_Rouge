@@ -55,5 +55,28 @@
         document.body.classList.remove('overflow-hidden');
     }
     
+    // Show delete confirmation modal
+    function showDeleteConfirmation(userId) {
+        deleteModal.classList.remove('hidden');
+        confirmDelete.setAttribute('data-user-id', userId);
+        document.body.classList.add('overflow-hidden');
+    }
+    
+    // Hide delete confirmation modal
+    function hideDeleteConfirmation() {
+        deleteModal.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+    }
+    
+    // Show success toast
+    function showSuccessToast(message) {
+        const toastMessage = document.getElementById('toast-message');
+        toastMessage.textContent = message;
+        successToast.classList.remove('translate-y-20', 'opacity-0');
+        setTimeout(() => {
+        successToast.classList.add('translate-y-20', 'opacity-0');
+        }, 3000);
+    }
+    
     
 </script>
