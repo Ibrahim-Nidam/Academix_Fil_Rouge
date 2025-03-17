@@ -37,7 +37,7 @@
             
             <hr class="sidebar-hr w-3/4 mx-auto" />
             
-            <a class="sidebar-icon group">
+            <a href="{{route('global.profile_settings.profileSettings')}}" class="sidebar-icon group">
                 <i class="fas fa-cog "></i>
                 <span class="sidebar-tooltip group-hover:scale-100">Settings</span>
             </a>
