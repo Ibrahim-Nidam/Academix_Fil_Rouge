@@ -161,5 +161,48 @@
         }
     }
 
-    
+    // Hide event forms
+    function hideEventForms() {
+        eventDetails.classList.add('hidden');
+        mobileEventModal.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+    }
+
+    // Show/hide delete confirmation modal
+    function showDeleteConfirmation(eventId) {
+        deleteModal.classList.remove('hidden');
+        confirmDelete.setAttribute('data-event-id', eventId);
+        document.body.classList.add('overflow-hidden');
+    }
+    function hideDeleteConfirmation() {
+        deleteModal.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+    }
+
+    addTeacherEventBtn.addEventListener('click', () => showAddEventForm('teacher', 'Add Teacher Schedule'));
+    addClassEventBtn.addEventListener('click', () => showAddEventForm('class', 'Add Class Schedule'));
+    closeEventDetails.addEventListener('click', hideEventForms);
+    cancelEventBtn.addEventListener('click', hideEventForms);
+    closeMobileModal.addEventListener('click', hideEventForms);
+    mobileCancelEventBtn.addEventListener('click', hideEventForms);
+
+    deleteEventBtn.addEventListener('click', () => {
+        const eventId = document.getElementById('event-id').value;
+        showDeleteConfirmation(eventId);
+    });
+
+    mobileDeleteEventBtn.addEventListener('click', () => {
+        const eventId = document.getElementById('mobile-event-id').value;
+        showDeleteConfirmation(eventId);
+    });
+
+    cancelDelete.addEventListener('click', hideDeleteConfirmation);
+    confirmDelete.addEventListener('click', () => {
+        hideDeleteConfirmation();
+        hideEventForms();
+    });
+
+    window.addEventListener('resize', () => {
+        isMobileView = window.innerWidth < 1024;
+    });
 </script>
