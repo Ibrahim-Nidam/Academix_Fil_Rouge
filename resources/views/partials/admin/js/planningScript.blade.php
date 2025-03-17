@@ -2,8 +2,6 @@
     const eventDetails = document.getElementById('event-details');
     const mobileEventModal = document.getElementById('mobile-event-modal');
     const deleteModal = document.getElementById('delete-modal');
-    const successToast = document.getElementById('success-toast');
-    
     const addTeacherEventBtn = document.getElementById('add-teacher-event-btn');
     const addClassEventBtn = document.getElementById('add-class-event-btn');
     const closeEventDetails = document.getElementById('close-event-details');
@@ -14,7 +12,6 @@
     const mobileDeleteEventBtn = document.getElementById('mobile-delete-event-btn');
     const cancelDelete = document.getElementById('cancel-delete');
     const confirmDelete = document.getElementById('confirm-delete');
-    
     const scheduleTypeSelect = document.getElementById('schedule-type');
     const mobileScheduleTypeSelect = document.getElementById('mobile-schedule-type');
     
@@ -53,12 +50,8 @@
             minute: '2-digit',
             meridiem: 'short'
         },
-        eventClick: function(info) {
-            showEventDetails(info.event);
-        },
-        dateClick: function(info) {
-            selectedDate = info.date;
-        }
+        eventClick: info => showEventDetails(info.event),
+        dateClick: info => selectedDate = info.date
     });
     
     // Render the calendar
@@ -71,28 +64,23 @@
     function toggleScheduleTypeFields(formId, scheduleType) {
         const form = document.getElementById(formId);
         const prefix = formId === 'event-form' ? '' : 'mobile-';
-        const teacherFields = document.getElementById(`${prefix}teacher-fields`);
-        const classFields = document.getElementById(`${prefix}class-fields`);
-    
+        const teacherFields = document.getElementById(prefix + 'teacher-fields');
+        const classFields = document.getElementById(prefix + 'class-fields');
+        
         if (scheduleType === 'teacher') {
             teacherFields.classList.remove('hidden');
             classFields.classList.add('hidden');
             form.querySelector(`#${prefix}event-teacher`).setAttribute('required', '');
-            if (form.querySelector(`#${prefix}event-class`)) {
-            form.querySelector(`#${prefix}event-class`).removeAttribute('required');
-            }
+            form.querySelector(`#${prefix}event-class`) && form.querySelector(`#${prefix}event-class`).removeAttribute('required');
         } else if (scheduleType === 'class') {
             teacherFields.classList.add('hidden');
             classFields.classList.remove('hidden');
             form.querySelector(`#${prefix}event-class`).setAttribute('required', '');
-            if (form.querySelector(`#${prefix}event-teacher`)) {
-            form.querySelector(`#${prefix}event-teacher`).removeAttribute('required');
-            }
+            form.querySelector(`#${prefix}event-teacher`) && form.querySelector(`#${prefix}event-teacher`).removeAttribute('required');
         } else {
             teacherFields.classList.add('hidden');
             classFields.classList.add('hidden');
         }
     }
-    
-    
+
 </script>
