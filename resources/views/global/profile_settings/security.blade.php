@@ -40,7 +40,28 @@
                     </div>
                 </div>
                 
-                
+                {{-- Change Password form --}}
+                <section>
+                    <h3 class="text-xl font-medium text-primary-blue dark:text-primary-text-dark mb-6">Change Password</h3>
+                    
+                    <div class="mb-6">
+                        <label for="currentPassword" class="block mb-2 text-sm font-medium text-primary-text-light dark:text-primary-text-dark">Current Password</label>
+                        <input type="password" id="currentPassword" value="**********" 
+                                class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-[#1a2234] text-primary-text-light dark:text-primary-text-dark">
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label for="newPassword" class="block mb-2 text-sm font-medium text-primary-text-light dark:text-primary-text-dark">New Password</label>
+                        <input type="password" id="newPassword" value="**********" 
+                                class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-[#1a2234] text-primary-text-light dark:text-primary-text-dark">
+                    </div>
+                    
+                    <div class="flex justify-end">
+                        <button class="bg-primary-accent hover:bg-opacity-90 text-white font-medium py-3 px-12 rounded-md transition duration-200">
+                            Save
+                        </button>
+                    </div>
+                </section>
             </div>
         </div>
     </div>
