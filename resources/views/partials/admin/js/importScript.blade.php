@@ -87,5 +87,13 @@
         importSection.classList.remove('hidden');
         }
     }
-
+    
+    // remove selected file
+    removeFile.addEventListener('click', () => {
+        fileInput.value = '';
+        fileInfo.classList.add('hidden');
+        dataPreview.classList.add('hidden');
+        importSection.classList.add('hidden');
+        successNotification.classList.add('hidden');
+    });
 </script>
