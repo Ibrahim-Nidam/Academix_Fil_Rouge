@@ -72,5 +72,74 @@
     </div>
   </section>
 
-  
+  {{-- Attendance Timeline --}}
+  <section class="animate-fade-in" style="animation-delay: 200ms;">
+    <div class="month-divider">
+      <h2 class="px-4 text-lg font-semibold text-gray-700 dark:text-gray-300">March 2025</h2>
+    </div>
+    
+    <div class="space-y-4">
+      {{-- placeholder : Monday, March 8, 2025 --}}
+      <div class="flex items-center mb-2">
+        <div class="bg-gold/20 dark:bg-gold/30 rounded-full w-8 h-8 flex items-center justify-center mr-3">
+          <span class="text-gold font-medium">8</span>
+        </div>
+        <h3 class="text-md font-medium">Monday, March 8, 2025</h3>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {{-- placeholder card --}}
+        <div class="attendance-card attendance-card-absent group">
+          <div class="attendance-day">Monday, March 8, 2025</div>
+          <div class="attendance-subject">History</div>
+          <div class="attendance-time">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            4:00 PM - 5:30 PM
+          </div>
+          <div class="mt-3 flex justify-between items-center">
+            <span class="attendance-badge attendance-badge-absent">Absent</span>
+            <div class="text-sm text-gray-500 dark:text-gray-400">Room 108</div>
+          </div>
+          <div class="tooltip">
+            Instructor: Dr. Thompson<br>
+            Topic: Industrial Revolution
+          </div>
+        </div>
+      </div>
+      
+      {{-- placeholder : Friday, March 7, 2025 --}}
+      <div class="flex items-center mb-2 mt-8">
+        <div class="bg-gray-200 dark:bg-gray-700 rounded-full w-8 h-8 flex items-center justify-center mr-3">
+          <span class="text-gray-700 dark:text-gray-300 font-medium">7</span>
+        </div>
+        <h3 class="text-md font-medium">Friday, March 7, 2025</h3>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {{-- placeholder card  --}}
+        <div class="attendance-card attendance-card-present group">
+          <div class="attendance-day">Friday, March 7, 2025</div>
+          <div class="attendance-subject">Literature</div>
+          <div class="attendance-time">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            8:00 AM - 9:30 AM
+          </div>
+          <div class="mt-3 flex justify-between items-center">
+            <span class="attendance-badge attendance-badge-present">Present</span>
+            <div class="text-sm text-gray-500 dark:text-gray-400">Room 203</div>
+          </div>
+          <div class="tooltip">
+            Instructor: Prof. Garcia<br>
+            Topic: Shakespeare Analysis
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </section>
+</main>
 @endsection
