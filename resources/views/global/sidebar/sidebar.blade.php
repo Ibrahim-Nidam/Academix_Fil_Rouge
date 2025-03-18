@@ -27,7 +27,7 @@
                     <span class="sidebar-tooltip group-hover:scale-100">Calendar</span>
                 </a>
 
-            @elseif(1)
+            @elseif(0)
             {{-- Auth::user()->role == 'teacher' --}}
                 <a href="{{route("teacher.dashboard")}}" class="sidebar-icon group">
                     <i class="fas fa-home"></i>
@@ -42,6 +42,25 @@
                     <span class="sidebar-tooltip group-hover:scale-100">Grades</span>
                 </a>
                 <a href="{{route('teacher.resource')}}" class="sidebar-icon group">
+                    <i class="fas fa-book"></i>
+                    <span class="sidebar-tooltip group-hover:scale-100">Resources</span>
+                </a>
+
+            @else
+
+                <a href="{{route("student.dashboard")}}" class="sidebar-icon group">
+                    <i class="fas fa-home"></i>
+                    <span class="sidebar-tooltip group-hover:scale-100">Home</span>
+                </a>
+                <a href="{{route('student.attendance')}}" class="sidebar-icon group">
+                    <i class="fas fa-user-check"></i>
+                    <span class="sidebar-tooltip group-hover:scale-100">Attendance</span>
+                </a>
+                <a href="{{route('student.grades')}}" class="sidebar-icon group">
+                    <i class="fas fa-chart-bar"></i>
+                    <span class="sidebar-tooltip group-hover:scale-100">Grades</span>
+                </a>
+                <a href="{{route('student.resources')}}" class="sidebar-icon group">
                     <i class="fas fa-book"></i>
                     <span class="sidebar-tooltip group-hover:scale-100">Resources</span>
                 </a>
