@@ -71,6 +71,33 @@
     </div>
   </section>
 
+  {{-- student Schedule Section --}}
+  <section class="animate-fade-in mb-8" style="animation-delay: 150ms;">
+    <h2 class="text-xl font-semibold mb-4">Today's Class Schedule</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {{-- class card placeholder --}}
+      <div class="card border-l-4 border-l-gold">
+        <div class="flex justify-between items-start">
+          <div>
+            <span class="badge badge-warning mb-2">Current Class</span>
+            <h3 class="text-lg font-semibold">Mathematics</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Advanced Calculus</p>
+          </div>
+          <div class="text-right">
+            <p class="text-sm font-medium">10:00 AM - 11:30 AM</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Room 301</p>
+            <div class="mt-2 flex items-center justify-end">
+              <span class="text-xs mr-1">Average:</span>
+              <span class="badge badge-success">18/20</span>
+            </div>
+          </div>
+        </div>
+        <div class="mt-4 border-t border-gray-200 dark:border-gray-700"></div>
+      </div>
+      
+    </div>
+  </section>
+
   
 </main>
 @endsection
