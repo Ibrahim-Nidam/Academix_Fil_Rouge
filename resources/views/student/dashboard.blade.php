@@ -19,6 +19,23 @@
     </div>
   </section>
 
- 
+  {{-- Overall Performance Section --}}
+  <section class="animate-fade-in mb-8" style="animation-delay: 100ms;">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {{-- estimate Grade Card --}}
+      <div class="card flex flex-col items-center justify-center">
+        <h2 class="text-lg font-semibold mb-2">Your Overall Grade</h2>
+        <div class="flex items-center justify-center w-32 h-32 rounded-full border-4 border-gold mb-2">
+          <div class="text-center">
+            <span class="block text-4xl font-bold text-gold">15</span>
+            <span class="text-sm text-gray-500 dark:text-gray-400">out of 20</span>
+          </div>
+        </div>
+        <p class="text-sm text-center text-gray-600 dark:text-gray-300">
+          You're performing well above average!
+        </p>
+      </div>
+      
+      
 </main>
 @endsection
