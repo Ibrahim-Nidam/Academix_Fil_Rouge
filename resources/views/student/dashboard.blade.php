@@ -36,6 +36,41 @@
         </p>
       </div>
       
+      {{-- Best Subjects Card placeholder --}}
+      <div class="card">
+        <h2 class="text-lg font-semibold mb-4">Best Subjects</h2>
+        <ul class="space-y-4">
+          <li>
+            <div class="flex justify-between items-center mb-1">
+              <span class="font-medium">Mathematics</span>
+              <span class="badge badge-success">18/20</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill progress-fill-high" style="width: 90%"></div>
+            </div>
+          </li>
+        </ul>
+      </div>
       
+      {{-- Subjects Needing Improvement Card placeholder --}}
+      <div class="card">
+        <h2 class="text-lg font-semibold mb-4">Subjects Needing Improvement</h2>
+        <ul class="space-y-4">
+          <li>
+            <div class="flex justify-between items-center mb-1">
+              <span class="font-medium">History</span>
+              <span class="badge badge-warning">12/20</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill progress-fill-medium" style="width: 60%"></div>
+            </div>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  
 </main>
 @endsection
