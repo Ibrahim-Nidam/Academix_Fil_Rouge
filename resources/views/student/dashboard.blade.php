@@ -98,6 +98,42 @@
     </div>
   </section>
 
-  
+  {{-- Weekly Timetable Section --}}
+  <section class="animate-fade-in" style="animation-delay: 200ms;">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-semibold">Weekly Timetable</h2>
+    </div>
+    
+    <div class="card overflow-x-auto">
+      <table class="min-w-full border-collapse">
+        <thead>
+          <tr>
+            <th class="timetable-header timetable-cell">Time</th>
+            <th class="timetable-header timetable-cell">Monday</th>
+            <th class="timetable-header timetable-cell">Tuesday</th>
+            <th class="timetable-header timetable-cell">Wednesday</th>
+            <th class="timetable-header timetable-cell">Thursday</th>
+            <th class="timetable-header timetable-cell">Friday</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{-- timetable placeholder --}}
+          <tr>
+            <td class="timetable-time timetable-cell">8:00 - 10:00</td>
+            <td class="timetable-cell"></td>
+            <td class="timetable-class timetable-cell">
+              <div class="font-medium">Literature</div>
+              <div class="text-xs text-gray-500 dark:text-gray-400">Room 203</div>
+            </td>
+            <td class="timetable-cell"></td>
+            <td class="timetable-class timetable-cell">
+              <div class="font-medium">Biology</div>
+              <div class="text-xs text-gray-500 dark:text-gray-400">Lab 105</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
 </main>
 @endsection
