@@ -38,6 +38,28 @@
         </div>
       </div>
       
-      
+      {{-- teacher placeholder card --}}
+      <div class="teacher-card" data-teacher="physics">
+        <div class="p-4">
+          <div class="flex items-center mb-3">
+            <div class="bg-purple-500/10 dark:bg-purple-500/20 p-3 rounded-full mr-3">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-medium text-lg">Prof. Martinez</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Physics</p>
+            </div>
+          </div>
+          <div class="text-sm text-gray-600 dark:text-gray-300">
+            8 resources available
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
 </main>
 @endsection
