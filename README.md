@@ -50,7 +50,7 @@ Avant de commencer, assurez-vous d'avoir installé les outils suivants :
 Ouvrez un terminal et exécutez :
 ```bash
 git clone https://github.com/Ibrahim-Nidam/Academix_Fil_Rouge.git
-cd Academix_Fil_Rouge.git
+cd Academix_Fil_Rouge
 ```
 
 ### 2. Installer les dépendances PHP
@@ -70,12 +70,12 @@ copy .env.example .env # Windows
 
 Modifiez les paramètres de la base de données dans `.env` :
 ```env
-DB_CONNECTION=mysql
+DB_CONNECTION=pgsql
 DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=nom_de_votre_bdd
-DB_USERNAME=root
-DB_PASSWORD=
+DB_PORT=5432
+DB_DATABASE=YOUR_DATABSE_NAME
+DB_USERNAME=YOUR_USERNAME
+DB_PASSWORD=YOUR_PASSWORD
 ```
 
 ### 4. Générer la clé d'application
