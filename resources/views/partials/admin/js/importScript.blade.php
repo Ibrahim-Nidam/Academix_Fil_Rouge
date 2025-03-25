@@ -8,9 +8,10 @@
     const removeFile = document.getElementById('remove-file');
     const dataPreview = document.getElementById('data-preview');
     const importSection = document.getElementById('import-section');
-    const validateImport = document.getElementById('validate-import');
-    const cancelImport = document.getElementById('cancel-import');
-    const successNotification = document.getElementById('success-notification');
+    const validateUpload = document.getElementById('validate-upload');
+    const cancelUpload = document.getElementById('cancel-upload');
+    const uploadForm = document.getElementById('uploadForm');
+    const hiddenUserType = document.getElementById('hidden-user-type');
     
     // file selection section
     browseBtn.addEventListener('click', () => {
@@ -93,6 +94,5 @@
         fileInfo.classList.add('hidden');
         dataPreview.classList.add('hidden');
         importSection.classList.add('hidden');
-        successNotification.classList.add('hidden');
     });
 </script>
