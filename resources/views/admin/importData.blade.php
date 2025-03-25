@@ -76,11 +76,6 @@
       </button>
     </div>
 
-    {{-- Success Notification --}}
-    <div id="success-notification" class="hidden mt-4 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-100 px-3 py-2 rounded-lg flex items-center">
-      <i class="fas fa-check-circle text-green-500 mr-2"></i>
-      <span>Data imported successfully!</span>
-    </div>
 
   </div>
 @endsection
