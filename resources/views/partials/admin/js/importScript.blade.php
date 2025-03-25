@@ -114,4 +114,11 @@
         }
         uploadForm.submit();
     });
+
+    // Cancel file upload process
+    cancelUpload.addEventListener('click', () => {
+        fileInput.value = '';
+        fileInfo.classList.add('hidden');
+        importSection.classList.add('hidden');
+    });
 </script>
