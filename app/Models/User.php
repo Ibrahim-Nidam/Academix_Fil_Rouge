@@ -75,4 +75,11 @@ class User extends Authenticatable
 
         return $username;
     }
+
+    public static function generateEmail($firstname, $lastname){
+        $cleanFirstName = preg_replace('/[^a-zA-Z0-9]/', '', $firstname);
+        $cleanLastName = preg_replace('/[^a-zA-Z0-9]/', '', $lastname);
+
+        return strtolower($cleanFirstName . '.' . $cleanLastName) . '@school.com';
+    }
 }
