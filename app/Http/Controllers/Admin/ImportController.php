@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class ImportController extends Controller
 {
@@ -71,6 +72,48 @@ class ImportController extends Controller
         }
 
         return redirect()->route('admin.importData')->with('error', 'No users were imported');
+    }
+
+    public function previewImport(Request $request){
+        $request->validate([
+            'file' => ['required', 'file', 'mimes:xlsx,xls,csv', 'max:10240'],
+            'user_type' => ['required', 'in:teacher,student']
+        ]);
+
+        $file = $request->file('file');
+        $userType = $request->input('user_type');
+
+        $spreadsheet = IOFactory::load($file->getPathname());
+        $rows = $spreadsheet->getActiveSheet()->toArray();
+
+        if(empty($rows)){
+            return redirect()->route('admin.importData');
+        }
+
+        if($this->hasHeaderRow($rows[0])){
+            array_shift($rows);
+        }
+
+        $previewData = [];
+        foreach($rows as $row){
+            if(!$this->rowHasData($row)){
+                continue;
+            }
+
+            $userData = $this->mapDataColumns($row);
+            if($userData){
+                $userData['username'] = User::generateUsername($userData['first_name'], $userData['last_name']);
+                $previewData[] = $userData;
+            }
+        }
+
+        if(empty($previewData)){
+            return redirect()->route('admin.importData');
+        }
+
+        session(['import_preview_data' => $previewData, 'import_user_type' => $userType]);
+
+        return view('admin.importData', ['previewData' => $previewData, 'userType' => $userType]);
     }
 
 }
