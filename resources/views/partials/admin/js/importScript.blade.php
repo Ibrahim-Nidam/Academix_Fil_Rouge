@@ -75,10 +75,9 @@
     function handleFile(file) {
         if (file) {
         const validTypes = ['.xlsx', '.xls', '.csv'];
-        const fileType = file.type;
         const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
-        
-        if (!validTypes.includes(fileType) && !validTypes.includes(fileExtension)) {
+
+        if (!validTypes.includes(fileExtension)) {
             alert('Please select an Excel file (.xlsx, .xls or .csv)');
             return;
         }
@@ -91,12 +90,10 @@
         fileName.textContent = file.name;
         fileSize.textContent = `Size: ${formatFileSize(file.size)}`;
         fileInfo.classList.remove('hidden');
-        
-        dataPreview.classList.remove('hidden');
         importSection.classList.remove('hidden');
         }
     }
-    
+
     // remove selected file
     removeFile.addEventListener('click', () => {
         fileInput.value = '';
