@@ -25,6 +25,7 @@ class User extends Authenticatable
         'id',
         'first_name',
         'last_name',
+        'username',
         'email',
         'password',
         'gender',
@@ -64,5 +65,14 @@ class User extends Authenticatable
                 $model->id = (string) Str::orderedUuid();
             }
         });
+    }
+
+    public static function generateUsername ($firstname, $lastname){
+        $cleanFirstName = preg_replace('/[^a-zA-Z0-9]/', '', $firstname);
+        $cleanLastName = preg_replace('/[^a-zA-Z0-9]/', '', $lastname);
+
+        $username = strtolower($cleanFirstName) . ucfirst(strtolower($cleanLastName));
+
+        return $username;
     }
 }
