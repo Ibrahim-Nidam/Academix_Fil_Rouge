@@ -121,4 +121,9 @@
         fileInfo.classList.add('hidden');
         importSection.classList.add('hidden');
     });
+
+    // checkboxes variables in the preview table
+    const selectAll = document.getElementById('select-all');
+    const deselectAll = document.getElementById('deselect-all');
+    const checkboxAll = document.getElementById('checkbox-all');
 </script>
