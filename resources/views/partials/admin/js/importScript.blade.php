@@ -193,5 +193,54 @@
             </tr>
             `;
         });
+
+        tbody.innerHTML = allRows.join('');
+
+        // Pagination variables
+        const rowsPerPage = 12;
+        let currentPage = 1;
+        const rows = tbody.querySelectorAll('tr');
+        const totalPages = Math.ceil(rows.length / rowsPerPage);
+
+        // Function to show a specific page of rows
+        function showPage(page) {
+            rows.forEach((row, idx) => {
+            if (idx >= (page - 1) * rowsPerPage && idx < page * rowsPerPage) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+            });
+            renderPagination(page);
+        }
+
+        // Function to render pagination buttons
+        function renderPagination(activePage) {
+            let paginationContainer = document.getElementById('pagination');
+            if (!paginationContainer) {
+                paginationContainer = document.createElement('div');
+                paginationContainer.id = 'pagination';
+                paginationContainer.className = "mt-4 flex justify-center space-x-2";
+                dataPreview.appendChild(paginationContainer);
+            }
+            paginationContainer.innerHTML = '';
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement('button');
+                btn.textContent = i;
+                btn.className = "px-3 py-1 border rounded " + (i === activePage ? "bg-primary-blue text-white" : "bg-white text-primary-blue");
+                btn.addEventListener('click', () => {
+                    currentPage = i;
+                    showPage(i);
+                });
+                paginationContainer.appendChild(btn);
+            }
+        }
+
+        // initialize pagination if more than one page exists; otherwise show all rows
+        if (totalPages > 1) {
+            showPage(currentPage);
+        } else {
+            rows.forEach(row => row.style.display = '');
+        }
     }
 </script>
