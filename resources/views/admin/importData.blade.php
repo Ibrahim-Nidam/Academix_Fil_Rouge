@@ -134,3 +134,9 @@
 
 </div>
 @endsection
+
+@if(isset($previewData) && count($previewData) > 0)
+  <script>
+    window.previewData = @json($previewData);
+  </script>
+@endif
