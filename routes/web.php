@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ImportController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/profileSettings', 'global.profile_settings.profileSettings')->name('global.profile_settings.profileSettings');
@@ -11,6 +12,8 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::view('/importData', 'admin.importData')->name('admin.importData');
     Route::view('/planning', 'admin.planningPage')->name('admin.planningPage');
     Route::view('/users', 'admin.usersPage')->name('admin.usersPage');
+
+    Route::post('/import/preview', [ImportController::class, 'previewImport'])->name('admin.import.preview');
 });
 
 Route::prefix('teacher')->middleware(['auth', 'teacher'])->group(function () {
