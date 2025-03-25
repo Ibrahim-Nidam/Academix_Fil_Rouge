@@ -30,7 +30,7 @@
 
     @if(Route::currentRouteName() == 'admin.dashboard')
         @include('partials.admin.js.dashScript')
-    @elseif(Route::currentRouteName() == 'admin.importData')
+    @elseif(in_array(Route::currentRouteName(), ['admin.importData', 'admin.import.preview']))
         @include('partials.admin.js.importScript')
     @elseif(Route::currentRouteName() == 'admin.usersPage')
         @include('partials.admin.js.userScript')
