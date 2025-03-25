@@ -3,7 +3,7 @@
 @section('title', 'Import Data')
 
 @section('content')
-  <div class="flex flex-col flex-1 w-full">
+<div class="flex flex-col flex-1 w-full">
 
 {{-- Page header --}}
     <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 md:p-6 mb-4 md:mb-6">
@@ -76,6 +76,61 @@
       </button>
     </div>
 
+    {{-- Data Preview Section --}}
+    <div id="data-preview" class="hidden bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 md:p-6 mb-4 md:mb-6">
+      <h2 class="text-lg md:text-xl font-semibold mb-3 md:mb-4">Data Preview and Validation</h2>
+      <div class="overflow-x-auto">
+        <form id="importForm" action="{{ route('admin.import.process') }}" method="POST">
+          @csrf
+          <input type="hidden" name="user_type" id="hidden-user-type">
+          
+          <div class="mb-4">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="font-medium">Users to Import</h3>
+              <div class="flex items-center gap-2">
+                <button type="button" id="select-all" class="text-sm text-primary-blue dark:text-primary-yellow hover:underline">Select All</button>
+                <button type="button" id="deselect-all" class="text-sm text-primary-blue dark:text-primary-yellow hover:underline">Deselect All</button>
+              </div>
+            </div>
+            
+            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+              <thead class="bg-gray-50 dark:bg-gray-700">
+                <tr>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    <input type="checkbox" id="checkbox-all" class="rounded border-gray-300 dark:border-gray-600">
+                  </th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    First Name
+                  </th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    Last Name
+                  </th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    Gender
+                  </th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    Username
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="import-data-body" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
 
-  </div>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="flex flex-col md:flex-row gap-3 justify-end">
+            <button type="button" id="cancel-import" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300 text-sm md:text-base">
+              Cancel
+            </button>
+            <button type="submit" id="confirm-import" class="px-4 py-2 bg-primary-accent text-white rounded-md hover:bg-opacity-90 transition-colors duration-300 text-sm md:text-base flex items-center justify-center">
+              <i class="fas fa-save mr-2"></i>
+              Import Selected Users
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+</div>
 @endsection
