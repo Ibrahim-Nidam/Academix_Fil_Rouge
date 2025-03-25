@@ -126,4 +126,29 @@
     const selectAll = document.getElementById('select-all');
     const deselectAll = document.getElementById('deselect-all');
     const checkboxAll = document.getElementById('checkbox-all');
+
+    // bulk selection 
+    if (selectAll) {
+    selectAll.addEventListener('click', () => {
+        const checkboxes = document.querySelectorAll('input[name="selected_users[]"]');
+        checkboxes.forEach(checkbox => checkbox.checked = true);
+        if (checkboxAll) checkboxAll.checked = true;
+    });
+    }
+    
+    // bulk deselection 
+    if (deselectAll) {
+    deselectAll.addEventListener('click', () => {
+        const checkboxes = document.querySelectorAll('input[name="selected_users[]"]');
+        checkboxes.forEach(checkbox => checkbox.checked = false);
+        if (checkboxAll) checkboxAll.checked = false;
+    });
+    }
+
+    if (checkboxAll) {
+    checkboxAll.addEventListener('change', function() {
+        const checkboxes = document.querySelectorAll('input[name="selected_users[]"]');
+        checkboxes.forEach(checkbox => checkbox.checked = this.checked);
+    });
+    }
 </script>
