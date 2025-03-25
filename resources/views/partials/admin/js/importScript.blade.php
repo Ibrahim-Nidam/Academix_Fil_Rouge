@@ -58,9 +58,18 @@
 
     // handle chosen file 
     function handleDrop(e) {
+        e.preventDefault();
+        e.stopPropagation();
         const dt = e.dataTransfer;
-        const file = dt.files[0];
-        handleFile(file);
+        if (dt && dt.files && dt.files.length > 0) {
+            const file = dt.files[0];
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            fileInput.files = dataTransfer.files;
+            handleFile(file);
+        } else {
+            console.warn('No files found in dataTransfer.');
+        }
     }
     
     function handleFile(file) {
