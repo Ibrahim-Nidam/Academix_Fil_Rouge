@@ -14,6 +14,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::view('/users', 'admin.usersPage')->name('admin.usersPage');
 
     Route::post('/import/preview', [ImportController::class, 'previewImport'])->name('admin.import.preview');
+    Route::post('/import/process', [ImportController::class, 'processImport'])->name('admin.import.process');
 });
 
 Route::prefix('teacher')->middleware(['auth', 'teacher'])->group(function () {
