@@ -101,4 +101,17 @@
         dataPreview.classList.add('hidden');
         importSection.classList.add('hidden');
     });
+
+    // validated file
+    validateUpload.addEventListener('click', () => {
+        const selectedUserTypeElem = document.querySelector('input[name="user_type"]:checked');
+        if (selectedUserTypeElem) {
+            hiddenUserType.value = selectedUserTypeElem.value;
+        }
+        if (fileInput.files.length === 0) {
+            alert('Please select a file first');
+            return;
+        }
+        uploadForm.submit();
+    });
 </script>
