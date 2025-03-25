@@ -15,4 +15,8 @@ class ImportController extends Controller
         }
         return false;
     }
+
+    private function rowHasData(array $row){
+        return !empty(array_filter($row, fn($value) => trim($value) !== ''));
+    }
 }
