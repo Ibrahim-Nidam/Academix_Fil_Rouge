@@ -151,4 +151,12 @@
             checkboxes.forEach(checkbox => checkbox.checked = this.checked);
         });
     }
+
+    // Cancel import preview
+    const cancelImport = document.getElementById('cancel-import');
+    if (cancelImport) {
+        cancelImport.addEventListener('click', () => {
+            dataPreview.classList.add('hidden');
+    });
+    }
 </script>
