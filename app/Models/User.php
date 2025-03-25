@@ -67,7 +67,8 @@ class User extends Authenticatable
         });
     }
 
-    public static function generateUsername ($firstname, $lastname){
+    public static function generateUsername ($firstname, $lastname)
+    {
         $cleanFirstName = preg_replace('/[^a-zA-Z0-9]/', '', $firstname);
         $cleanLastName = preg_replace('/[^a-zA-Z0-9]/', '', $lastname);
 
@@ -81,5 +82,24 @@ class User extends Authenticatable
         $cleanLastName = preg_replace('/[^a-zA-Z0-9]/', '', $lastname);
 
         return strtolower($cleanFirstName . '.' . $cleanLastName) . '@school.com';
+    }
+
+    public static function createBulkUsers($usersData, $role)
+    {
+        $createdUsers = [];
+
+        foreach($usersData as $userData) {
+            if(empty($userData['username'])){
+                $userData['username'] = self::generateUsername($userData['first_name'], $userData['last_name']);
+            }
+
+            $userData['email'] = self::generateEmail($userData['first_name'], $userData['last_name']);
+
+            $userData['password'] = bcrypt($userData['username']);
+            $userData['role'] = $role;
+
+            $createdUsers[] = self::create($userData);
+        }
+        return $createdUsers;
     }
 }
