@@ -8,8 +8,7 @@
         
         <div class="flex flex-col items-center w-full mt-3">
 
-            @if (0)
-            {{-- Auth::user()->role == 'admin' --}}
+            @if (Auth::user()->role == 'Admin')
                 <a href="{{route("admin.dashboard")}}" class="sidebar-icon group">
                     <i class="fas fa-home "></i>
                     <span class="sidebar-tooltip group-hover:scale-100">Home</span>
