@@ -9,6 +9,7 @@ Route::view('/profilesecurity', 'global.profile_settings.security')->name('globa
 
 Route::view('/login', 'authentification.login');
 Route::post('/auth/login', [SessionController::class, 'login'])->name('login');
+Route::post('/logout', [SessionController::class, 'logout'])->name('logout');
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::view('/dashboard', 'admin.dashboard')->name('admin.dashboard');
