@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
         DB::table('users')->insert([
             'id' => '9e850d83-8a09-4da1-bfe6-d25eb82971a6',
             'first_name' => 'ibrahim',
@@ -41,6 +42,21 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('a'),
             'gender' => 'Male',
             'role' => 'Teacher',
+            'email_verified_at' => now(),
+            'remember_token' => Str::random(10),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        DB::table('users')->insert([
+            'id' => '9e850d83-8a09-4da1-bfe6-d25eb82971b8',
+            'first_name' => 'ibrahim',
+            'last_name' => 'nidam',
+            'username' => 'SN',
+            'email' => 's@n.c',
+            'password' => Hash::make('a'),
+            'gender' => 'Male',
+            'role' => 'Student',
             'email_verified_at' => now(),
             'remember_token' => Str::random(10),
             'created_at' => now(),
