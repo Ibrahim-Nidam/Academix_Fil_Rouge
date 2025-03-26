@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 Route::view('/profileSettings', 'global.profile_settings.profileSettings')->name('global.profile_settings.profileSettings');
 Route::view('/profilesecurity', 'global.profile_settings.security')->name('global.profile_settings.security');
 
-Route::view('/login', 'authentification.login');
+Route::view('/', 'authentification.login');
 Route::post('/auth/login', [SessionController::class, 'login'])->name('login');
 Route::post('/logout', [SessionController::class, 'logout'])->name('logout');
 
