@@ -36,52 +36,49 @@
                     </div>
                     {{-- form --}}
                     <div class="flex-grow">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-                            <div>
-                                <label class="block mb-2 text-sm font-medium text-primary-text-light dark:text-primary-text-dark">First Name</label>
-                                <input type="text" value="Charlene" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-[#1a2234] text-primary-text-light dark:text-primary-text-dark">
-                            </div>
-                            
-                            <div>
-                                <label class="block mb-2 text-sm font-medium text-primary-text-light dark:text-primary-text-dark">Last Name</label>
-                                <input type="text" value="Reed" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-[#1a2234] text-primary-text-light dark:text-primary-text-dark">
-                            </div>
-                            
-                            <div>
-                                <label class="block mb-2 text-sm font-medium text-primary-text-light dark:text-primary-text-dark">Date of Birth</label>
-                                <div class="relative">
-                                    <select class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md appearance-none bg-white dark:bg-[#1a2234] text-primary-text-light dark:text-primary-text-dark">
-                                        <option>25 January 1990</option>
-                                    </select>
-                                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 dark:text-gray-300">
-                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                                        </svg>
+                        <form action="" method="POST">
+                        @csrf
+                        @method('PUT')
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                                <div>
+                                    <label class="block mb-2 text-sm font-medium text-primary-text-light dark:text-primary-text-dark">First Name</label>
+                                    <input type="text" name="first_name" value="{{ old('first_name', Auth::user()->first_name) }}" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-[#1a2234] text-primary-setting dark:text-primary-text-dark">
+                                </div>
+                                
+                                <div>
+                                    <label class="block mb-2 text-sm font-medium text-primary-text-light dark:text-primary-text-dark">Last Name</label>
+                                    <input type="text" name="last_name" value="{{ old('last_name', Auth::user()->last_name) }}" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-[#1a2234] text-primary-setting dark:text-primary-text-dark">
+                                </div>
+                                
+                                <div>
+                                    <label class="block mb-2 text-sm font-medium text-primary-text-light dark:text-primary-text-dark">Date of Birth</label>
+                                    <div class="relative">
+                                        <input type="date" name="date_of_birth" value="{{ old('date_of_birth', Auth::user()->date_of_birth) }}" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-[#1a2234] text-primary-setting dark:text-primary-text-dark">
                                     </div>
+                                </div>
+                                
+                                <div>
+                                    <label class="block mb-2 text-sm font-medium text-primary-text-light dark:text-primary-text-dark">User Name</label>
+                                    <input type="text" name="username" value="{{ old('username', Auth::user()->username) }}" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-[#1a2234] text-primary-setting dark:text-primary-text-dark">
+                                </div>
+                                
+                                <div>
+                                    <label class="block mb-2 text-sm font-medium text-primary-text-light dark:text-primary-text-dark">Additional Email (Optional)</label>
+                                    <input type="email" name="additional_email" value="{{ old('additional_email', Auth::user()->additional_email) }}" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-[#1a2234] text-primary-setting dark:text-primary-text-dark">
+                                </div>
+                                
+                                <div>
+                                    <label class="block mb-2 text-sm font-medium text-primary-text-light dark:text-primary-text-dark">Confirm Additional Email</label>
+                                    <input type="email" name="confirm_additional_email" value="{{ old('confirm_additional_email') }}" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-[#1a2234] text-primary-setting dark:text-primary-text-dark">
                                 </div>
                             </div>
                             
-                            <div>
-                                <label class="block mb-2 text-sm font-medium text-primary-text-light dark:text-primary-text-dark">User Name</label>
-                                <input type="text" value="Charlene Reed" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-[#1a2234] text-primary-text-light dark:text-primary-text-dark">
+                            <div class="flex justify-end mt-12">
+                                <button type="submit" class="bg-primary-accent hover:bg-opacity-90 text-white font-medium py-3 px-12 rounded-md transition duration-200">
+                                    Save
+                                </button>
                             </div>
-                            
-                            <div>
-                                <label class="block mb-2 text-sm font-medium text-primary-text-light dark:text-primary-text-dark">Additional Email (Optional)</label>
-                                <input type="email" value="charlenereed@gmail.com" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-[#1a2234] text-primary-text-light dark:text-primary-text-dark">
-                            </div>
-                            
-                            <div>
-                                <label class="block mb-2 text-sm font-medium text-primary-text-light dark:text-primary-text-dark">Confirm Additional Email</label>
-                                <input type="email" value="charlenereed@gmail.com" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-[#1a2234] text-primary-text-light dark:text-primary-text-dark">
-                            </div>
-                        </div>
-                        
-                        <div class="flex justify-end mt-12">
-                            <button class="bg-primary-accent hover:bg-opacity-90 text-white font-medium py-3 px-12 rounded-md transition duration-200">
-                                Save
-                            </button>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
