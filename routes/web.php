@@ -28,7 +28,7 @@ Route::prefix('Teacher')->middleware(['auth', 'role:Teacher'])->group(function (
     Route::view('/resource', 'teacher.resource')->name('teacher.resource');
 });
 
-Route::prefix('student')->middleware(['auth', 'student'])->group(function () {
+Route::prefix('Student')->middleware(['auth', 'role:Student'])->group(function () {
     Route::view('/dashboard', 'student.dashboard')->name('student.dashboard');
     Route::view('/attendance', 'student.attendance')->name('student.attendance');
     Route::view('/grades', 'student.grades')->name('student.grades');
