@@ -21,7 +21,7 @@ Route::prefix('Admin')->middleware(['auth', 'role:Admin'])->group(function () {
     Route::post('/import/process', [ImportController::class, 'processImport'])->name('admin.import.process');
 });
 
-Route::prefix('teacher')->middleware(['auth', 'teacher'])->group(function () {
+Route::prefix('Teacher')->middleware(['auth', 'role:Teacher'])->group(function () {
     Route::view('/dashboard', 'teacher.dashboard')->name('teacher.dashboard');
     Route::view('/attendance', 'teacher.attendance')->name('teacher.attendance');
     Route::view('/grades', 'teacher.grades')->name('teacher.grades');
