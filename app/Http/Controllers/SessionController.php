@@ -7,6 +7,10 @@ use Illuminate\Validation\ValidationException;
 
 class SessionController extends Controller
 {
+    public function logout(){
+        Auth::logout();
+        return redirect('/');
+    }
 
     public function login(){
         $validation = request()->validate([
