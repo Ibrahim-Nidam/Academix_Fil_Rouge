@@ -26,8 +26,7 @@
                     <span class="sidebar-tooltip group-hover:scale-100">Calendar</span>
                 </a>
 
-            @elseif(0)
-            {{-- Auth::user()->role == 'teacher' --}}
+            @elseif(Auth::user()->role == 'Teacher')
                 <a href="{{route("teacher.dashboard")}}" class="sidebar-icon group">
                     <i class="fas fa-home"></i>
                     <span class="sidebar-tooltip group-hover:scale-100">Home</span>
