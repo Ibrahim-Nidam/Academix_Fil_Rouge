@@ -22,9 +22,9 @@
             <form id="signin-form" action='/auth/login' method='post' class="space-y-6">
                 @csrf
                 <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email address </label>
-                    <input type="email" name="email" value="{{old('email')}}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600" placeholder="name@company.com">
-                    @error('email')
+                    <label for="login" class="block text-sm font-medium text-gray-700 mb-1">Email address or Username </label>
+                    <input type="text" name="login" value="{{old('login')}}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600" placeholder="name@company.com Or JohnDoe">
+                    @error('login')
                         <p class="text-red-500">{{$message}}</p>
                     @enderror
                 </div>
