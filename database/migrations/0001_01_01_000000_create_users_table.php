@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('password');
             $table->enum('gender', ['Male', 'Female']);
             $table->enum('role', ['Student', 'Teacher', 'Admin']);
+            $table->date('date_of_birth')->nullable();
+            $table->string('additional_email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
