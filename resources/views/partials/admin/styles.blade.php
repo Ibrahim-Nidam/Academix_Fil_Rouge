@@ -30,6 +30,7 @@
                   present: '#7a92ca',
                   absent: '#d4af37',
                   late: '#bdc9e5',
+                  setting:'#718EBF',
                   performance: {
                       high: '#4260a6',
                       medium: '#5c7aa4',
