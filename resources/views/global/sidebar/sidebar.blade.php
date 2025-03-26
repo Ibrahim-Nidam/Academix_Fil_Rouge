@@ -9,6 +9,7 @@
         <div class="flex flex-col items-center w-full mt-3">
 
             @if (Auth::user()->role == 'Admin')
+
                 <a href="{{route("admin.dashboard")}}" class="sidebar-icon group">
                     <i class="fas fa-home "></i>
                     <span class="sidebar-tooltip group-hover:scale-100">Home</span>
@@ -27,6 +28,7 @@
                 </a>
 
             @elseif(Auth::user()->role == 'Teacher')
+
                 <a href="{{route("teacher.dashboard")}}" class="sidebar-icon group">
                     <i class="fas fa-home"></i>
                     <span class="sidebar-tooltip group-hover:scale-100">Home</span>
