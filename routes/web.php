@@ -1,11 +1,14 @@
 <?php
 
 use App\Http\Controllers\Admin\ImportController;
+use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/profileSettings', 'global.profile_settings.profileSettings')->name('global.profile_settings.profileSettings');
 Route::view('/profilesecurity', 'global.profile_settings.security')->name('global.profile_settings.security');
+
 Route::view('/login', 'authentification.login');
+Route::post('/auth/login', [SessionController::class, 'login'])->name('login');
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::view('/dashboard', 'admin.dashboard')->name('admin.dashboard');
