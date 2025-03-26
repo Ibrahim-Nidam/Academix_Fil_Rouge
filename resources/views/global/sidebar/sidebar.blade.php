@@ -82,10 +82,15 @@
                 <i class="fas fa-cog "></i>
                 <span class="sidebar-tooltip group-hover:scale-100">Settings</span>
             </a>
-            <div class="sidebar-icon group">
-                <i class="fas fa-sign-out-alt "></i>
-                <span class="sidebar-tooltip group-hover:scale-100">Logout</span>
-            </div>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="flex items-center">
+                    <div class="sidebar-icon group">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span class="sidebar-tooltip group-hover:scale-100">Logout</span>
+                    </div>            
+                </button>
+            </form>
         </div>
     </div>
 </aside>
