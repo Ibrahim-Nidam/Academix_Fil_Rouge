@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
@@ -19,8 +20,10 @@ class SessionController extends Controller
         ]);
 
         $credantials = filter_var($validation['login'], FILTER_VALIDATE_EMAIL) 
+                    ? (User::where('email', $validation['login'])->exists()
                         ? ['email' => $validation['login'], 'password' => $validation['password']]
-                        : ['username' => $validation['login'], 'password' => $validation['password']];
+                        : ['additional_email' => $validation['login'], 'password' => $validation['password']])
+                    : ['username' => $validation['login'], 'password' => $validation['password']];
 
                         // dd($credantials);
         if(!Auth::attempt($credantials)){
