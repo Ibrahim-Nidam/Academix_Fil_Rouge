@@ -30,7 +30,7 @@
                             @csrf
                             @method('PUT')
 
-                            <img src="{{ Auth::user()->profile_image ? asset('storage/' . Auth::user()->profile_image) : asset('images/Profile/' . (Auth::user()->gender == 'Male' ? 'male.svg' : 'female.svg')) }}" alt="Profile" class="w-32 h-32 rounded-full object-cover">
+                            <img id="profile-image-preview" src="{{ Auth::user()->profile_image ? asset('storage/' . Auth::user()->profile_image) : asset('images/Profile/' . (Auth::user()->gender == 'Male' ? 'male.svg' : 'female.svg')) }}" alt="Profile" class="w-32 h-32 rounded-full object-cover">
                             <input type="file" name="profile_image" id="profile_image" accept="image/*" class="hidden" />
                             <label for="profile_image" class="absolute bottom-1 right-1 lg:bottom-64 bg-primary-blue text-white rounded-full p-2 shadow-md cursor-pointer">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -40,7 +40,7 @@
                             </label>
                         </div>
                     </div>
-                    {{-- form --}}
+
                     <div class="flex-grow">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                                 <div>
