@@ -13,6 +13,7 @@ Route::post('/auth/login', [SessionController::class, 'login'])->name('login');
 Route::post('/logout', [SessionController::class, 'logout'])->name('logout');
 
 Route::put('/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
+Route::put('/profile', [ProfileController::class, 'passwordUpdate'])->name('profile.pass');
 
 Route::prefix('Admin')->middleware(['auth', 'role:Admin'])->group(function () {
     Route::view('/dashboard', 'admin.dashboard')->name('admin.dashboard');
