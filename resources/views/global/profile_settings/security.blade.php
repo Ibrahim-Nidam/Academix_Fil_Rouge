@@ -49,14 +49,20 @@
 
                         <div class="mb-6">
                             <label for="currentPassword" class="block mb-2 text-sm font-medium text-primary-text-light dark:text-primary-text-dark">Current Password</label>
-                            <input type="password" id="currentPassword" placeholder="**********" 
+                            <input type="password" name="currentPassword" placeholder="**********" 
                             class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-[#1a2234] text-primary-setting dark:text-primary-text-dark">
+                            @error('currentPassword')
+                                <p class="text-red-500">{{$message}}</p>
+                            @enderror
                         </div>
                         
                         <div class="mb-6">
                             <label for="newPassword" class="block mb-2 text-sm font-medium text-primary-text-light dark:text-primary-text-dark">New Password</label>
-                            <input type="password" id="newPassword" placeholder="**********" 
+                            <input type="password" name="newPassword" placeholder="**********" 
                             class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-[#1a2234] text-primary-setting dark:text-primary-text-dark">
+                            @error('newPassword')
+                                <p class="text-red-500">{{$message}}</p>
+                            @enderror
                         </div>
                         
                         <div class="flex justify-end">
