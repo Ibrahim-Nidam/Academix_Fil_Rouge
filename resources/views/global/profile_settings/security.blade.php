@@ -47,13 +47,13 @@
                     <div class="mb-6">
                         <label for="currentPassword" class="block mb-2 text-sm font-medium text-primary-text-light dark:text-primary-text-dark">Current Password</label>
                         <input type="password" id="currentPassword" value="**********" 
-                                class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-[#1a2234] text-primary-text-light dark:text-primary-text-dark">
+                                class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-[#1a2234] text-primary-setting dark:text-primary-text-dark">
                     </div>
                     
                     <div class="mb-6">
                         <label for="newPassword" class="block mb-2 text-sm font-medium text-primary-text-light dark:text-primary-text-dark">New Password</label>
                         <input type="password" id="newPassword" value="**********" 
-                                class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-[#1a2234] text-primary-text-light dark:text-primary-text-dark">
+                                class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-[#1a2234] text-primary-setting dark:text-primary-text-dark">
                     </div>
                     
                     <div class="flex justify-end">
