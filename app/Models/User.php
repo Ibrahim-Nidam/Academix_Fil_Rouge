@@ -33,7 +33,10 @@ class User extends Authenticatable
         'gender',
         'role',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'date_of_birth',
+        'additional_email',
+        'profile_image'
     ];
 
     /**
