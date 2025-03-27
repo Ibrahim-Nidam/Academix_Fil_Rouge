@@ -31,5 +31,6 @@
     @endif
 
     @include('global.sidebar.js.side&ThemeMode')
+    @include('global.profile_settings.js.settings')
 </body>
 </html>
