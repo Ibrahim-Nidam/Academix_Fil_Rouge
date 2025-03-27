@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Profile;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 
@@ -75,5 +76,26 @@ class ProfileController extends Controller
         $user->save();
 
         return redirect()->back();
+    }
+
+    public function passwordUpdate(Request $request)
+    {
+        $user = Auth::user();
+
+        $request->validate([
+            'currentPassword' => 'required',
+            'newPassword'     => 'required|min:6|max:12'
+        ]);
+
+        if (!Hash::check($request->input('currentPassword'), $user->password)) {
+            return redirect()->back()->withErrors([
+                'currentPassword' => 'The current password is incorrect.'
+            ]);
+        }
+
+        $user->password = Hash::make($request->input('newPassword'));
+        $user->save();
+
+        return redirect()->back()->with('success', 'Password updated successfully.');
     }
 }
