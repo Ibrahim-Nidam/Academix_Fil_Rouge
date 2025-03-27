@@ -72,7 +72,7 @@
                                 
                                 <div>
                                     <label class="block mb-2 text-sm font-medium text-primary-text-light dark:text-primary-text-dark">Confirm Additional Email</label>
-                                    <input type="email" name="confirm_additional_email" value="{{ old('confirm_additional_email') }}" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-[#1a2234] text-primary-setting dark:text-primary-text-dark">
+                                    <input type="email" name="confirm_additional_email" value="{{ old('confirm_additional_email', Auth::user()->additional_email) }}" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-[#1a2234] text-primary-setting dark:text-primary-text-dark">
                                 </div>
                             </div>
                             
