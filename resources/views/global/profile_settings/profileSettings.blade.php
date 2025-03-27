@@ -37,9 +37,6 @@
                     </div>
                     {{-- form --}}
                     <div class="flex-grow">
-                        <form action="" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                                 <div>
                                     <label class="block mb-2 text-sm font-medium text-primary-text-light dark:text-primary-text-dark">First Name</label>
