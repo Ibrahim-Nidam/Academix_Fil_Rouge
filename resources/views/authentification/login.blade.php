@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="login page for the academix application.">
+    <meta name="keywords" content="login, user, management, school">
+    <meta name="author" content="Ibrahim Nidam">
+
+    <title>Academix || Login</title>
+    <link rel="icon" href="{{ asset('images/Favicon/favicon-32x32.png') }}" type="image/x-icon">
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 </head>
 <body class="h-screen text-base-content overflow-hidden">
@@ -19,7 +25,7 @@
                 <button onclick="toggleForm('signin')" id="signin-tab" class="cursor-pointer px-4 py-2 text-sm font-medium text-black border-b-2 border-black">Sign In</button>
             </div>
 
-            <form id="signin-form" action='/auth/login' method='post' class="space-y-6">
+            <form id="signin-form" action='{{route('login')}}' method='post' class="space-y-6">
                 @csrf
                 <div>
                     <label for="login" class="block text-sm font-medium text-gray-700 mb-1">Email address or Username </label>
