@@ -22,6 +22,7 @@ Route::prefix('Admin')->middleware(['auth', 'role:Admin'])->group(function () {
     Route::view('/importData', 'admin.importData')->name('admin.importData');
     Route::view('/planning', 'admin.planningPage')->name('admin.planningPage');
     Route::get('/users', [UserController::class, 'index'])->name('admin.usersPage');
+    Route::post('/users', [UserController::class, 'store'])->name('user.store');
 
     Route::post('/import/preview', [ImportController::class, 'previewImport'])->name('admin.import.preview');
     Route::post('/import/process', [ImportController::class, 'processImport'])->name('admin.import.process');
