@@ -125,6 +125,14 @@
     @apply bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-100;
   }
 
+  .badge-gray {
+    @apply bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100;
+  }
+
+  .badge-red {
+    @apply bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-100;
+  }
+
   /* FullCalendar Custom Styling */
   .fc-theme-standard .fc-scrollgrid {
     @apply border-gray-200 dark:border-gray-700;
