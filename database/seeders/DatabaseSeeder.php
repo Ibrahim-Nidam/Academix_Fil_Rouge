@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
 
         DB::table('users')->insert([
             'id' => '9e850d83-8a09-4da1-bfe6-d25eb82971a8',
@@ -62,5 +61,8 @@ class DatabaseSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
+        User::factory(50)->create();
+
     }
 }
