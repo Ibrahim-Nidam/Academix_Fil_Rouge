@@ -32,6 +32,7 @@ class User extends Authenticatable
         'password',
         'gender',
         'role',
+        'status',
         'created_at',
         'updated_at',
         'date_of_birth',
