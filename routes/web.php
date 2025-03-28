@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ImportController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 //Profile settings
@@ -21,9 +22,11 @@ Route::prefix('Admin')->middleware(['auth', 'role:Admin'])->group(function () {
     Route::view('/dashboard', 'admin.dashboard')->name('admin.dashboard');
     Route::view('/importData', 'admin.importData')->name('admin.importData');
     Route::view('/planning', 'admin.planningPage')->name('admin.planningPage');
+
     Route::get('/users', [UserController::class, 'index'])->name('admin.usersPage');
     Route::post('/users', [UserController::class, 'store'])->name('user.store');
     Route::put('/users/{id}', [UserController::class, 'update'])->name('user.update');
+    Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 
     Route::post('/import/preview', [ImportController::class, 'previewImport'])->name('admin.import.preview');
     Route::post('/import/process', [ImportController::class, 'processImport'])->name('admin.import.process');
