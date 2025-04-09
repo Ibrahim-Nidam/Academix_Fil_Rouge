@@ -1,4 +1,5 @@
 <script>
+document.addEventListener('DOMContentLoaded', () => {
     const addUserBtn = document.getElementById('add-user-btn');
     const editUserBtns = document.querySelectorAll('.edit-user-btn');
     const editFormContainer = document.getElementById('edit-form-container');
@@ -71,5 +72,22 @@
         });
     });
 
-
+    // Show delete confirmation modal
+    const deleteButtons = document.querySelectorAll('.delete-user-btn');
+    deleteButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            currentDeleteForm = btn.closest('form');
+            deleteModal.classList.remove('hidden');
+        });
+    });
+    deleteModalClose.addEventListener('click', () => {
+        deleteModal.classList.add('hidden');
+        currentDeleteForm = null;
+    });
+    confirmDelete.addEventListener('click', () => {
+        if (currentDeleteForm) {
+            currentDeleteForm.submit();
+        }
+    });
+});
 </script>
