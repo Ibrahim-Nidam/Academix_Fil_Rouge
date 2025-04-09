@@ -63,4 +63,13 @@
         });
     });
 
+    // Close/Cancel buttons for the edit user form
+    [closeFormBtn, cancelBtn].forEach(el => {
+        el.addEventListener('click', () => {
+            editFormContainer.classList.add('hidden');
+            userForm.reset();
+        });
+    });
+
+
 </script>
