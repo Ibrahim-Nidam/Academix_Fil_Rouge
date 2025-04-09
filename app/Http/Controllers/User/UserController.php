@@ -62,4 +62,30 @@ class UserController extends Controller
         return redirect()->route('admin.usersPage');
     }
 
+    public function update(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'role' => 'required|in:Student,Teacher,Admin',
+            'status' => 'required|in:Active,Not Active',
+            'gender' => 'required|in:Male,Female'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('admin.usersPage')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $userData = $validator->validated();
+
+        $user->update($userData);
+
+        return redirect()->route('admin.usersPage');
+    }
+
 }
