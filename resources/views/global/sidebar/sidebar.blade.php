@@ -20,7 +20,7 @@
                 </a>
                 <a href="{{route('admin.importData')}}" class="sidebar-icon group">
                     <i class="fas fa-chart-line "></i>
-                    <span class="sidebar-tooltip group-hover:scale-100">Analytics</span>
+                    <span class="sidebar-tooltip group-hover:scale-100">Generate Users</span>
                 </a>
                 <a href="{{route('admin.planningPage')}}" class="sidebar-icon group">
                     <i class="fas fa-calendar-alt "></i>
