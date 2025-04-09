@@ -20,4 +20,17 @@
     const confirmDelete = document.getElementById('confirm-delete');
     let currentDeleteForm = null;
 
+    // show new user form
+    addUserBtn.addEventListener('click', () => {
+        userForm.reset();
+        userIdField.value = '';
+        formTitle.textContent = 'Add New User';
+        const methodInput = userForm.querySelector('input[name="_method"]');
+        if (methodInput) {
+            methodInput.parentNode.removeChild(methodInput);
+        }
+        userForm.action = '/Admin/users';
+        editFormContainer.classList.remove('hidden');
+    });
+
 </script>
