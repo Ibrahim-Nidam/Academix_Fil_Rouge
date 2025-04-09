@@ -24,13 +24,11 @@
       <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 md:p-6 flex-1">
         <div class="flex flex-wrap justify-between items-center mb-4">
           <h2 class="text-lg md:text-xl font-semibold">User Accounts</h2>
-          
           <form method="GET" action="{{ route('admin.usersPage') }}" class="flex flex-wrap gap-2 mt-2 md:mt-0">
             <div class="relative">
               <input type="text" name="search" placeholder="Search users..." value="{{ request('search') }}" class="pl-8 pr-4 py-1 rounded-md bg-gray-100 dark:bg-gray-700 border-none text-sm">
               <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
             </div>
-            
             <select name="role" class="bg-gray-100 dark:bg-gray-700 border-none rounded px-2 py-1 text-sm" onchange="this.form.submit()">
               <option value="all" {{ request('role') == 'all' ? 'selected' : '' }}>All Roles</option>
               <option value="Teacher" {{ request('role') == 'Teacher' ? 'selected' : '' }}>Teachers</option>
@@ -44,14 +42,14 @@
           <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
             <thead>
               <tr class="text-xs md:text-sm">
-                  <th class="px-3 py-2 text-left font-medium">Name</th>
-                  <th class="px-3 py-2 text-left font-medium">Email</th>
-                  <th class="px-3 py-2 text-left font-medium">Role</th>
-                  <th class="px-3 py-2 text-left font-medium">Gender</th>
-                  <th class="px-3 py-2 text-left font-medium">Status</th>
-                  <th class="px-3 py-2 text-right font-medium">Actions</th>
+                <th class="px-3 py-2 text-left font-medium">Name</th>
+                <th class="px-3 py-2 text-left font-medium">Email</th>
+                <th class="px-3 py-2 text-left font-medium">Role</th>
+                <th class="px-3 py-2 text-left font-medium">Gender</th>
+                <th class="px-3 py-2 text-left font-medium">Status</th>
+                <th class="px-3 py-2 text-left font-medium">Actions</th>
               </tr>
-          </thead>
+            </thead>
             <tbody class="divide-y divide-gray-200 dark:divide-gray-700 text-xs md:text-sm">
               @foreach($users as $user)
               <tr class="table-row-hover" data-user-id="{{ $user->id }}" data-gender="{{ $user->gender }}">
@@ -72,22 +70,26 @@
                   </span>
                 </td>
                 <td class="px-3 py-3">
-                    <span class="badge badge-gray">
-                        {{ $user->gender }}
-                    </span>
+                  <span class="badge badge-gray">
+                    {{ $user->gender }}
+                  </span>
                 </td>
                 <td class="px-3 py-3">
-                  <span class="badge {{ $user->status === 'Active' ? 'badge-green' : 'badge-red' }}">
+                  <span class="badge text-nowrap {{ $user->status === 'Active' ? 'badge-green' : 'badge-red' }}">
                     {{ ucfirst($user->status) }}
                   </span>
                 </td>
-                <td class="px-3 py-3 text-right">
-                  <button class="edit-user-btn btn btn-sm btn-secondary mr-1" data-user-id="{{ $user->id }}">
+                <td class="px-3 py-3 text-right flex-nowrap flex">
+                  <button type="button" class="edit-user-btn btn btn-sm btn-secondary mr-1" data-user-id="{{ $user->id }}">
                     <i class="fas fa-edit"></i>
                   </button>
-                  <button class="delete-user-btn btn btn-sm btn-danger" data-user-id="{{ $user->id }}">
-                    <i class="fas fa-trash"></i>
-                  </button>
+                  <form class="delete-user-form inline" method="POST" action="{{ route('user.destroy', $user->id) }}">
+                      @csrf
+                      @method('DELETE')
+                      <button type="button" class="delete-user-btn btn btn-sm btn-danger" data-user-id="{{ $user->id }}">
+                          <i class="fas fa-trash"></i>
+                      </button>
+                  </form>
                 </td>
               </tr>
               @endforeach
@@ -115,7 +117,6 @@
         
         <form id="user-form" method="POST" action="">
           @csrf
-          @method('PUT')
           <input type="hidden" id="user-id" name="user_id" value="">
           
           <div class="mb-4">
@@ -144,7 +145,7 @@
           </div>
 
           <div class="mb-4">
-            <label for="gender" class="form-label">Gender</label>
+            <label for="Gender" class="form-label">Gender</label>
             <select id="Gender" name="gender" class="form-select" required>
               <option value="">Select Gender</option>
               <option value="Male">Male</option>
@@ -183,8 +184,8 @@
         </p>
       </div>
       <div class="flex justify-center space-x-3">
-        <button id="cancel-delete" class="btn btn-secondary">Cancel</button>
-        <button id="confirm-delete" class="btn btn-danger">Delete</button>
+        <button type="button" class="btn btn-secondary delete-modal-close">Cancel</button>
+        <button type="button" id="confirm-delete" class="btn btn-danger">Delete</button>
       </div>
     </div>
   </div>
