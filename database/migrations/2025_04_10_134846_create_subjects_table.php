@@ -11,7 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::create('subjects', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
+        });
         
+        Schema::create('subject_teacher', function (Blueprint $table) {
+            $table->id();
+            $table->uuid('teacher_id');
+            $table->foreign('teacher_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('subject_id')->constrained('subjects')->onDelete('cascade');
+            $table->timestamps();
+        });
     }
 
     /**
