@@ -170,26 +170,37 @@
             return `
             <tr class="border-b border-gray-200 dark:border-gray-700 hover:bg-primary-light/10 dark:hover:bg-primary-dark/20 transition-colors">
                 <td class="px-4 py-3 whitespace-nowrap">
-                <input type="checkbox" name="selected_users[]" value="${index}" checked class="rounded border-primary-blue/70 text-primary-blue focus:ring-primary-blue/30 dark:border-primary-present dark:bg-primary-dark dark:text-primary-present">
-                <input type="hidden" name="users[${index}][first_name]" value="${user.first_name}">
-                <input type="hidden" name="users[${index}][last_name]" value="${user.last_name}">
-                <input type="hidden" name="users[${index}][gender]" value="${user.gender}">
+                    <input type="checkbox" name="selected_users[]" value="${index}" checked class="rounded border-primary-blue/70 text-primary-blue focus:ring-primary-blue/30 dark:border-primary-present dark:bg-primary-dark dark:text-primary-present">
+                    <input type="hidden" name="users[${index}][first_name]" value="${user.first_name}">
+                    <input type="hidden" name="users[${index}][last_name]" value="${user.last_name}">
+                    <input type="hidden" name="users[${index}][gender]" value="${user.gender}">
+                    <input type="hidden" name="users[${index}][username]" value="${user.username || ''}">
+                    ${user.class ? `<input type="hidden" name="users[${index}][class]" value="${user.class}">` : ''}
+                    ${user.subject ? `<input type="hidden" name="users[${index}][subject]" value="${user.subject}">` : ''}
                 </td>
                 <td class="px-4 py-3 whitespace-nowrap">
-                <input type="text" name="users[${index}][first_name]" value="${user.first_name}" class="w-full rounded-md border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-primary-blue focus:ring focus:ring-primary-blue/20 dark:border-gray-600 dark:bg-primary-dark dark:text-primary-text-dark dark:focus:border-primary-present">
+                    <input type="text" name="users[${index}][first_name]" value="${user.first_name}" class="w-full rounded-md border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-primary-blue focus:ring focus:ring-primary-blue/20 dark:border-gray-600 dark:bg-primary-dark dark:text-primary-text-dark dark:focus:border-primary-present">
                 </td>
                 <td class="px-4 py-3 whitespace-nowrap">
-                <input type="text" name="users[${index}][last_name]" value="${user.last_name}" class="w-full rounded-md border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-primary-blue focus:ring focus:ring-primary-blue/20 dark:border-gray-600 dark:bg-primary-dark dark:text-primary-text-dark dark:focus:border-primary-present">
+                    <input type="text" name="users[${index}][last_name]" value="${user.last_name}" class="w-full rounded-md border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-primary-blue focus:ring focus:ring-primary-blue/20 dark:border-gray-600 dark:bg-primary-dark dark:text-primary-text-dark dark:focus:border-primary-present">
                 </td>
                 <td class="px-4 py-3 whitespace-nowrap">
-                <select name="users[${index}][gender]" class="w-full rounded-md border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-primary-blue focus:ring focus:ring-primary-blue/20 dark:border-gray-600 dark:bg-primary-dark dark:text-primary-text-dark dark:focus:border-primary-present">
-                    <option value="Male" ${user.gender === 'Male' ? 'selected' : ''}>Male</option>
-                    <option value="Female" ${user.gender === 'Female' ? 'selected' : ''}>Female</option>
-                </select>
+                    <select name="users[${index}][gender]" class="w-full rounded-md border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-primary-blue focus:ring focus:ring-primary-blue/20 dark:border-gray-600 dark:bg-primary-dark dark:text-primary-text-dark dark:focus:border-primary-present">
+                        <option value="Male" ${user.gender === 'Male' ? 'selected' : ''}>Male</option>
+                        <option value="Female" ${user.gender === 'Female' ? 'selected' : ''}>Female</option>
+                    </select>
                 </td>
                 <td class="px-4 py-3 whitespace-nowrap">
-                <input type="text" name="users[${index}][username]" value="${user.username || ''}" class="w-full rounded-md border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-primary-blue focus:ring focus:ring-primary-blue/20 dark:border-gray-600 dark:bg-primary-dark dark:text-primary-text-dark dark:focus:border-primary-present">
+                    <input type="text" name="users[${index}][username]" value="${user.username || ''}" class="w-full rounded-md border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-primary-blue focus:ring focus:ring-primary-blue/20 dark:border-gray-600 dark:bg-primary-dark dark:text-primary-text-dark dark:focus:border-primary-present">
                 </td>
+                <td class="px-4 py-3 whitespace-nowrap">
+                    <input type="text" name="users[${index}][class]" value="${user.class || ''}" class="w-full rounded-md border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-primary-blue focus:ring focus:ring-primary-blue/20 dark:border-gray-600 dark:bg-primary-dark dark:text-primary-text-dark dark:focus:border-primary-present">
+                </td>
+                ${userType === 'teacher' ? `
+                <td class="px-4 py-3 whitespace-nowrap">
+                    <input type="text" name="users[${index}][subject]" value="${user.subject || ''}" class="w-full rounded-md border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-primary-blue focus:ring focus:ring-primary-blue/20 dark:border-gray-600 dark:bg-primary-dark dark:text-primary-text-dark dark:focus:border-primary-present">
+                </td>
+                ` : ''}
             </tr>
             `;
         });
