@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class User extends Authenticatable
@@ -63,6 +64,21 @@ class User extends Authenticatable
         ];
     }
 
+    public function subjects()
+    {
+        return $this->belongsToMany(Subject::class, 'subject_teacher', 'teacher_id', 'subject_id');
+    }
+
+    public function classrooms()
+    {
+        return $this->belongsToMany(Classroom::class, 'classroom_teacher', 'teacher_id', 'classroom_id');
+    }
+
+    public function student()
+    {
+        return $this->hasOne(Student::class);
+    }
+
     protected static function boot()
     {
         parent::boot();
@@ -93,9 +109,9 @@ class User extends Authenticatable
     {
         $createdUsers = [];
         $errors = [];
-
+        
         foreach ($usersData as $userData) {
-DB::beginTransaction();
+            DB::beginTransaction();
             try {
                 if (empty($userData['username'])) {
                     $userData['username'] = self::generateUsername(
@@ -103,20 +119,20 @@ DB::beginTransaction();
                         $userData['last_name']
                     );
                 }
-
+                
                 $userData['email'] = self::generateEmail(
                     $userData['first_name'],
                     $userData['last_name']
                 );
                 $userData['password'] = bcrypt($userData['username']);
                 $userData['role'] = $roleType;
-
+                
                 $class = $userData['class'] ?? null;
                 $subject = $userData['subject'] ?? null;
                 unset($userData['class'], $userData['subject']);
-
+                
                 $user = self::create($userData);
-
+                
                 if ($roleType === 'Teacher' && !empty($class)) {
                     $classroom = Classroom::firstOrCreate(['name' => $class]);
                     $user->classrooms()->attach($classroom->id);
@@ -143,9 +159,9 @@ DB::beginTransaction();
                 }
                 
                 $createdUsers[] = $user;
-DB::commit();
+                DB::commit();
             } catch (Exception $e) {
-DB::rollBack();
+                DB::rollBack();
                 $errors[] = [
                     'user' => $userData,
                     'error' => $e->getMessage()
