@@ -11,7 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        
+        Schema::create('students', function (Blueprint $table) {
+            $table->id();
+            $table->uuid('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('classroom_id')->nullable()->constrained('classrooms')->onDelete('set null');
+            $table->string('grade')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
