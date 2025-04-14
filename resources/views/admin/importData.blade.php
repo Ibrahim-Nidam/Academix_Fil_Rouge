@@ -77,7 +77,7 @@
     </div>
 
     {{-- Data Preview Section --}}
-    <div id="data-preview" class="hidden bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 md:p-6 mb-4 md:mb-6">
+    <div id="data-preview" class="hidden bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 md:p-6 mb-4 md:mb-6" data-user-type="{{ $userType ?? 'teacher' }}">
       <h2 class="text-lg md:text-xl font-semibold mb-3 md:mb-4">Data Preview and Validation</h2>
       <div class="overflow-x-auto">
         <form id="importForm" action="{{ route('admin.import.process') }}" method="POST">
@@ -96,23 +96,29 @@
             <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
               <thead class="bg-gray-50 dark:bg-gray-700">
                 <tr>
-                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                    <input type="checkbox" id="checkbox-all" class="rounded border-gray-300 dark:border-gray-600">
-                  </th>
-                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                    First Name
-                  </th>
-                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                    Last Name
-                  </th>
-                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                    Gender
-                  </th>
-                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                    Username
-                  </th>
+                    <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                        <input type="checkbox" id="checkbox-all" class="rounded border-gray-300 dark:border-gray-600">
+                    </th>
+                    <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                        First Name
+                    </th>
+                    <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                        Last Name
+                    </th>
+                    <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                        Gender
+                    </th>
+                    <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                        Username
+                    </th>
+                    <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                        Class
+                    </th>
+                    <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                        Subject
+                    </th>
                 </tr>
-              </thead>
+            </thead>
               <tbody id="import-data-body" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
 
               </tbody>
@@ -137,6 +143,7 @@
 
 @if(isset($previewData) && count($previewData) > 0)
   <script>
+    window.userType = "{{ $userType ?? 'teacher' }}";
     window.previewData = @json($previewData);
   </script>
 @endif
