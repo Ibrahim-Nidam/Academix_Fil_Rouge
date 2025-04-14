@@ -95,6 +95,7 @@ class User extends Authenticatable
         $errors = [];
 
         foreach ($usersData as $userData) {
+DB::beginTransaction();
             try {
                 if (empty($userData['username'])) {
                     $userData['username'] = self::generateUsername(
@@ -107,21 +108,50 @@ class User extends Authenticatable
                     $userData['first_name'],
                     $userData['last_name']
                 );
-
                 $userData['password'] = bcrypt($userData['username']);
                 $userData['role'] = $roleType;
 
-                $user = self::create($userData);
-                $createdUsers[] = $user;
+                $class = $userData['class'] ?? null;
+                $subject = $userData['subject'] ?? null;
+                unset($userData['class'], $userData['subject']);
 
+                $user = self::create($userData);
+
+                if ($roleType === 'Teacher' && !empty($class)) {
+                    $classroom = Classroom::firstOrCreate(['name' => $class]);
+                    $user->classrooms()->attach($classroom->id);
+                    $attachedClassrooms = $user->classrooms()->pluck('name')->toArray();
+                }
+                
+                if ($roleType === 'Teacher' && !empty($subject)) {
+                    $subjectNames = array_map('trim', explode(',', $subject));
+                    
+                    foreach ($subjectNames as $subjectName) {
+                        $subjectModel = Subject::firstOrCreate(['name' => $subjectName]);
+                        $user->subjects()->attach($subjectModel->id);
+                    }
+                    
+                    $attachedSubjects = $user->subjects()->pluck('name')->toArray();
+                }
+                
+                if ($roleType === 'Student' && !empty($class)) {
+                    $classroom = Classroom::firstOrCreate(['name' => $class]);
+                    $student = Student::updateOrCreate(
+                        ['user_id' => $user->id],
+                        ['classroom_id' => $classroom->id]
+                    );
+                }
+                
+                $createdUsers[] = $user;
+DB::commit();
             } catch (Exception $e) {
+DB::rollBack();
                 $errors[] = [
                     'user' => $userData,
                     'error' => $e->getMessage()
                 ];
             }
         }
-
         return [
             'created' => $createdUsers,
             'errors' => $errors
