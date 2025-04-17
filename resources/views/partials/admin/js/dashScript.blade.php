@@ -32,49 +32,58 @@
         Chart.defaults.color = colors.textColor;
         Chart.defaults.borderColor = colors.gridColor;
     
+    // Students Chart
     const studentsCtx = document.getElementById('studentsChart').getContext('2d');
     studentsChart = new Chart(studentsCtx, {
-        type: 'doughnut',
-        data: {
+    type: 'doughnut',
+    data: {
         labels: ['Male', 'Female'],
         datasets: [{
-            data: [60, 40],
-            backgroundColor: ['#4260a6', '#e5cf86'],
-            borderWidth: 0,
-            cutout: '70%'
+        data: [
+            parseInt(document.getElementById('male-students-count').value),
+            parseInt(document.getElementById('female-students-count').value)
+        ],
+        backgroundColor: ['#4260a6', '#e5cf86'],
+        borderWidth: 0,
+        cutout: '70%'
         }]
-        },
-        options: {
+    },
+    options: {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-            legend: { display: false },
-            tooltip: { enabled: false }
+        legend: { display: false },
+        tooltip: { enabled: false }
         }
-        }
+    }
     });
-    
+
+    // Staff Chart
     const staffCtx = document.getElementById('staffChart').getContext('2d');
     staffChart = new Chart(staffCtx, {
-        type: 'doughnut',
-        data: {
+    type: 'doughnut',
+    data: {
         labels: ['Male', 'Female'],
         datasets: [{
-            data: [45, 55],
-            backgroundColor: ['#4260a6', '#e5cf86'],
-            borderWidth: 0,
-            cutout: '70%'
+        data: [
+            parseInt(document.getElementById('male-staff-count').value),
+            parseInt(document.getElementById('female-staff-count').value)
+        ],
+        backgroundColor: ['#4260a6', '#e5cf86'],
+        borderWidth: 0,
+        cutout: '70%'
         }]
-        },
-        options: {
+    },
+    options: {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-            legend: { display: false },
-            tooltip: { enabled: false }
+        legend: { display: false },
+        tooltip: { enabled: false }
         }
-        }
+    }
     });
+
     
     // Student Attendance Chart
     const studentAttendanceCtx = document.getElementById('studentAttendanceChart').getContext('2d');
