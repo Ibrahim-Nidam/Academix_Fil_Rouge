@@ -43,6 +43,13 @@ class ScheduleController extends Controller
         return response()->json(['success' => true, 'message' => 'Schedule updated successfully.']);
     }
 
+    public function destroy($id)
+    {
+        $schedule = Schedule::findOrFail($id);
+        $schedule->delete();
+
+        return response()->json(['success' => true]);
+    }
 
     private function validateSchedule(Request $request)
     {
