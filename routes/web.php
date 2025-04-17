@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ImportController;
+use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Profile\ProfileController;
-use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
@@ -20,7 +21,7 @@ Route::post('/logout', [SessionController::class, 'logout'])->name('logout');
 
 //Admin
 Route::prefix('Admin')->middleware(['auth', 'role:Admin'])->group(function () {
-    Route::view('/dashboard', 'admin.dashboard')->name('admin.dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::view('/importData', 'admin.importData')->name('admin.importData');
 
     Route::get('/planning/events', [ScheduleController::class, 'events']);
