@@ -33,6 +33,15 @@ class ScheduleController extends Controller
         return response()->json(['success' => true, 'id' => $schedule->id]);
     }
 
+    public function update(Request $request, $id)
+    {
+        $validated = $this->validateSchedule($request);
+
+        $schedule = Schedule::findOrFail($id);
+        $schedule->update($validated);
+
+        return response()->json(['success' => true, 'message' => 'Schedule updated successfully.']);
+    }
 
 
     private function validateSchedule(Request $request)
