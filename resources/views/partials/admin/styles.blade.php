@@ -147,7 +147,7 @@
   }
 
   .fc .fc-col-header-cell-cushion {
-    @apply text-primary-text-light dark:text-primary-text-dark font-medium;
+    @apply text-primary-text-light  font-medium;
   }
 
   .fc .fc-toolbar-title {
