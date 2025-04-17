@@ -24,6 +24,7 @@ Route::prefix('Admin')->middleware(['auth', 'role:Admin'])->group(function () {
     Route::get('/planning/events', [ScheduleController::class, 'events']);
     Route::get('/planning', [ScheduleController::class, 'index'])->name('admin.planningPage');
     Route::post('/planning', [ScheduleController::class, 'store'])->name('admin.planningPage.store');
+    Route::put('/planning/{id}', [ScheduleController::class, 'update']);
 
     Route::get('/users', [UserController::class, 'index'])->name('admin.usersPage');
     Route::post('/users', [UserController::class, 'store'])->name('user.store');
