@@ -32,5 +32,38 @@ class ScheduleController extends Controller
         ]);
     }
 
-    
+    private function checkConflicts(array $data)
+    {
+        $conditions = [
+            'room' => ['room' => $data['room']],
+            'teacher' => ['teacher_id' => $data['teacher_id']],
+            'classroom' => ['classroom_id' => $data['classroom_id']]
+        ];
+
+        foreach ($conditions as $type => $where) {
+            $conflict = Schedule::where($where)
+                ->where('day_of_week', $data['day_of_week'])
+                ->where(function ($query) use ($data) {
+                    $query->whereBetween('start_time', [$data['start_time'], $data['end_time']])
+                            ->orWhereBetween('end_time', [$data['start_time'], $data['end_time']])
+                            ->orWhere(function ($q) use ($data) {
+                            $q->where('start_time', '<=', $data['start_time'])
+                            ->where('end_time', '>=', $data['end_time']);
+                        });
+                })->first();
+
+            if ($conflict) {
+                switch ($type) {
+                    case 'room':
+                        return 'This room is already booked during this time period.';
+                    case 'teacher':
+                        return 'This teacher already has a class scheduled during this time period.';
+                    case 'classroom':
+                        return 'This class already has a session scheduled during this time period.';
+                }
+            }
+        }
+
+        return null;
+    }
 }
