@@ -19,7 +19,7 @@
                     <span class="sidebar-tooltip group-hover:scale-100">Users</span>
                 </a>
                 <a href="{{route('admin.importData')}}" class="sidebar-icon group">
-                    <i class="fas fa-chart-line "></i>
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
                     <span class="sidebar-tooltip group-hover:scale-100">Generate Users</span>
                 </a>
                 <a href="{{route('admin.planningPage')}}" class="sidebar-icon group">
