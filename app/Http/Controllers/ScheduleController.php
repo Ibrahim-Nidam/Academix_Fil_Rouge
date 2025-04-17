@@ -19,6 +19,41 @@ class ScheduleController extends Controller
         ]);
     }
 
+    public function events(Request $request)
+    {
+        $schedules = Schedule::with(['teacher', 'classroom'])->get();
+        $startDate = $request->filled('start') ? Carbon::parse($request->start) : Carbon::now()->startOfMonth();
+        $endDate = $request->filled('end') ? Carbon::parse($request->end) : Carbon::now()->endOfMonth();
+
+        $events = [];
+
+        for ($date = $startDate->copy(); $date <= $endDate; $date->addDay()) {
+            $dayOfWeek = $date->format('l');
+            if (!in_array($dayOfWeek, ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'])) {
+                continue;
+            }
+
+            $daySchedules = $schedules->where('day_of_week', $dayOfWeek);
+
+            foreach ($daySchedules as $schedule) {
+                $events[] = [
+                    'id' => $schedule->id,
+                    'title' => $schedule->title,
+                    'start' => $date->copy()->setTimeFromTimeString($schedule->start_time)->toIso8601String(),
+                    'end' => $date->copy()->setTimeFromTimeString($schedule->end_time)->toIso8601String(),
+                    'extendedProps' => [
+                        'teacher' => $schedule->teacher_id,
+                        'classroom' => $schedule->classroom_id,
+                        'room' => $schedule->room,
+                        'recurring' => true,
+                        'day_of_week' => $schedule->day_of_week
+                    ],
+                ];
+            }
+        }
+
+        return response()->json($events);
+    }
 
     public function store(Request $request)
     {
