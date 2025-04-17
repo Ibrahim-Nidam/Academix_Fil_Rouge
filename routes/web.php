@@ -21,7 +21,7 @@ Route::post('/logout', [SessionController::class, 'logout'])->name('logout');
 Route::prefix('Admin')->middleware(['auth', 'role:Admin'])->group(function () {
     Route::view('/dashboard', 'admin.dashboard')->name('admin.dashboard');
     Route::view('/importData', 'admin.importData')->name('admin.importData');
-    Route::view('/planning', 'admin.planningPage')->name('admin.planningPage');
+    Route::get('/planning/events', [ScheduleController::class, 'events']);
 
     Route::get('/users', [UserController::class, 'index'])->name('admin.usersPage');
     Route::post('/users', [UserController::class, 'store'])->name('user.store');
