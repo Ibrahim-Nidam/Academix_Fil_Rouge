@@ -22,6 +22,7 @@ Route::prefix('Admin')->middleware(['auth', 'role:Admin'])->group(function () {
     Route::view('/dashboard', 'admin.dashboard')->name('admin.dashboard');
     Route::view('/importData', 'admin.importData')->name('admin.importData');
     Route::get('/planning/events', [ScheduleController::class, 'events']);
+    Route::get('/planning', [ScheduleController::class, 'index'])->name('admin.planningPage');
 
     Route::get('/users', [UserController::class, 'index'])->name('admin.usersPage');
     Route::post('/users', [UserController::class, 'store'])->name('user.store');
