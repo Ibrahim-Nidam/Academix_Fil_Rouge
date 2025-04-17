@@ -38,5 +38,7 @@ class DatabaseSeeder extends Seeder
             SubjectsSeeder::class,
             StudentsSeeder::class,
         ]);
+
+        $this->call(ScheduleSeeder::class);
     }
 }
