@@ -108,7 +108,7 @@
               <span class="text-xs">Present</span>
             </div>
             <div class="flex items-center">
-              <div class="w-3 h-3 rounded-sm bg-primary-late mr-1"></div>
+              <div class="w-3 h-3 rounded-sm bg-primary-absent mr-1"></div>
               <span class="text-xs">Absent</span>
             </div>
           </div>
