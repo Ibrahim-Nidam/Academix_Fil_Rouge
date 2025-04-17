@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\ImportController;
 use App\Http\Controllers\Profile\ProfileController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
@@ -21,10 +22,13 @@ Route::post('/logout', [SessionController::class, 'logout'])->name('logout');
 Route::prefix('Admin')->middleware(['auth', 'role:Admin'])->group(function () {
     Route::view('/dashboard', 'admin.dashboard')->name('admin.dashboard');
     Route::view('/importData', 'admin.importData')->name('admin.importData');
+
     Route::get('/planning/events', [ScheduleController::class, 'events']);
+
     Route::get('/planning', [ScheduleController::class, 'index'])->name('admin.planningPage');
     Route::post('/planning', [ScheduleController::class, 'store'])->name('admin.planningPage.store');
     Route::put('/planning/{id}', [ScheduleController::class, 'update']);
+    Route::delete('/planning/{planning}', [ScheduleController::class, 'destroy'])->name('admin.planningPage.destroy');
 
     Route::get('/users', [UserController::class, 'index'])->name('admin.usersPage');
     Route::post('/users', [UserController::class, 'store'])->name('user.store');
