@@ -19,6 +19,22 @@ class ScheduleController extends Controller
         ]);
     }
 
+
+    public function store(Request $request)
+    {
+        $validated = $this->validateSchedule($request);
+
+        if ($conflict = $this->checkConflicts($validated)) {
+            return response()->json(['success' => false, 'message' => $conflict], 422);
+        }
+
+        $schedule = Schedule::create($validated);
+
+        return response()->json(['success' => true, 'id' => $schedule->id]);
+    }
+
+
+
     private function validateSchedule(Request $request)
     {
         return $request->validate([
