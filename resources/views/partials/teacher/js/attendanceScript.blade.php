@@ -216,6 +216,39 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
+    // showToast function
+    function showToast(message, type = 'success') {
+        if (toast) {
+            const toastMessage = document.getElementById('toastMessage');
+            const toastIcon = toast.querySelector('svg');
+            
+            if (toastMessage) {
+                toastMessage.textContent = message;
+            }
+            
+            toast.classList.remove('hidden');
+            
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(-20px)';
+            
+            setTimeout(() => {
+                toast.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                toast.style.opacity = '1';
+                toast.style.transform = 'translateY(0)';
+            }, 10);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(-20px)';
+                
+                setTimeout(() => {
+                    toast.classList.add('hidden');
+                    toast.style.transition = '';
+                }, 300);
+            }, 3000);
+        }
+    }
+
     // submit attendance
     function submitAttendance() {
         if (!selectedClassId || !students[selectedClassId]) {
