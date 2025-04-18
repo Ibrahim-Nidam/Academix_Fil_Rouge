@@ -216,6 +216,49 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
+    // submit attendance
+    function submitAttendance() {
+        if (!selectedClassId || !students[selectedClassId]) {
+            showToast("Please select a class first");
+            return;
+        }
+        
+        const dateKey = formatDateForAPI(selectedDate);
+        const recordKey = `${selectedClassId}_${dateKey}`;
+        
+        const records = [];
+        
+        students[selectedClassId].forEach(student => {
+            records.push({
+                classroom_id: parseInt(selectedClassId),
+                student_id: student.user_id,
+                status: attendanceRecords[recordKey][student.user_id] || 'present',
+                date: dateKey
+            });
+        });
+        
+        showToast("Submitting attendance...");
+        
+        fetch('/Teacher/attendance/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({ records: records })
+        })
+        .then(response => response.json())
+        .then(data => {
+            const selectedClass = classes.find(c => c.classroom_id == selectedClassId);
+            const className = selectedClass ? selectedClass.classroom.name : 'Class';
+            
+            showToast(data.message || `${className} attendance submitted successfully`);
+        })
+        .catch(error => {
+            console.error('Error submitting attendance:', error);
+            showToast("Failed to submit attendance");
+        });
+    }
     // Helper function to format time
     function formatTime(timeString) {
         const [hours, minutes] = timeString.split(':');
