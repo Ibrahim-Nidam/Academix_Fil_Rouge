@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers\Teacher;
 
-
+use App\Http\Controllers\Controller;
+use App\Models\Student;
+use App\Models\Attendance;
+use App\Models\Schedule;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AttendanceController extends Controller
 {
@@ -27,4 +32,29 @@ class AttendanceController extends Controller
         return response()->json($students);
     }
 
+    public function submitAttendance(Request $request)
+    {
+        $data = $request->validate([
+            'records' => 'required|array',
+            'records.*.classroom_id' => 'required|integer',
+            'records.*.student_id' => 'required|uuid',
+            'records.*.status' => 'required|in:present,absent',
+            'records.*.date' => 'required|date',
+        ]);
+
+        foreach ($data['records'] as $record) {
+            Attendance::updateOrCreate(
+                [
+                    'classroom_id' => $record['classroom_id'],
+                    'student_id' => $record['student_id'],
+                    'date' => $record['date']
+                ],
+                [
+                    'status' => $record['status']
+                ]
+            );
+        }
+
+        return response()->json(['message' => 'Attendance submitted successfully']);
+    }
 }
