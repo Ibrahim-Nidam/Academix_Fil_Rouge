@@ -51,8 +51,22 @@ class DatabaseSeeder extends Seeder
             ClassesSeeder::class,
             SubjectsSeeder::class,
             StudentsSeeder::class,
+            AttendanceSeeder::class,
         ]);
+        
+        // Get teacher id
+        $teacherId = '9e850d83-8a09-4da1-bfe6-d25eb82971a6';
 
+        // Get all subjects
+        $subjectIds = DB::table('subjects')->pluck('id');
+
+        // Link teacher to all subjects (or specific ones if you prefer)
+        foreach ($subjectIds as $subjectId) {
+            DB::table('subject_teacher')->insert([
+                'subject_id' => $subjectId,
+                'teacher_id' => $teacherId,
+            ]);
+        }
         $this->call(ScheduleSeeder::class);
     }
 }
