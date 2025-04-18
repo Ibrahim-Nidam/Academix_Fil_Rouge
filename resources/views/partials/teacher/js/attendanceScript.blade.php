@@ -1,27 +1,31 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const weekDaysContainer = document.getElementById('weekDays');
-    const selectedDayInfo = document.getElementById('selectedDayInfo');
     const classSelector = document.getElementById('classSelector');
     const classAttendanceSection = document.getElementById('classAttendanceSection');
     const submitAttendanceBtn = document.getElementById('submitAttendance');
+    const toast = document.getElementById('toast');
 
     let selectedDate = new Date();
     let selectedClassId = '';
     let classes = [];
     let students = {};
+    let attendanceRecords = {};
 
     generateWeekDays();
     setupEventListeners();
-    classSelector.addEventListener('change', handleClassChange);
-    submitAttendanceBtn.addEventListener('click', submitAttendance);
+
+    function setupEventListeners() {
+        classSelector.addEventListener('change', handleClassChange);
+        submitAttendanceBtn.addEventListener('click', submitAttendance);
+    }
 
     // week days generation
     function generateWeekDays() {
         const today = new Date();
         const weekDays = [];
         
-        for (let i = 0; i < 7; i++) {
+        for (let i = 1; i < 7; i++) {
             const day = new Date(today);
             day.setDate(today.getDate() - today.getDay() + i);
             weekDays.push({
@@ -50,11 +54,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 document.querySelectorAll('.day-item').forEach(el => el.classList.remove('active'));
                 dayElement.classList.add('active');
-                selectedDayInfo.textContent = day.fullDate;
                 
-                if (selectedClassId) {
-                    renderAttendanceList(selectedClassId, selectedDate);
-                }
+                const dayOfWeek = day.date.toLocaleDateString('en-US', { weekday: 'long' });
+                fetchClassesForDay(dayOfWeek);
             });
             
             weekDaysContainer.appendChild(dayElement);
@@ -62,15 +64,55 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const todayData = weekDays.find(day => day.isToday);
         if (todayData) {
-            selectedDayInfo.textContent = todayData.fullDate;
             selectedDate = todayData.date;
+            
+            const todayOfWeek = today.toLocaleDateString('en-US', { weekday: 'long' });
+            fetchClassesForDay(todayOfWeek);
         }
     }
 
+    // Fetch classes for a specific day
+    function fetchClassesForDay(dayOfWeek) {
+        fetch(`/Teacher/attendance/classes/${dayOfWeek}`)
+            .then(response => response.json())
+            .then(data => {
+                classes = data;
+                populateClassSelector(classes);
+                
+                if (selectedClassId) {
+                    const stillAvailable = classes.some(c => c.classroom_id == selectedClassId);
+                    if (stillAvailable) {
+                        classSelector.value = selectedClassId;
+                        fetchStudentsForClass(selectedClassId);
+                    } else {
+                        classAttendanceSection.innerHTML = '';
+                    }
+                }
+            })
+            .catch(error => console.error('Error fetching classes:', error));
+    }
+
+    // Populate the class selector dropdown
+    function populateClassSelector(classes) {
+        classSelector.innerHTML = '<option value="">Select a class...</option>';
+        
+        classes.forEach(classItem => {
+            const option = document.createElement('option');
+            option.value = classItem.classroom_id;
+            
+            const startTime = formatTime(classItem.start_time);
+            const endTime = formatTime(classItem.end_time);
+            
+            option.textContent = `${classItem.classroom.name} (${startTime} - ${endTime})`;
+            classSelector.appendChild(option);
+        });
+    }
+
+    // Handle class selection change
     function handleClassChange() {
         selectedClassId = classSelector.value;
         if (selectedClassId) {
-            renderAttendanceList(selectedClassId, selectedDate);
+            fetchStudentsForClass(selectedClassId);
         } else {
             classAttendanceSection.innerHTML = '';
         }
@@ -98,10 +140,15 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => console.error('Error fetching students:', error));
     }
 
+    // Render the attendance list for a class
     function renderAttendanceList(classId, date) {
-        const selectedClass = classes.find(c => c.id === classId);
-        const dateKey = date.toISOString().split('T')[0];
+        const selectedClass = classes.find(c => c.classroom_id == classId);
+        const dateKey = formatDateForAPI(date);
         const recordKey = `${classId}_${dateKey}`;
+        
+        if (!selectedClass || !students[classId]) {
+            return;
+        }
         
         const classCard = document.createElement('div');
         classCard.className = 'class-card';
@@ -112,7 +159,8 @@ document.addEventListener('DOMContentLoaded', function() {
         let presentCount = 0;
         let absentCount = 0;
         
-        Object.values(attendanceRecords[recordKey]).forEach(status => {
+        students[classId].forEach(student => {
+            const status = attendanceRecords[recordKey][student.user_id] || 'present';
             if (status === 'present') {
                 presentCount++;
             } else {
@@ -122,8 +170,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         classHeader.innerHTML = `
             <div>
-                <h3 class="text-lg font-semibold">${selectedClass.name}</h3>
-                <p class="text-sm text-gray-500 dark:text-gray-400">${selectedClass.time}</p>
+                <h3 class="text-lg font-semibold">${selectedClass.classroom.name}</h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400">${formatTime(selectedClass.start_time)} - ${formatTime(selectedClass.end_time)}</p>
             </div>
             <div class="flex items-center gap-2">
                 <span class="text-sm font-medium">${students[classId].length} Students</span>
@@ -145,17 +193,17 @@ document.addEventListener('DOMContentLoaded', function() {
             const studentRow = document.createElement('div');
             studentRow.className = 'student-row';
             
-            const currentStatus = attendanceRecords[recordKey][student.id] || 'present';
+            const currentStatus = attendanceRecords[recordKey][student.user_id] || 'present';
             const isAbsent = currentStatus === 'absent';
             
             studentRow.innerHTML = `
                 <div class="flex items-center">
                     <div class="h-10 w-10 flex-shrink-0 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center mr-3">
-                        <span class="font-medium">${student.name.charAt(0)}</span>
+                        <span class="font-medium">${student.user.first_name.charAt(0)}</span>
                     </div>
                     <div>
-                        <div class="font-medium">${student.name}</div>
-                        <div class="text-xs text-gray-500 dark:text-gray-400">ID: ${student.id}</div>
+                        <div class="font-medium">${student.user.first_name} ${student.user.last_name}</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400">ID: ${student.user_id}</div>
                     </div>
                 </div>
                 <div class="flex items-center gap-3">
@@ -163,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         ${isAbsent ? 'Absent' : 'Present'}
                     </span>
                     <div class="attendance-toggle ${isAbsent ? 'absent' : ''}" 
-                            data-student-id="${student.id}" 
+                            data-student-id="${student.user_id}" 
                             data-record-key="${recordKey}">
                         <span class="attendance-toggle-thumb"></span>
                     </div>
@@ -207,7 +255,7 @@ document.addEventListener('DOMContentLoaded', function() {
         updateAttendanceCounts(recordKey);
     }
 
-    // attendance counter
+    // attendance counter 
     function updateAttendanceCounts(recordKey) {
         let presentCount = 0;
         let absentCount = 0;
@@ -237,6 +285,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
+
     // showToast function
     function showToast(message, type = 'success') {
         if (toast) {
@@ -313,6 +362,7 @@ document.addEventListener('DOMContentLoaded', function() {
             showToast("Failed to submit attendance");
         });
     }
+
     // Helper function to format time
     function formatTime(timeString) {
         const [hours, minutes] = timeString.split(':');
@@ -329,4 +379,5 @@ document.addEventListener('DOMContentLoaded', function() {
         const day = String(date.getDate()).padStart(2, '0');
         return `${year}-${month}-${day}`;
     }
+});
 </script>
