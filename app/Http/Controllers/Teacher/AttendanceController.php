@@ -18,4 +18,13 @@ class AttendanceController extends Controller
         return response()->json($classes);
     }
 
+    public function getStudents($classroom_id)
+    {
+        $students = Student::with('user')
+                    ->where('classroom_id', $classroom_id)
+                    ->get();
+
+        return response()->json($students);
+    }
+
 }
