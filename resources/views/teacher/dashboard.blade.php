@@ -8,8 +8,8 @@
     {{-- page header --}}
     <section class="animate-fade-in mb-8">
         <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-8">
-            <h1 class="text-3xl md:text-4xl font-bold mb-2">Good morning, <span class="text-gold">Mr. Johnson</span>!</h1>
-            <p class="text-gray-600 dark:text-gray-300" id="currentDate">Here's your daily overview</p>
+            <h1 class="text-2xl md:text-3xl font-bold">Welcome back, <span class="text-primary-accent">{{Auth::user()->gender == 'Male' ? 'Mr. ' : 'Ms. '}} {{ucfirst(Auth::user()->first_name) . ' ' . ucfirst(Auth::user()->last_name)}} </span></h1>
+            <p class="text-gray-600 dark:text-gray-300" id="currentDate"></p>
         </div>
     </section>
 
