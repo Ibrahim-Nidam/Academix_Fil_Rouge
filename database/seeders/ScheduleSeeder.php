@@ -56,31 +56,39 @@ class ScheduleSeeder extends Seeder
 
                     // Conflict check — simplified since we already control classroom hours
                     $hasConflict = Schedule::where('day_of_week', $day)
-                        ->where(function ($query) use ($startTime, $endTime, $teacherId, $classroomId, $room) {
-                            $query->where('room', $room)
-                                ->orWhere('teacher_id', $teacherId)
-                                ->orWhere('classroom_id', $classroomId)
-                                ->where(function ($timeQ) use ($startTime, $endTime) {
-                                    $timeQ->whereBetween('start_time', [$startTime->format('H:i:s'), $endTime->format('H:i:s')])
-                                        ->orWhereBetween('end_time', [$startTime->format('H:i:s'), $endTime->format('H:i:s')])
-                                        ->orWhere(function ($innerQ) use ($startTime, $endTime) {
-                                            $innerQ->where('start_time', '<=', $startTime->format('H:i:s'))
-                                                ->where('end_time', '>=', $endTime->format('H:i:s'));
-                                        });
-                                });
-                        })->exists();
+                    ->where(function ($query) use ($startTime, $endTime, $teacherId, $classroomId, $room) {
+                        $query->where('room', $room)
+                            ->orWhere('teacher_id', $teacherId)
+                            ->orWhere('classroom_id', $classroomId)
+                            ->where(function ($timeQ) use ($startTime, $endTime) {
+                                $timeQ->whereBetween('start_time', [$startTime->format('H:i:s'), $endTime->format('H:i:s')])
+                                    ->orWhereBetween('end_time', [$startTime->format('H:i:s'), $endTime->format('H:i:s')])
+                                    ->orWhere(function ($innerQ) use ($startTime, $endTime) {
+                                        $innerQ->where('start_time', '<=', $startTime->format('H:i:s'))
+                                            ->where('end_time', '>=', $endTime->format('H:i:s'));
+                                    });
+                            });
+                    })->exists();
 
                     if (!$hasConflict) {
-                        Schedule::create([
-                            'title' => $subject->name,
-                            'classroom_id' => $classroomId,
-                            'teacher_id' => $teacherId,
-                            'day_of_week' => $day,
-                            'start_time' => $startTime->format('H:i:s'),
-                            'end_time' => $endTime->format('H:i:s'),
-                            'room' => $room,
-                        ]);
+                    // Check if the teacher already has 3 sessions on this day
+                    $teacherSessionsCount = Schedule::where('teacher_id', $teacherId)
+                        ->where('day_of_week', $day)
+                        ->count();
+
+                    if ($teacherSessionsCount >= 3) continue;
+
+                    Schedule::create([
+                        'title' => $subject->name,
+                        'classroom_id' => $classroomId,
+                        'teacher_id' => $teacherId,
+                        'day_of_week' => $day,
+                        'start_time' => $startTime->format('H:i:s'),
+                        'end_time' => $endTime->format('H:i:s'),
+                        'room' => $room,
+                    ]);
                     }
+
                 }
             }
         }
