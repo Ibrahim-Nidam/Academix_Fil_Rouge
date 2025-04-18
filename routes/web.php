@@ -46,6 +46,7 @@ Route::prefix('Teacher')->middleware(['auth', 'role:Teacher'])->group(function (
     Route::view('/attendance', 'teacher.attendance')->name('teacher.attendance');
     Route::view('/grades', 'teacher.grades')->name('teacher.grades');
     Route::view('/resource', 'teacher.resource')->name('teacher.resource');
+    Route::get('/attendance/classes/{day}', [AttendanceController::class, 'getClassesForDay']);
 });
 
 //Student
