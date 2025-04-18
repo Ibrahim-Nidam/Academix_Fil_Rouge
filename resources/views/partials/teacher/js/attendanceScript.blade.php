@@ -76,7 +76,28 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // render students list
+    // Fetch students for the selected class
+    function fetchStudentsForClass(classId) {
+        fetch(`/Teacher/attendance/students/${classId}`)
+            .then(response => response.json())
+            .then(data => {
+                students[classId] = data;
+                const dateKey = formatDateForAPI(selectedDate);
+                const recordKey = `${classId}_${dateKey}`;
+                
+                if (!attendanceRecords[recordKey]) {
+                    attendanceRecords[recordKey] = {};
+                    
+                    students[classId].forEach(student => {
+                        attendanceRecords[recordKey][student.user_id] = 'present';
+                    });
+                }
+                
+                renderAttendanceList(classId, selectedDate);
+            })
+            .catch(error => console.error('Error fetching students:', error));
+    }
+
     function renderAttendanceList(classId, date) {
         const selectedClass = classes.find(c => c.id === classId);
         const dateKey = date.toISOString().split('T')[0];
