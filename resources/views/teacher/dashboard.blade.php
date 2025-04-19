@@ -26,7 +26,7 @@
             Students Across All Classes
             </h2>
             <div class="relative h-64 w-full flex items-center justify-center">
-                <canvas id="studentChart" class="z-50"></canvas>
+                <canvas id="studentChart" class="z-50" data-male-count="{{ $maleCount }}" data-female-count="{{ $femaleCount }}"></canvas>
                 <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-800 rounded-full w-16 h-16 md:w-20 md:h-20 flex items-center justify-center">
                     <i class="fas fa-user-graduate text-3xl md:text-4xl text-primary-accent"></i>
                 </div>
@@ -34,15 +34,15 @@
             <div class="flex justify-center gap-6 mt-4">
                 <div class="flex items-center gap-2">
                     <div class="h-3 w-3 rounded-full bg-maleBlue"></div>
-                    <span class="text-sm">Male (65)</span>
+                    <span class="text-sm">Male ({{ $maleCount }})</span>
                 </div>
                 <div class="flex items-center gap-2">
                     <div class="h-3 w-3 rounded-full bg-femaleGold"></div>
-                    <span class="text-sm">Female (55)</span>
+                    <span class="text-sm">Female ({{ $femaleCount }})</span>
                 </div>
             </div>
             <div class="mt-4 text-center">
-                <p class="text-2xl font-bold">120</p>
+                <p class="text-2xl font-bold">{{ $totalStudents }}</p>
                 <p class="text-sm text-gray-500 dark:text-gray-400">Total Students</p>
             </div>
         </div>
@@ -58,7 +58,9 @@
             </h2>
             <div class="flex gap-2">
                 <select id="classSelector" class="text-xs py-1 px-3 bg-gray-200 dark:bg-gray-700 rounded-md">
-                <option value="math">Class A</option>
+                @foreach($classrooms as $classroom)
+                    <option value="{{ $classroom->id }}">{{ $classroom->name }}</option>
+                @endforeach
                 </select>
             </div>
         </div>
@@ -115,49 +117,62 @@
 
     {{-- Today's Classes Section --}}
     <section class="animate-fade-in mb-8" style="animation-delay: 200ms;">
-    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-        </svg>
-        Today's Assigned Classes
-    </h2>
-    
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        
-        <div class="class-card" data-class="physics">
-        <div class="flex justify-between items-start mb-2">
-            <h3 class="text-lg font-semibold">Physics 101</h3>
-            <span class="text-sm font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 px-2 py-1 rounded-md">09:00 - 10:30 AM</span>
-        </div>
-        
-        <div class="flex items-center gap-4 mb-3">
-            <div class="flex items-center gap-1">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-maleBlue" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+        <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
-            <span class="text-sm">15</span>
-            </div>
-            
-            <div class="flex items-center gap-1">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-femaleGold" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-            </svg>
-            <span class="text-sm">12</span>
-            </div>
-            
-            <div class="flex items-center gap-1 ml-auto">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gold" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-            </svg>
-            <span class="text-sm font-medium">78%</span>
-            </div>
-        </div>
+            Today's Assigned Classes
+        </h2>
         
-        <div class="w-full bg-gray-200 dark:bg-gray-700 h-2 rounded-full overflow-hidden">
-            <div class="bg-blue-500 h-full rounded-full" style="width: 78%"></div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            @forelse($todaySchedules as $schedule)
+            <div class="class-card flex flex-col justify-between h-full p-4 bg-white dark:bg-gray-800 rounded-lg shadow" data-class="{{ $schedule->classroom->name }}">
+                
+                <div class="mb-4">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-semibold">{{ $schedule->classroom->name }}</h3>
+                        <span class="text-sm font-medium whitespace-nowrap bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 px-2 py-1 rounded-md">
+                            {{ $schedule->start_time_formatted }} - {{ $schedule->end_time_formatted }}
+                        </span>
+                    </div>
+                </div>
+        
+                <div class="mt-auto">
+                    <div class="flex items-center gap-4 mb-3">
+                        <div class="flex items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-maleBlue" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="text-sm">{{ $classGenderDistribution[$schedule->classroom->id]['male'] }}</span>
+                        </div>
+        
+                        <div class="flex items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-femaleGold" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="text-sm">{{ $classGenderDistribution[$schedule->classroom->id]['female'] }}</span>
+                        </div>
+        
+                        <div class="flex items-center gap-1 ml-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gold" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <span class="text-sm font-medium">-</span>
+                        </div>
+                    </div>
+        
+                    <div class="w-full bg-gray-200 dark:bg-gray-700 h-2 rounded-full overflow-hidden">
+                        <div class="bg-blue-500 h-full rounded-full" style="width: 0%"></div>
+                    </div>
+                </div>
+        
+            </div>
+            @empty
+            <div class="col-span-3 text-center p-8 bg-gray-50 dark:bg-gray-800 rounded-xl">
+                <p class="text-gray-500 dark:text-gray-400">No classes scheduled for today.</p>
+            </div>
+            @endforelse
         </div>
-        </div>
-    </div>
     </section>
 </main>
 @endsection
