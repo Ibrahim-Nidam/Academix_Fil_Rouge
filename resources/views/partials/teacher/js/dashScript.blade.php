@@ -1,4 +1,5 @@
 <script>
+document.addEventListener('DOMContentLoaded', function() {
 const dateElement = document.getElementById('currentDate');
 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 const today = new Date();
@@ -43,16 +44,18 @@ function initCharts() {
 
     const studentCtx = canvas.getContext('2d');
 
+        const maleCount = parseInt(canvas.getAttribute('data-male-count') || 0);
+        const femaleCount = parseInt(canvas.getAttribute('data-female-count') || 0);
+
     if (window.studentChart && typeof window.studentChart.destroy === 'function') {
         window.studentChart.destroy();
     }
-
     window.studentChart = new Chart(studentCtx, {
         type: 'doughnut',
         data: {
             labels: ['Male', 'Female'],
             datasets: [{
-                data: [65, 55],
+                    data: [maleCount, femaleCount],
                 backgroundColor: ['#4260a6', '#e5cf86'],
                 borderWidth: 0,
                 cutout: '70%'
