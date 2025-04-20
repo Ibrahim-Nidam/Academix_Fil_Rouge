@@ -1,26 +1,68 @@
 <script>
-    const classCards = document.querySelectorAll('.class-card');
-    
-    classCards.forEach(card => {
-        card.addEventListener('click', () => {
-            classCards.forEach(c => c.classList.remove('active'));
-            
-            card.classList.add('active');
-            const className = card.querySelector('h3').textContent;
-            const subjectName = card.querySelector('p').textContent;
-            
-            document.querySelector('#gradingSection h2').textContent = className;
-            document.querySelector('#gradingSection p').textContent = subjectName;
-        });
+document.addEventListener('DOMContentLoaded', function() {
+    const flashEl = document.getElementById('flashMessage');
+    const flashContent = flashEl.querySelector('.flash-content');
+    const flashClose = document.getElementById('closeFlash');
+    let flashTimeout;
+
+    function showFlashMessage(message, type = 'success') {
+        clearTimeout(flashTimeout);
+        flashContent.textContent = message;
+        flashEl.classList.remove('hidden', 'bg-green-500', 'bg-red-500');
+        flashEl.classList.add(type === 'error' ? 'bg-red-500' : 'bg-green-500');
+        flashEl.classList.remove('opacity-0');
+        flashEl.classList.add('opacity-100');
+        flashTimeout = setTimeout(() => {
+            flashEl.classList.add('opacity-0');
+            setTimeout(() => flashEl.classList.add('hidden'), 300);
+        }, 5000);
+    }
+
+    flashClose.addEventListener('click', () => {
+        clearTimeout(flashTimeout);
+        flashEl.classList.add('opacity-0');
+        setTimeout(() => flashEl.classList.add('hidden'), 300);
     });
-    
+
+    let currentClassroomId = null;
+    let currentExamId = null;
+
+    const classCards = document.querySelectorAll('.class-card');
+    const examSelector = document.getElementById('examSelector');
     const addExamBtn = document.getElementById('addExamBtn');
     const addExamModal = document.getElementById('addExamModal');
     const closeExamModalBtn = document.getElementById('closeExamModal');
     const cancelExamBtn = document.getElementById('cancelExamBtn');
     const modalOverlay = document.getElementById('modalOverlay');
     const addExamForm = document.getElementById('addExamForm');
-    
+    const gradesTableBody = document.getElementById('gradesTableBody');
+    const submitGradesBtn = document.getElementById('submitGradesBtn');
+    const examClassroomId = document.getElementById('examClassroomId');
+    const modalClassInfo = document.getElementById('modalClassInfo');
+
+    // Select first classroom by default
+    if (classCards.length) {
+        currentClassroomId = classCards[0].dataset.classId;
+        loadExamsForClassroom(currentClassroomId);
+    }
+
+    // Classroom selection
+    classCards.forEach(card => {
+        card.addEventListener('click', () => {
+            classCards.forEach(c => c.classList.remove('active'));
+            card.classList.add('active');
+            const className   = card.querySelector('h3').textContent;
+            const subjectName = card.querySelector('p').textContent;
+            document.querySelector('#gradingSection h2').textContent = className;
+            document.querySelector('#gradingSection p').textContent  = subjectName;
+            currentClassroomId = card.dataset.classId;
+            loadExamsForClassroom(currentClassroomId);
+            examSelector.value = '';
+            currentExamId     = null;
+            resetGradesTable();
+        });
+    });
+
     function openExamModal() {
     addExamModal.classList.remove('hidden');
     }
