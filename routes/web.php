@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\Teacher\AttendanceController;
+use App\Http\Controllers\Teacher\GradeController;
 use App\Http\Controllers\Teacher\TeacherDashboardController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
@@ -47,16 +48,17 @@ Route::prefix('Teacher')->middleware(['auth', 'role:Teacher'])->group(function (
     Route::get('/dashboard', [TeacherDashboardController::class, 'index'])->name('teacher.dashboard');
     Route::get('/grades', [GradeController::class, 'index'])->name('teacher.grades');
     Route::view('/attendance', 'teacher.attendance')->name('teacher.attendance');
-    Route::view('/grades', 'teacher.grades')->name('teacher.grades');
     Route::view('/resource', 'teacher.resource')->name('teacher.resource');
 
     Route::get('/attendance/classes/{day}', [AttendanceController::class, 'getClassesForDay']);
     Route::get('/attendance/students/{classroom_id}', [AttendanceController::class, 'getStudents']);
     Route::post('/attendance/submit', [AttendanceController::class, 'submitAttendance']);
+
     Route::get('/grades/classroom/{classroomId}/students', [GradeController::class, 'getClassroomStudents']);
     Route::get('/grades/classroom/{classroomId}/exams', [GradeController::class, 'getExamAssignments']);
     Route::post('/grades/exams', [GradeController::class, 'createExamAssignment']);
     Route::get('/grades/exams/{examId}', [GradeController::class, 'getGrades']);
+    Route::post('/grades/exams/{examId}/submit', [GradeController::class, 'submitGrades']);
 });
 
 //Student
