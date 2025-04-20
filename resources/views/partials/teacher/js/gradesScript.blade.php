@@ -154,17 +154,57 @@ document.addEventListener('DOMContentLoaded', function() {
         submitGradesBtn.disabled = true;
     }
 
+    // Submit grades
+    submitGradesBtn.addEventListener('click', function() {
+        if (!currentExamId) return;
+        const grades = {};
+        document.querySelectorAll('.grade-input').forEach(input => {
+            const sid = input.dataset.studentId;
+            const val = input.value.trim();
+            if (val !== '') grades[sid] = { ...grades[sid], score: parseFloat(val) };
+        });
+        document.querySelectorAll('textarea[data-student-id]').forEach(t => {
+            const sid = t.dataset.studentId;
+            grades[sid] = { ...grades[sid], comment: t.value.trim() };
+        });
+        fetch(`/Teacher/grades/exams/${currentExamId}/submit`, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify({ grades })
+        })
+        .then(res => {
+            if (!res.ok) throw new Error();
+            return res.json();
+        })
+        .then(data => {
+            showFlashMessage(data.message || 'Grades saved successfully!', 'success');
+        })
+        .catch(() => {
+            console.error("Error submitting grades");
+            showFlashMessage("Error saving grades. Please try again.", 'error');
+        });
+    });
+
+    // Modal handlers
     function openExamModal() {
+        if (!currentClassroomId) {
+            showFlashMessage('Please select a classroom first', 'error');
+            return;
+        }
+        document.getElementById('examDate').value = new Date().toISOString().split('T')[0];
+        examClassroomId.value = currentClassroomId;
+        const active = document.querySelector('.class-card.active h3');
+        modalClassInfo.textContent = active ? `For ${active.textContent}` : '';
     addExamModal.classList.remove('hidden');
     }
-    
     function closeExamModal() {
     addExamModal.classList.add('hidden');
+        addExamForm.reset();
     }
-    
     addExamBtn.addEventListener('click', openExamModal);
-    closeExamModalBtn.addEventListener('click', closeExamModal);
-    cancelExamBtn.addEventListener('click', closeExamModal);
-    modalOverlay.addEventListener('click', closeExamModal);
-    
+    [closeExamModalBtn, cancelExamBtn, modalOverlay].forEach(el => el.addEventListener('click', closeExamModal));
+
     </script>
