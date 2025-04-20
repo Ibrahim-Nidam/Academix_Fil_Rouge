@@ -198,13 +198,58 @@ document.addEventListener('DOMContentLoaded', function() {
         examClassroomId.value = currentClassroomId;
         const active = document.querySelector('.class-card.active h3');
         modalClassInfo.textContent = active ? `For ${active.textContent}` : '';
-    addExamModal.classList.remove('hidden');
+        addExamModal.classList.remove('hidden');
     }
     function closeExamModal() {
-    addExamModal.classList.add('hidden');
+        addExamModal.classList.add('hidden');
         addExamForm.reset();
     }
     addExamBtn.addEventListener('click', openExamModal);
     [closeExamModalBtn, cancelExamBtn, modalOverlay].forEach(el => el.addEventListener('click', closeExamModal));
 
-    </script>
+    // Create exam
+    addExamForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const title = document.getElementById('examTitle').value.trim();
+        const date  = document.getElementById('examDate').value;
+        if (!title) {
+            showFlashMessage('Please enter an exam title', 'error');
+            return;
+        }
+        if (!date) {
+            showFlashMessage('Please select a date', 'error');
+            return;
+        }
+        const body = {
+            title,
+            classroom_id: examClassroomId.value,
+            type: document.getElementById('examType').value,
+            date
+        };
+        fetch('/Teacher/grades/exams', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify(body)
+        })
+        .then(res => { if (!res.ok) throw new Error(); return res.json(); })
+        .then(() => {
+            closeExamModal();
+            loadExamsForClassroom(currentClassroomId);
+            showFlashMessage('Exam created successfully!', 'success');
+        })
+        .catch(() => {
+            console.error("Error creating exam");
+            showFlashMessage("Error creating exam. Please try again.", 'error');
+        });
+    });
+
+    // Date formatting
+    function formatDate(str) {
+        const d = new Date(str);
+        return d.toLocaleDateString();
+    }
+});
+</script>    
