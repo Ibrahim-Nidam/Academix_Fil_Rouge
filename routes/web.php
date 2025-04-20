@@ -55,6 +55,8 @@ Route::prefix('Teacher')->middleware(['auth', 'role:Teacher'])->group(function (
     Route::post('/attendance/submit', [AttendanceController::class, 'submitAttendance']);
     Route::get('/grades/classroom/{classroomId}/students', [GradeController::class, 'getClassroomStudents']);
     Route::get('/grades/classroom/{classroomId}/exams', [GradeController::class, 'getExamAssignments']);
+    Route::post('/grades/exams', [GradeController::class, 'createExamAssignment']);
+    Route::get('/grades/exams/{examId}', [GradeController::class, 'getGrades']);
 });
 
 //Student
