@@ -45,8 +45,7 @@ Route::prefix('Admin')->middleware(['auth', 'role:Admin'])->group(function () {
 //Teacher
 Route::prefix('Teacher')->middleware(['auth', 'role:Teacher'])->group(function () {
     Route::get('/dashboard', [TeacherDashboardController::class, 'index'])->name('teacher.dashboard');
-
-    // Route::view('/dashboard', 'teacher.dashboard')->name('teacher.dashboard');
+    Route::get('/grades', [GradeController::class, 'index'])->name('teacher.grades');
     Route::view('/attendance', 'teacher.attendance')->name('teacher.attendance');
     Route::view('/grades', 'teacher.grades')->name('teacher.grades');
     Route::view('/resource', 'teacher.resource')->name('teacher.resource');
