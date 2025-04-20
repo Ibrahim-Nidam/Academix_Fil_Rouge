@@ -180,9 +180,6 @@
     .grade-input {
         @apply w-20 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gold text-center;
     }
-    .modal {
-        @apply fixed inset-0 z-50 flex items-center justify-center hidden;
-    }
     .modal-overlay {
         @apply absolute inset-0 bg-black bg-opacity-50;
     }
