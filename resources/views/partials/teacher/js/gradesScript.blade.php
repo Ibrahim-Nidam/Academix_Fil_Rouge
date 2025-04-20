@@ -63,6 +63,40 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Load exams
+    function loadExamsForClassroom(classroomId) {
+        fetch(`/Teacher/grades/classroom/${classroomId}/exams`)
+            .then(res => {
+                if (!res.ok) throw new Error();
+                return res.json();
+            })
+            .then(exams => {
+                examSelector.innerHTML = '<option value="">Select an exam/assignment...</option>';
+                exams.forEach(exam => {
+                    const opt = document.createElement('option');
+                    opt.value = exam.id;
+                    opt.textContent = `${exam.title} (${exam.type.charAt(0).toUpperCase()+exam.type.slice(1)}, ${formatDate(exam.date)})`;
+                    examSelector.appendChild(opt);
+                });
+            })
+            .catch(() => {
+                console.error("Error loading exams");
+                showFlashMessage("Error loading exams. Please try again.", 'error');
+        });
+    }
+
+    // Exam change
+    examSelector.addEventListener('change', function() {
+        currentExamId = this.value;
+        if (currentExamId) {
+            loadGradesForExam(currentExamId);
+            submitGradesBtn.disabled = false;
+        } else {
+            resetGradesTable();
+            submitGradesBtn.disabled = true;
+        }
+    });
+
     function openExamModal() {
     addExamModal.classList.remove('hidden');
     }
