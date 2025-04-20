@@ -28,7 +28,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           @forelse ($classrooms as $classroom)
             <div class="class-card bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-100 dark:border-gray-700 hover:border-primary dark:hover:border-primary transition-all cursor-pointer {{ $loop->first ? 'active' : '' }}" data-class-id="{{ $classroom->id }}">
-            <div class="p-5">
+              <div class="p-5">
                 <h3 class="text-lg font-semibold">{{ $classroom->name }}</h3>
                 <p class="text-sm text-gray-500 dark:text-gray-400">
                   @if(isset($classroom->subjects) && $classroom->subjects->count() > 0)
@@ -37,10 +37,10 @@
                     No subjects assigned
                   @endif
                 </p>
-              <div class="mt-3 flex items-center text-sm">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
+                <div class="mt-3 flex items-center text-sm">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                  </svg>
                   <span>
                     @if(isset($classroom->students) && method_exists($classroom->students, 'count'))
                       {{ $classroom->students->count() }}
@@ -55,7 +55,7 @@
           @empty
             <div class="col-span-full">
               <p class="text-center text-gray-500 dark:text-gray-400">No classes assigned to you yet.</p>
-          </div>
+            </div>
           @endforelse
         </div>
       </section>
@@ -157,5 +157,13 @@
     </div>
   </div>
 
-  </div>
+  {{-- Flash Messages --}}
+<div id="flashMessage" class="hidden fixed top-4 right-4 z-50 rounded-lg px-6 py-3 text-white shadow-lg flex items-center gap-3">
+  <span class="flash-content"></span>
+  <button id="closeFlash" class="hover:text-gray-200">
+    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+    </svg>
+  </button>
+</div>
 @endsection
