@@ -97,6 +97,63 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Load grades
+    function loadGradesForExam(examId) {
+        fetch(`/Teacher/grades/exams/${examId}`)
+            .then(res => {
+                if (!res.ok) throw new Error();
+                return res.json();
+            })
+            .then(data => {
+                gradesTableBody.innerHTML = '';
+                data.students.forEach(student => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="flex items-center">
+                        <div class="h-10 w-10 flex-shrink-0 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center mr-3">
+                            <span class="font-medium">${student.name.charAt(0)}</span>
+                        </div>
+                        <div>
+                            <div class="font-medium">${student.name}</div>
+                            <div class="text-xs text-gray-500 dark:text-gray-400">ID: ${student.id}</div>
+                        </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <input type="number" min="0" max="20" step="0.01" value="${student.grade ?? ''}" class="grade-input form-input" data-student-id="${student.id}">
+                    </td>
+                    <td class="px-6 py-4">
+                        <textarea class="form-textarea w-full" rows="2" data-student-id="${student.id}">${student.comment || ''}</textarea>
+                    </td>
+                    `;
+                    gradesTableBody.appendChild(tr);
+                });
+                if (!data.students.length) {
+                    gradesTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="3" class="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
+                        No students found in this class
+                        </td>
+                    </tr>`;
+                }
+            })
+            .catch(() => {
+                console.error("Error loading grades");
+                showFlashMessage("Error loading grades. Please try again.", 'error');
+        });
+    }
+
+    function resetGradesTable() {
+        gradesTableBody.innerHTML = `
+            <tr>
+            <td colspan="3" class="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
+                Select an exam/assignment to view and enter grades
+            </td>
+            </tr>`;
+        submitGradesBtn.disabled = true;
+    }
+
     function openExamModal() {
     addExamModal.classList.remove('hidden');
     }
