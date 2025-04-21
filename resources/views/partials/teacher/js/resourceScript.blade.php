@@ -65,6 +65,49 @@ document.addEventListener('DOMContentLoaded', function() {
       progressBar.style.width = '0%';
     }
   });
+
+  // Resource details handling
+  document.querySelectorAll('.resource-card').forEach(card => {
+    card.addEventListener('click', async function() {
+      const resourceId = this.dataset.resourceId;
+      try {
+        const response = await fetch(`/Teacher/resource/${resourceId}`);
+        const resource = await response.json();
+        
+        console.log("Resource data:", resource);
+        
+        const modal = document.getElementById('resourceModal');
+        const titleElement = modal.querySelector('#modalResourceTitle');
+        const dateElement = modal.querySelector('#resourceDate');
+        const typeElement = modal.querySelector('#resourceType');
+        const sizeElement = modal.querySelector('#resourceSize');
+        const uploadDateElement = modal.querySelector('#resourceUploadDate');
+        const downloadsElement = modal.querySelector('#resourceDownloads');
+        const descriptionElement = modal.querySelector('#resourceDescription');
+        const tagsContainer = modal.querySelector('#resourceTags');
+        
+        if (titleElement) titleElement.textContent = resource.title;
+        if (dateElement) dateElement.textContent = `Added ${new Date(resource.created_at).toLocaleDateString()}`;
+        if (typeElement) typeElement.textContent = resource.file_type;
+        if (sizeElement) sizeElement.textContent = resource.file_size;
+        if (uploadDateElement) uploadDateElement.textContent = new Date(resource.created_at).toLocaleDateString();
+        if (downloadsElement) downloadsElement.textContent = resource.downloads;
+        if (descriptionElement) descriptionElement.textContent = resource.description || 'No description available';
+        
+        if (tagsContainer && resource.tags && Array.isArray(resource.tags)) {
+          tagsContainer.innerHTML = resource.tags.map(tag => `
+            <span class="text-xs bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded-md">${tag.tag_name}</span>
+          `).join('');
+        } else if (tagsContainer) {
+          tagsContainer.innerHTML = '<span class="text-xs text-gray-500">No tags</span>';
+        }
+        
+        modal.dataset.resourceId = resourceId;
+        
+        modal.classList.remove('hidden');
+      } catch (error) {
+        console.error('Error fetching resource:', error);
+      }
     });
   });
   
