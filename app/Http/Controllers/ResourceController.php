@@ -82,4 +82,41 @@ class ResourceController extends Controller
         return response()->json($resource);
     }
 
+    public function update(Request $request, $id)
+    {
+        $resource = Resource::findOrFail($id);
+        
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'tags' => 'nullable|string',
+        ]);
+
+        $resource->update([
+            'title' => $request->title,
+            'description' => $request->description,
+        ]);
+
+        if ($request->tags) {
+            Tag::where('resource_id', $resource->id)->delete();
+            
+            $tagNames = array_map('trim', explode(',', $request->tags));
+            foreach ($tagNames as $tagName) {
+                if (!empty($tagName)) {
+                    Tag::create([
+                        'resource_id' => $resource->id,
+                        'tag_name' => $tagName
+                    ]);
+                }
+            }
+        }
+
+        return response()->json([
+            'success' => true,
+            'resource' => $resource,
+            'message' => 'Resource updated successfully'
+        ]);
+    }
+
+
 }
