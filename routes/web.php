@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ImportController;
 use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Profile\ProfileController;
+use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\Teacher\AttendanceController;
 use App\Http\Controllers\Teacher\GradeController;
@@ -48,7 +49,6 @@ Route::prefix('Teacher')->middleware(['auth', 'role:Teacher'])->group(function (
     Route::get('/dashboard', [TeacherDashboardController::class, 'index'])->name('teacher.dashboard');
     Route::get('/grades', [GradeController::class, 'index'])->name('teacher.grades');
     Route::view('/attendance', 'teacher.attendance')->name('teacher.attendance');
-    // Route::view('/resource', 'teacher.resource')->name('teacher.resource');
     Route::get('/resource', [ResourceController::class, 'index'])->name('teacher.resource');
 
     Route::get('/attendance/classes/{day}', [AttendanceController::class, 'getClassesForDay']);
