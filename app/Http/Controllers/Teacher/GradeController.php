@@ -58,5 +58,35 @@ class GradeController extends Controller
         
         return response()->json($exam);
     }
+    
+    public function getGrades($examId)
+    {
+        $exam = ExamAssignment::with('classroom')->findOrFail($examId);
+        
+        if ($exam->teacher_id !== Auth::id()) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+        
+        $students = User::whereHas('student', function($query) use ($exam) {
+            $query->where('classroom_id', $exam->classroom_id);
+        })->get();
+        
+        $grades = Grade::where('exam_assignment_id', $examId)->get()->keyBy('student_id');
+        
+        $studentsWithGrades = $students->map(function($student) use ($grades) {
+            $grade = $grades->get($student->id);
+            return [
+                'id' => $student->id,
+                'name' => $student->first_name . ' ' . $student->last_name,
+                'grade' => $grade ? $grade->score : null,
+                'comment' => $grade ? $grade->comment : '',
+            ];
+        });
+        
+        return response()->json([
+            'exam' => $exam,
+            'students' => $studentsWithGrades
+        ]);
+    }
 
 }
