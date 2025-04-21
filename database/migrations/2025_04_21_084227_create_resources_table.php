@@ -32,6 +32,12 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('classroom_resource', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('resource_id')->constrained()->onDelete('cascade');
+            $table->foreignId('classroom_id')->constrained('classrooms')->onDelete('cascade');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -40,5 +46,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('resources');
+        Schema::dropIfExists('resource_tags');
+        Schema::dropIfExists('classroom_resource');
     }
 };
