@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ImportController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\SessionController;
@@ -42,6 +43,8 @@ Route::prefix('Admin')->middleware(['auth', 'role:Admin'])->group(function () {
 
     Route::post('/import/preview', [ImportController::class, 'previewImport'])->name('admin.import.preview');
     Route::post('/import/process', [ImportController::class, 'processImport'])->name('admin.import.process');
+
+    Route::post('/reports/generate', [ReportController::class, 'generate'])->name('admin.reports.generate');
 });
 
 //Teacher
