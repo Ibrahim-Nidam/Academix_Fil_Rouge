@@ -154,4 +154,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
+  // Download resource
+  document.getElementById('downloadResourceBtn').addEventListener('click', function() {
+    const resourceId = resourceModal.dataset.resourceId;
+    window.location.href = `/Teacher/resource/${resourceId}/download`;
+  });
+
 </script>
