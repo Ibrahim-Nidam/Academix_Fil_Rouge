@@ -23,5 +23,56 @@ class ResourceController extends Controller
         return view('teacher.resource', compact('resources'));
     }
 
+    public function store(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file|max:10240',
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'tags' => 'nullable|string',
+        ]);
+
+        $file = $request->file('file');
+        $fileName = $file->getClientOriginalName();
+        $fileSize = $file->getSize();
+        $fileType = $file->getClientMimeType();
+        
+        $path = $file->store('resources', 'public');
+
+        $resource = Resource::create([
+            'title' => $request->title,
+            'teacher_id' => Auth::id(),
+            'file_path' => $path,
+            'file_name' => $fileName,
+            'file_type' => $fileType,
+            'file_size' => $this->formatSize($fileSize),
+            'description' => $request->description,
+        ]);
+
+        if ($request->tags) {
+            $tagNames = array_map('trim', explode(',', $request->tags));
+            foreach ($tagNames as $tagName) {
+                if (!empty($tagName)) {
+                    Tag::create([
+                        'resource_id' => $resource->id,
+                        'tag_name' => $tagName
+                    ]);
+                }
+            }
+        }
+
+        return response()->json([
+            'success' => true,
+            'resource' => $resource,
+            'message' => 'Resource uploaded successfully'
+        ]);
+    }
+    
+    private function formatSize($size)
+    {
+        $units = ['B', 'KB', 'MB', 'GB', 'TB'];
+        $power = $size > 0 ? floor(log($size, 1024)) : 0;
+        return number_format($size / pow(1024, $power), 2, '.', ',') . ' ' . $units[$power];
+    }
 
 }
