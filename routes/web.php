@@ -48,7 +48,8 @@ Route::prefix('Teacher')->middleware(['auth', 'role:Teacher'])->group(function (
     Route::get('/dashboard', [TeacherDashboardController::class, 'index'])->name('teacher.dashboard');
     Route::get('/grades', [GradeController::class, 'index'])->name('teacher.grades');
     Route::view('/attendance', 'teacher.attendance')->name('teacher.attendance');
-    Route::view('/resource', 'teacher.resource')->name('teacher.resource');
+    // Route::view('/resource', 'teacher.resource')->name('teacher.resource');
+    Route::get('/resource', [ResourceController::class, 'index'])->name('teacher.resource');
 
     Route::get('/attendance/classes/{day}', [AttendanceController::class, 'getClassesForDay']);
     Route::get('/attendance/students/{classroom_id}', [AttendanceController::class, 'getStudents']);
