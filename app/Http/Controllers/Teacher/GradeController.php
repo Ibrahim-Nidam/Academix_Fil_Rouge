@@ -32,5 +32,15 @@ class GradeController extends Controller
             'students' => $students
         ]);
     }
+    
+    public function getExamAssignments($classroomId)
+    {
+        $exams = ExamAssignment::where('classroom_id', $classroomId)
+            ->where('teacher_id', Auth::id())
+            ->orderBy('date', 'desc')
+            ->get();
+            
+        return response()->json($exams);
+    }
 
 }
