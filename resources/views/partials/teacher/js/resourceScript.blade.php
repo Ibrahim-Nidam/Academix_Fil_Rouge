@@ -111,11 +111,26 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
   
-  // Close Resource Modal
-  const closeResourceModalFunc = () => {
+  // Edit resource handling
+  document.getElementById('editResourceBtn').addEventListener('click', async function() {
+    const resourceId = resourceModal.dataset.resourceId;
+    try {
+      const response = await fetch(`/Teacher/resource/${resourceId}`);
+      const resource = await response.json();
+
+      resourceIdInput.value = resource.id;
+      document.getElementById('inputResourceTitle').value = resource.title;
+      document.getElementById('resourceDescription').value = resource.description;
+      document.getElementById('resourceTags').value = resource.tags.map(tag => tag.tag_name).join(', ');
+
+      document.getElementById('uploadIdle').style.display = 'none';
+      document.getElementById('uploadProgress').style.display = 'none';
+      document.querySelector('#uploadModal h2').textContent = 'Edit Resource';
+      document.querySelector('#uploadModal button[type="submit"]').textContent = 'Save Changes';
+      uploadModal.classList.remove('hidden');
     resourceModal.classList.add('hidden');
-  };
-  
-  closeResourceModal.addEventListener('click', closeResourceModalFunc);
-  resourceModalOverlay.addEventListener('click', closeResourceModalFunc);
+    } catch (error) {
+      console.error('Error fetching resource:', error);
+    }
+  });
 </script>
