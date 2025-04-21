@@ -19,5 +19,18 @@ class GradeController extends Controller
             'classrooms' => $classrooms
         ]);
     }
+    
+    public function getClassroomStudents($classroomId)
+    {
+        $classroom = Classroom::findOrFail($classroomId);
+        $students = User::whereHas('student', function($query) use ($classroomId) {
+            $query->where('classroom_id', $classroomId);
+        })->get();
+        
+        return response()->json([
+            'classroom' => $classroom,
+            'students' => $students
+        ]);
+    }
 
 }
