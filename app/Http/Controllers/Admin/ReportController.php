@@ -93,4 +93,9 @@ class ReportController extends Controller
         ];
     }
 
+    private function generatePdfReport($data)
+    {
+        $pdf = PDF::loadView('admin.reports.pdf', ['data' => $data]);
+        return $pdf->download('school_report_' . now()->format('Y_m_d') . '.pdf');
+    }
 }
