@@ -1,55 +1,54 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Date formatting
     const dateElement = document.getElementById('currentDate');
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const today = new Date();
     const dateString = today.toLocaleDateString('en-US', options);
     dateElement.textContent = `${dateString} — Here's your daily overview`;
-
+    
+    // Performance toggle buttons
     const topPerformersBtn = document.getElementById('topPerformersBtn');
     const lowestPerformersBtn = document.getElementById('lowestPerformersBtn');
     const topPerformers = document.getElementById('topPerformers');
     const lowestPerformers = document.getElementById('lowestPerformers');
-
+    
     topPerformersBtn.addEventListener('click', () => {
         topPerformersBtn.classList.add('toggle-btn-active');
         topPerformersBtn.classList.remove('toggle-btn-inactive');
         lowestPerformersBtn.classList.add('toggle-btn-inactive');
         lowestPerformersBtn.classList.remove('toggle-btn-active');
-
         lowestPerformers.classList.add('hidden');
         topPerformers.classList.remove('hidden');
     });
-
+    
     lowestPerformersBtn.addEventListener('click', () => {
         lowestPerformersBtn.classList.add('toggle-btn-active');
         lowestPerformersBtn.classList.remove('toggle-btn-inactive');
         topPerformersBtn.classList.add('toggle-btn-inactive');
         topPerformersBtn.classList.remove('toggle-btn-active');
-
         topPerformers.classList.add('hidden');
         lowestPerformers.classList.remove('hidden');
     });
-
+    
     // Initialize Charts
     function initCharts() {
         const isDarkMode = document.documentElement.classList.contains('dark');
         const textColor = isDarkMode ? '#f3f4f6' : '#1f2937';
         const gridColor = isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
-
+        
         Chart.defaults.color = textColor;
         Chart.defaults.borderColor = gridColor;
-
+        
         const canvas = document.getElementById('studentChart');
-
         const studentCtx = canvas.getContext('2d');
-
         const maleCount = parseInt(canvas.getAttribute('data-male-count') || 0);
         const femaleCount = parseInt(canvas.getAttribute('data-female-count') || 0);
-
+        
         if (window.studentChart && typeof window.studentChart.destroy === 'function') {
             window.studentChart.destroy();
         }
+        
         window.studentChart = new Chart(studentCtx, {
             type: 'doughnut',
             data: {
@@ -80,15 +79,33 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-
     // Class selector change event
     const classSelector = document.getElementById('classSelector');
     if (classSelector) {
         classSelector.addEventListener('change', function() {
-            console.log('Class selected:', this.value);
+            const selectedClassId = this.value;
+            
+            const allTopPerformers = document.querySelectorAll('.classroom-performance');
+            allTopPerformers.forEach(element => {
+                element.classList.add('hidden');
+            });
+            
+            const allLowPerformers = document.querySelectorAll('.classroom-performance-low');
+            allLowPerformers.forEach(element => {
+                element.classList.add('hidden');
+            });
+            
+            const selectedTopPerformers = document.querySelector(`.classroom-${selectedClassId}`);
+            if (selectedTopPerformers) {
+                selectedTopPerformers.classList.remove('hidden');
+            }
+            
+            const selectedLowPerformers = document.querySelector(`.classroom-low-${selectedClassId}`);
+            if (selectedLowPerformers) {
+                selectedLowPerformers.classList.remove('hidden');
+            }
         });
     }
-
     // Initialize all charts on load
     initCharts();
 });
