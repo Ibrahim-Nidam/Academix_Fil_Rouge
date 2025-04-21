@@ -118,5 +118,20 @@ class ResourceController extends Controller
         ]);
     }
 
+    public function destroy($id)
+    {
+        $resource = Resource::findOrFail($id);
+        
+        if (Storage::disk('public')->exists($resource->file_path)) {
+            Storage::disk('public')->delete($resource->file_path);
+        }
+        
+        $resource->delete();
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Resource deleted successfully'
+        ]);
+    }
 
 }
