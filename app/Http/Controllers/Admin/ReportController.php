@@ -2,11 +2,37 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-
+use App\Models\User;
+use App\Models\Classroom;
+use App\Models\Attendance;
+use App\Models\Grade;
+use App\Models\Subject;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Request;
+use League\Csv\Writer;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class ReportController extends Controller
 {
-
+    public function generate(Request $request)
+    {
+        $type = $request->input('type', 'pdf');
+        
+        $data = $this->getReportData();
+        
+        switch ($type) {
+            case 'pdf':
+                return $this->generatePdfReport($data);
+            case 'csv':
+                return $this->generateCsvReport($data);
+            case 'excel':
+                return $this->generateExcelReport($data);
+            default:
+                return response()->json(['error' => 'Invalid report type'], 400);
+        }
+    }
+    
     private function getReportData()
     {
         // Demographics data
@@ -92,7 +118,7 @@ class ReportController extends Controller
             'school_name' => config('app.name', 'School Management System')
         ];
     }
-
+    
     private function generatePdfReport($data)
     {
         $pdf = PDF::loadView('admin.reports.pdf', ['data' => $data]);
