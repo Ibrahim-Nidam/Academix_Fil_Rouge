@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('exam_assignments', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->foreignId('classroom_id')->constrained('classrooms')->onDelete('cascade');
+            $table->uuid('teacher_id');
+            $table->foreign('teacher_id')->references('id')->on('users')->onDelete('cascade');
+            $table->enum('type', ['exam', 'assignment', 'quiz', 'project']);
+            $table->date('date');
             $table->timestamps();
         });
     }
