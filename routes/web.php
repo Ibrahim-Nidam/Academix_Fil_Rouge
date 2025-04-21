@@ -64,6 +64,7 @@ Route::prefix('Teacher')->middleware(['auth', 'role:Teacher'])->group(function (
     Route::post('/resource', [ResourceController::class, 'store'])->name('teacher.resource.store');
     Route::get('/resource/{id}', [ResourceController::class, 'show'])->name('teacher.resource.show');
     Route::put('/resource/{id}', [ResourceController::class, 'update'])->name('teacher.resource.update');
+    Route::delete('/resource/{id}', [ResourceController::class, 'destroy'])->name('teacher.resource.delete');
 });
 
 //Student
