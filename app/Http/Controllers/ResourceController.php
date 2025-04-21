@@ -75,4 +75,11 @@ class ResourceController extends Controller
         return number_format($size / pow(1024, $power), 2, '.', ',') . ' ' . $units[$power];
     }
 
+    public function show($id)
+    {
+        $resource = Resource::with(['tags', 'classrooms'])->findOrFail($id);
+        
+        return response()->json($resource);
+    }
+
 }
