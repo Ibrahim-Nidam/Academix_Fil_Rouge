@@ -42,5 +42,21 @@ class GradeController extends Controller
             
         return response()->json($exams);
     }
+    
+    public function createExamAssignment(Request $request)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'classroom_id' => 'required|exists:classrooms,id',
+            'type' => 'required|in:exam,assignment,quiz,project',
+            'date' => 'required|date'
+        ]);
+        
+        $validated['teacher_id'] = Auth::id();
+        
+        $exam = ExamAssignment::create($validated);
+        
+        return response()->json($exam);
+    }
 
 }
