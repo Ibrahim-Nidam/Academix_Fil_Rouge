@@ -60,6 +60,8 @@ Route::prefix('Teacher')->middleware(['auth', 'role:Teacher'])->group(function (
     Route::post('/grades/exams', [GradeController::class, 'createExamAssignment']);
     Route::get('/grades/exams/{examId}', [GradeController::class, 'getGrades']);
     Route::post('/grades/exams/{examId}/submit', [GradeController::class, 'submitGrades']);
+
+    Route::post('/resource', [ResourceController::class, 'store'])->name('teacher.resource.store');
 });
 
 //Student
