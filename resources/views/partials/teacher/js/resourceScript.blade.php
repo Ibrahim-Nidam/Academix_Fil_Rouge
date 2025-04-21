@@ -1,55 +1,70 @@
 <script>
-  const uploadBtn = document.getElementById('uploadBtn');
+document.addEventListener('DOMContentLoaded', function() {
   const uploadModal = document.getElementById('uploadModal');
-  const modalOverlay = document.getElementById('modalOverlay');
-  const closeModal = document.getElementById('closeModal');
-  const cancelUploadBtn = document.getElementById('cancelUploadBtn');
-  const uploadArea = document.getElementById('uploadArea');
-  const browseBtn = document.getElementById('browseBtn');
-  const fileInput = document.getElementById('fileInput');
-  
-  // Open Upload Modal
-  uploadBtn.addEventListener('click', () => {
-    uploadModal.classList.remove('hidden');
-  });
-  
-  // Close Upload Modal
-  const closeUploadModal = () => {
-    uploadModal.classList.add('hidden');
-  };
-  
-  closeModal.addEventListener('click', closeUploadModal);
-  modalOverlay.addEventListener('click', closeUploadModal);
-  cancelUploadBtn.addEventListener('click', closeUploadModal);
-  
-  browseBtn.addEventListener('click', () => {
-    fileInput.click();
-  });
-  
-  // Drag and Drop Functionality
-  uploadArea.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    uploadArea.classList.add('upload-area-active');
-  });
-  
-  uploadArea.addEventListener('dragleave', () => {
-    uploadArea.classList.remove('upload-area-active');
-  });
-  
-  uploadArea.addEventListener('drop', (e) => {
-    e.preventDefault();
-    uploadArea.classList.remove('upload-area-active');
-  });
-  
-  const resourceCards = document.querySelectorAll('.resource-card');
   const resourceModal = document.getElementById('resourceModal');
-  const resourceModalOverlay = document.getElementById('resourceModalOverlay');
-  const closeResourceModal = document.getElementById('closeResourceModal');
+  const modalOverlays = document.querySelectorAll('.modal-overlay');
   
-  // Open Resource Modal on card click
-  resourceCards.forEach(card => {
-    card.addEventListener('click', () => {
-      resourceModal.classList.remove('hidden');
+  const uploadForm = document.getElementById('uploadForm');
+  const fileInput = document.getElementById('fileInput');
+  const browseBtn = document.getElementById('browseBtn');
+  const progressBar = document.getElementById('progressBar');
+  const uploadStatus = document.getElementById('uploadStatus');
+  const resourceIdInput = document.getElementById('resourceId');
+  
+  // Modal toggle functions
+  function openUploadModal() {
+    uploadForm.reset();
+    resourceIdInput.value = '';
+    document.getElementById('uploadIdle').style.display = 'flex';
+    document.getElementById('uploadProgress').style.display = 'none';
+    document.querySelector('#uploadModal h2').textContent = 'Upload New Resource';
+    document.querySelector('#uploadModal button[type="submit"]').textContent = 'Upload';
+    uploadModal.classList.remove('hidden');
+  }
+  
+  function closeAllModals() {
+    uploadModal.classList.add('hidden');
+    resourceModal.classList.add('hidden');
+  }
+
+  // Event listeners for modals
+  document.getElementById('uploadBtn').addEventListener('click', openUploadModal);
+  document.getElementById('closeModal').addEventListener('click', closeAllModals);
+  document.getElementById('cancelUploadBtn').addEventListener('click', closeAllModals);
+  document.getElementById('closeResourceModal').addEventListener('click', closeAllModals);
+  modalOverlays.forEach(overlay => overlay.addEventListener('click', closeAllModals));
+  
+  // File upload handling
+  browseBtn.addEventListener('click', () => fileInput.click());
+
+  uploadForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(uploadForm);
+    const resourceId = resourceIdInput.value;
+
+    if (resourceId) {
+      formData.append('_method', 'PUT');
+    }
+
+    try {
+      const response = await fetch(`/Teacher/resource${resourceId ? `/${resourceId}` : ''}`, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+        }
+      });
+
+      if (!response.ok) throw new Error('Request failed');
+      
+      closeAllModals();
+      window.location.reload();
+    } catch (error) {
+      console.error('Error:', error);
+      uploadStatus.textContent = 'An error occurred. Please try again.';
+      progressBar.style.width = '0%';
+    }
+  });
     });
   });
   
