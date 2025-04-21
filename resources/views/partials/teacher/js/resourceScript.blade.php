@@ -133,4 +133,25 @@ document.addEventListener('DOMContentLoaded', function() {
       console.error('Error fetching resource:', error);
     }
   });
+
+  // Delete resource
+  document.getElementById('deleteResourceBtn').addEventListener('click', async function() {
+    const resourceId = resourceModal.dataset.resourceId;
+    try {
+      const response = await fetch(`/Teacher/resource/${resourceId}`, {
+        method: 'DELETE',
+        headers: {
+          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+        }
+      });
+
+      if (!response.ok) throw new Error('Delete failed');
+      
+      closeAllModals();
+      window.location.reload();
+    } catch (error) {
+      console.error('Delete error:', error);
+    }
+  });
+
 </script>
