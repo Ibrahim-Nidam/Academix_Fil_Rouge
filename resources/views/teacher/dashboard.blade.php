@@ -72,45 +72,52 @@
         
         {{-- Top Performers List --}}
         <div id="topPerformers" class="animate-slide-up">
-            <div class="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4 mb-3 flex items-center">
-                <div class="text-2xl mr-3">🥇</div>
-                <div class="flex-1">
-                <h3 class="font-medium">Alicia Carter</h3>
-                <p class="text-sm text-gray-500 dark:text-gray-400">Advanced Mathematics</p>
+            @foreach($classrooms as $classroom)
+                <div class="classroom-performance classroom-{{ $classroom->id }} {{ $loop->first ? '' : 'hidden' }}">
+                    @forelse($classPerformanceData[$classroom->id]['top'] as $index => $student)
+                        <div class="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4 mb-3 flex items-center">
+                            <div class="text-2xl mr-3">{{ $index === 0 ? '🥇' : ($index === 1 ? '🥈' : '🥉') }}</div>
+                            <div class="flex-1">
+                                <h3 class="font-medium">{{ $student['name'] }}</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    {{ $classroom->name }} 
+                                    <span class="text-xs">({{ $student['assignments_count'] }} {{ Str::plural('assignment', $student['assignments_count']) }})</span>
+                                </p>
+                            </div>
+                            <div class="text-lg font-bold text-green-600 dark:text-green-400">{{ $student['score'] }}%</div>
+                        </div>
+                    @empty
+                        <div class="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4 mb-3 text-center">
+                            <p class="text-gray-500 dark:text-gray-400">No performance data available</p>
+                        </div>
+                    @endforelse
                 </div>
-                <div class="text-lg font-bold text-green-600 dark:text-green-400">95%</div>
-            </div>
-            
-            <div class="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4 mb-3 flex items-center">
-                <div class="text-2xl mr-3">🥈</div>
-                <div class="flex-1">
-                <h3 class="font-medium">Mark Evans</h3>
-                <p class="text-sm text-gray-500 dark:text-gray-400">Advanced Mathematics</p>
-                </div>
-                <div class="text-lg font-bold text-green-600 dark:text-green-400">92%</div>
-            </div>
-            
-            <div class="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4 flex items-center">
-                <div class="text-2xl mr-3">🥉</div>
-                <div class="flex-1">
-                <h3 class="font-medium">Sophia Green</h3>
-                <p class="text-sm text-gray-500 dark:text-gray-400">Advanced Mathematics</p>
-                </div>
-                <div class="text-lg font-bold text-green-600 dark:text-green-400">89%</div>
-            </div>
+            @endforeach
         </div>
         
         {{-- Lowest Performers List --}}
         <div id="lowestPerformers" class="hidden animate-slide-down">
-            <div class="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4 mb-3 flex items-center">
-                <div class="text-2xl mr-3">📉</div>
-                <div class="flex-1">
-                <h3 class="font-medium">Jake Thompson</h3>
-                <p class="text-sm text-gray-500 dark:text-gray-400">Advanced Mathematics</p>
+            @foreach($classrooms as $classroom)
+                <div class="classroom-performance-low classroom-low-{{ $classroom->id }} {{ $loop->first ? '' : 'hidden' }}">
+                    @forelse($classPerformanceData[$classroom->id]['lowest'] as $index => $student)
+                        <div class="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4 mb-3 flex items-center">
+                            <div class="text-2xl mr-3">📉</div>
+                            <div class="flex-1">
+                                <h3 class="font-medium">{{ $student['name'] }}</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    {{ $classroom->name }}
+                                    <span class="text-xs">({{ $student['assignments_count'] }} {{ Str::plural('assignment', $student['assignments_count']) }})</span>
+                                </p>
+                            </div>
+                            <div class="text-lg font-bold text-red-600 dark:text-red-400">{{ $student['score'] }}%</div>
+                        </div>
+                    @empty
+                        <div class="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4 mb-3 text-center">
+                            <p class="text-gray-500 dark:text-gray-400">No performance data available</p>
+                        </div>
+                    @endforelse
                 </div>
-                <div class="text-lg font-bold text-red-600 dark:text-red-400">45%</div>
-            </div>
-            
+            @endforeach
         </div>
     </div>
     </section>
@@ -157,15 +164,14 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gold" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                             </svg>
-                            <span class="text-sm font-medium">-</span>
+                            <span class="text-sm font-medium">{{ isset($classAverages[$schedule->classroom->id]) ? $classAverages[$schedule->classroom->id] . '%' : '-' }}</span>
                         </div>
                     </div>
         
                     <div class="w-full bg-gray-200 dark:bg-gray-700 h-2 rounded-full overflow-hidden">
-                        <div class="bg-blue-500 h-full rounded-full" style="width: 0%"></div>
+                        <div class="bg-blue-500 h-full rounded-full" style="width: {{ isset($classAverages[$schedule->classroom->id]) ? $classAverages[$schedule->classroom->id] . '%' : '0%' }}"></div>
                     </div>
                 </div>
-        
             </div>
             @empty
             <div class="col-span-3 text-center p-8 bg-gray-50 dark:bg-gray-800 rounded-xl">
