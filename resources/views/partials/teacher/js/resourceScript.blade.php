@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const progressBar = document.getElementById('progressBar');
   const uploadStatus = document.getElementById('uploadStatus');
   const resourceIdInput = document.getElementById('resourceId');
-  
+
   // Modal toggle functions
   function openUploadModal() {
     uploadForm.reset();
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('#uploadModal button[type="submit"]').textContent = 'Upload';
     uploadModal.classList.remove('hidden');
   }
-  
+
   function closeAllModals() {
     uploadModal.classList.add('hidden');
     resourceModal.classList.add('hidden');
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('cancelUploadBtn').addEventListener('click', closeAllModals);
   document.getElementById('closeResourceModal').addEventListener('click', closeAllModals);
   modalOverlays.forEach(overlay => overlay.addEventListener('click', closeAllModals));
-  
+
   // File upload handling
   browseBtn.addEventListener('click', () => fileInput.click());
 
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
-  
+
   // Edit resource handling
   document.getElementById('editResourceBtn').addEventListener('click', async function() {
     const resourceId = resourceModal.dataset.resourceId;
@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
       document.querySelector('#uploadModal h2').textContent = 'Edit Resource';
       document.querySelector('#uploadModal button[type="submit"]').textContent = 'Save Changes';
       uploadModal.classList.remove('hidden');
-    resourceModal.classList.add('hidden');
+      resourceModal.classList.add('hidden');
     } catch (error) {
       console.error('Error fetching resource:', error);
     }
@@ -159,5 +159,5 @@ document.addEventListener('DOMContentLoaded', function() {
     const resourceId = resourceModal.dataset.resourceId;
     window.location.href = `/Teacher/resource/${resourceId}/download`;
   });
-
+});
 </script>
