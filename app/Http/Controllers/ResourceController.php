@@ -134,4 +134,11 @@ class ResourceController extends Controller
         ]);
     }
 
+    public function download($id)
+    {
+        $resource = Resource::findOrFail($id);
+        $resource->increment('downloads');
+        
+        return response()->download(storage_path('app/public/' . $resource->file_path), $resource->file_name);
+    }
 }
