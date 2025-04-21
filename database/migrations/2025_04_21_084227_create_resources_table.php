@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('resources', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->uuid('teacher_id');
+            $table->foreign('teacher_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('file_path');
+            $table->string('file_name');
+            $table->string('file_type');
+            $table->string('file_size');
+            $table->text('description')->nullable();
+            $table->integer('downloads')->default(0);
             $table->timestamps();
         });
 
