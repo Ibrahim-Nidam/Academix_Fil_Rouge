@@ -25,6 +25,13 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('resource_tags', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('resource_id')->constrained()->onDelete('cascade');
+            $table->string('tag_name');
+            $table->timestamps();
+        });
+
     }
 
     /**
