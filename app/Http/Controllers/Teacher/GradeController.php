@@ -3,6 +3,12 @@
 namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
+use App\Models\Classroom;
+use App\Models\ExamAssignment;
+use App\Models\Grade;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GradeController extends Controller
 {
@@ -88,5 +94,30 @@ class GradeController extends Controller
             'students' => $studentsWithGrades
         ]);
     }
-
+    
+    public function submitGrades(Request $request, $examId)
+    {
+        $exam = ExamAssignment::findOrFail($examId);
+        
+        if ($exam->teacher_id !== Auth::id()) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+        
+        $grades = $request->input('grades');
+        
+        foreach ($grades as $studentId => $gradeData) {
+            Grade::updateOrCreate(
+                [
+                    'exam_assignment_id' => $examId,
+                    'student_id' => $studentId
+                ],
+                [
+                    'score' => $gradeData['score'],
+                    'comment' => $gradeData['comment'] ?? null
+                ]
+            );
+        }
+        
+        return response()->json(['message' => 'Grades submitted successfully']);
+    }
 }
