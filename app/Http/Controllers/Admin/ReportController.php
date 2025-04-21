@@ -98,4 +98,85 @@ class ReportController extends Controller
         $pdf = PDF::loadView('admin.reports.pdf', ['data' => $data]);
         return $pdf->download('school_report_' . now()->format('Y_m_d') . '.pdf');
     }
+    
+    private function generateCsvReport($data)
+    {
+        $csv = Writer::createFromString('');
+        
+        // Headers
+        $csv->insertOne(['School Report - ' . $data['school_name']]);
+        $csv->insertOne(['Generated at: ' . $data['generated_at']]);
+        $csv->insertOne([]);
+        
+        // Demographics
+        $csv->insertOne(['DEMOGRAPHICS']);
+        $csv->insertOne(['Students', 'Count']);
+        $csv->insertOne(['Male', $data['demographics']['students']['male']]);
+        $csv->insertOne(['Female', $data['demographics']['students']['female']]);
+        $csv->insertOne(['Total', $data['demographics']['students']['total']]);
+        $csv->insertOne([]);
+        
+        $csv->insertOne(['Staff', 'Count']);
+        $csv->insertOne(['Male', $data['demographics']['staff']['male']]);
+        $csv->insertOne(['Female', $data['demographics']['staff']['female']]);
+        $csv->insertOne(['Total', $data['demographics']['staff']['total']]);
+        $csv->insertOne([]);
+        
+        // Attendance
+        $csv->insertOne(['ATTENDANCE']);
+        $csv->insertOne(['Day', 'Date', 'Present (%)', 'Absent (%)']);
+        foreach ($data['attendance'] as $day => $values) {
+            $csv->insertOne([
+                $day, 
+                $values['date'],
+                $values['present'] ?? 'N/A', 
+                $values['absent'] ?? 'N/A'
+            ]);
+        }
+        $csv->insertOne([]);
+        
+        // Performance
+        $csv->insertOne(['PERFORMANCE']);
+        
+        foreach ($data['performance'] as $subject) {
+            $csv->insertOne(['Subject: ' . $subject['name']]);
+            $headers = ['Grade'];
+            
+            $classroomNames = [];
+            foreach ($subject['grades'] as $grade => $classrooms) {
+                foreach ($classrooms as $className => $score) {
+                    if (!in_array($className, $classroomNames)) {
+                        $classroomNames[] = $className;
+                    }
+                }
+            }
+            
+            sort($classroomNames);
+            
+            foreach ($classroomNames as $className) {
+                $headers[] = $className;
+            }
+            
+            $csv->insertOne($headers);
+            
+            foreach ($subject['grades'] as $grade => $classrooms) {
+                $row = ['Grade ' . $grade];
+                
+                foreach ($classroomNames as $className) {
+                    $row[] = $classrooms[$className] ?? 'N/A';
+                }
+                
+                $csv->insertOne($row);
+            }
+            
+            $csv->insertOne([]);
+        }
+        
+        $filename = 'school_report_' . now()->format('Y_m_d') . '.csv';
+        
+        return response((string) $csv)
+            ->header('Content-Type', 'text/csv; charset=UTF-8')
+            ->header('Content-Disposition', 'attachment; filename="' . $filename . '"');
+    }
+    
 }
