@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Resource;
+use App\Models\User;
+use App\Models\Student;
+use Illuminate\Support\Facades\Auth;
 
 class StudentResourceController extends Controller
 {
@@ -38,3 +41,12 @@ class StudentResourceController extends Controller
 
         return view('student.resources', compact('teachers'));
     }
+
+    public function download($id)
+    {
+        $resource = Resource::findOrFail($id);
+        $resource->increment('downloads');
+        
+        return response()->download(storage_path('app/public/' . $resource->file_path), $resource->file_name);
+    }
+}
