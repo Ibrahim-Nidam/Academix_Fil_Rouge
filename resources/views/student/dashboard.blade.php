@@ -126,13 +126,14 @@
             <th class="timetable-header timetable-cell">Wednesday</th>
             <th class="timetable-header timetable-cell">Thursday</th>
             <th class="timetable-header timetable-cell">Friday</th>
+            <th class="timetable-header timetable-cell">Saturday</th>
           </tr>
         </thead>
         <tbody>
           @foreach($timetable as $row)
           <tr>
             <td class="timetable-time timetable-cell">{{ $row['time'] }}</td>
-            @foreach(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'] as $day)
+            @foreach(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday','Saturday'] as $day)
               <td class="timetable-cell">
                 @if($row[$day])
                 <div class="timetable-class">
