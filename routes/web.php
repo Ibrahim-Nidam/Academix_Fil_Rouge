@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\Student\StudentDashboardController;
+use App\Http\Controllers\Student\StudentGradeController;
 use App\Http\Controllers\Teacher\AttendanceController;
 use App\Http\Controllers\Teacher\GradeController;
 use App\Http\Controllers\Teacher\ResourceController;
@@ -76,8 +77,8 @@ Route::prefix('Teacher')->middleware(['auth', 'role:Teacher'])->group(function (
 //Student
 Route::prefix('Student')->middleware(['auth', 'role:Student'])->group(function () {
     Route::view('/attendance', 'student.attendance')->name('student.attendance');
-    Route::view('/grades', 'student.grades')->name('student.grades');
     Route::view('/resource', 'student.resources')->name('student.resources');
-
+    
     Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('student.dashboard');
+    Route::get('/grades', [StudentGradeController::class, 'index'])->name('student.grades');
 });
