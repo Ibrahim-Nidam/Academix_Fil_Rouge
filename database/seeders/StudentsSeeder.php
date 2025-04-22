@@ -6,12 +6,13 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 class StudentsSeeder extends Seeder
 {
     public function run()
     {
-        $passwordHash = '$2a$12$7NjKYlcb43SYjwaItTuNS.AMTMlqbU4HpcNoo4OUBd7glm3Y77Dt6';
+        $passwordHash = Hash::make('a');
         $classroomIds = range(1, 10); // classrooms 1 to 10
         $students = [];
         $users = [];
