@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // show edit form 
     editUserBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', async () => {
             formTitle.textContent = 'Edit User';
             const userId = btn.getAttribute('data-user-id');
             userIdField.value = userId;
@@ -60,6 +60,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 putInput.value = 'PUT';
                 userForm.appendChild(putInput);
             }
+
+            toggleTeacherFields();
+
+            if (roleField.value === 'Teacher') {
+                try {
+                    const response = await fetch(`/Admin/users/${userId}/assignments`);
+                    const data = await response.json();
+
+                    document.getElementById('classroom').value = data.classroom_id || '';
+                    document.getElementById('subject').value = data.subject_id || '';
+                } catch (error) {
+                    console.error('Error fetching assignments:', error);
+                }
+            }
+
             editFormContainer.classList.remove('hidden');
         });
     });
@@ -89,5 +104,16 @@ document.addEventListener('DOMContentLoaded', () => {
             currentDeleteForm.submit();
         }
     });
+
+    function toggleTeacherFields() {
+        const role = roleField.value;
+        const teacherFields = document.querySelectorAll('.teacher-only');
+        teacherFields.forEach(field => {
+            field.classList.toggle('hidden', role !== 'Teacher');
+        });
+    }
+
+    roleField.addEventListener('change', toggleTeacherFields);
+    toggleTeacherFields();
 });
 </script>
