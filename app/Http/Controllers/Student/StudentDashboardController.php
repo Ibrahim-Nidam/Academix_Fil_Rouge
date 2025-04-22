@@ -168,7 +168,6 @@ class StudentDashboardController extends Controller
         }
         
         return view('student.dashboard', compact(
-            'user',
             'formattedTodaySchedules',
             'timetable',
             'overallGrade',
