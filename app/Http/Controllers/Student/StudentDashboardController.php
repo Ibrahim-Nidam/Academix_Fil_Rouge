@@ -44,7 +44,7 @@ class StudentDashboardController extends Controller
         }
         
         // Get weekly timetable
-        $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+        $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         $weeklySchedule = [];
         $timeSlots = [];
         
