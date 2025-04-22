@@ -10,6 +10,7 @@ use App\Http\Controllers\SessionController;
 use App\Http\Controllers\Student\StudentAttendanceController;
 use App\Http\Controllers\Student\StudentDashboardController;
 use App\Http\Controllers\Student\StudentGradeController;
+use App\Http\Controllers\Student\StudentResourceController;
 use App\Http\Controllers\Teacher\AttendanceController;
 use App\Http\Controllers\Teacher\GradeController;
 use App\Http\Controllers\Teacher\ResourceController;
@@ -77,9 +78,8 @@ Route::prefix('Teacher')->middleware(['auth', 'role:Teacher'])->group(function (
 
 //Student
 Route::prefix('Student')->middleware(['auth', 'role:Student'])->group(function () {
-    Route::view('/resource', 'student.resources')->name('student.resources');
-    
     Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('student.dashboard');
     Route::get('/grades', [StudentGradeController::class, 'index'])->name('student.grades');
     Route::get('/attendance', [StudentAttendanceController::class, 'index'])->name('student.attendance');
+    Route::get('/resource', [StudentResourceController::class, 'index'])->name('student.resources');
 });
