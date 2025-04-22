@@ -100,6 +100,9 @@
     .card {
       @apply bg-white dark:bg-gray-800 rounded-xl shadow-md p-5 border border-gray-100 dark:border-gray-700 transition-all duration-200 hover:shadow-lg;
     }
+    .card-time {
+      @apply bg-white dark:bg-gray-800 rounded-xl shadow-md p-5 pb-0 border border-gray-100 dark:border-gray-700 transition-all duration-200 hover:shadow-lg;
+    }
     .progress-bar {
       @apply h-2 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden;
     }
@@ -128,7 +131,7 @@
       @apply bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200;
     }
     .timetable-cell {
-      @apply p-2 text-center text-xs border border-gray-200 dark:border-gray-700;
+      @apply text-center text-xs border border-gray-200 dark:border-gray-700;
     }
     .timetable-header {
       @apply bg-gray-100 dark:bg-gray-700 font-medium;
@@ -137,7 +140,7 @@
       @apply bg-gray-50 dark:bg-gray-800 font-medium;
     }
     .timetable-class {
-      @apply bg-blue/10 dark:bg-blue/20 hover:bg-blue/20 dark:hover:bg-blue/30 cursor-pointer transition-colors duration-200;
+      @apply bg-blue/10 p-2 dark:bg-blue/20 hover:bg-blue/20 dark:hover:bg-blue/30 cursor-pointer transition-colors duration-200;
     }
     .timetable-class-active {
       @apply bg-gold/20 dark:bg-gold/30 hover:bg-gold/30 dark:hover:bg-gold/40;
