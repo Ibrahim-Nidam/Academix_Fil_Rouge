@@ -144,6 +144,26 @@
             </select>
           </div>
 
+          <div class="mb-4 teacher-only hidden">
+            <label for="classroom" class="form-label">Classroom</label>
+            <select id="classroom" name="classroom_id" class="form-select">
+              <option value="">Select Classroom</option>
+              @foreach($classrooms as $classroom)
+                <option value="{{ $classroom->id }}">{{ $classroom->name }}</option>
+              @endforeach
+            </select>
+          </div>
+          
+          <div class="mb-4 teacher-only hidden">
+            <label for="subject" class="form-label">Subject</label>
+            <select id="subject" name="subject_id" class="form-select">
+              <option value="">Select Subject</option>
+              @foreach($subjects as $subject)
+                <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+              @endforeach
+            </select>
+          </div>
+
           <div class="mb-4">
             <label for="Gender" class="form-label">Gender</label>
             <select id="Gender" name="gender" class="form-select" required>
