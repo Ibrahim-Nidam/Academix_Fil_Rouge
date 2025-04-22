@@ -79,6 +79,11 @@ class User extends Authenticatable
         return $this->hasOne(Student::class);
     }
 
+    public function resources()
+    {
+        return $this->hasMany(Resource::class, 'teacher_id');
+    }
+
     protected static function boot()
     {
         parent::boot();
