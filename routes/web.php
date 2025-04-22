@@ -82,4 +82,6 @@ Route::prefix('Student')->middleware(['auth', 'role:Student'])->group(function (
     Route::get('/grades', [StudentGradeController::class, 'index'])->name('student.grades');
     Route::get('/attendance', [StudentAttendanceController::class, 'index'])->name('student.attendance');
     Route::get('/resource', [StudentResourceController::class, 'index'])->name('student.resources');
+
+    Route::get('/resource/download/{id}', [StudentResourceController::class, 'download'])->name('student.resource.download');
 });
