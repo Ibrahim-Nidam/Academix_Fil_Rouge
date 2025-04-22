@@ -13,7 +13,7 @@
       </div>
       <div class="mt-4 md:mt-0">
         <div class="text-sm text-gray-500 dark:text-gray-400">
-          <span class="font-medium">Today:</span> Monday, March 8, 2025
+          <span id="current-date"></span>
         </div>
       </div>
     </div>
@@ -22,7 +22,7 @@
   {{-- Attendance Summary --}}
   <section class="animate-fade-in mb-8" style="animation-delay: 100ms;">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      {{-- placeholder cards --}}
+      {{-- Present Card --}}
       <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-5 border border-gray-100 dark:border-gray-700">
         <div class="flex items-center">
           <div class="bg-present/10 dark:bg-present/20 p-3 rounded-full mr-4">
@@ -32,13 +32,13 @@
           </div>
           <div>
             <div class="text-sm text-gray-500 dark:text-gray-400">Present</div>
-            <div class="text-2xl font-bold">42</div>
-            <div class="text-sm text-gray-500 dark:text-gray-400">87.5%</div>
+            <div class="text-2xl font-bold">{{ $presentCount }}</div>
+            <div class="text-sm text-gray-500 dark:text-gray-400">{{ $presentPercentage }}%</div>
           </div>
         </div>
       </div>
       
-      {{-- placeholder cards --}}
+      {{-- Absent Card --}}
       <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-5 border border-gray-100 dark:border-gray-700">
         <div class="flex items-center">
           <div class="bg-absent/10 dark:bg-absent/20 p-3 rounded-full mr-4">
@@ -48,13 +48,13 @@
           </div>
           <div>
             <div class="text-sm text-gray-500 dark:text-gray-400">Absent</div>
-            <div class="text-2xl font-bold">6</div>
-            <div class="text-sm text-gray-500 dark:text-gray-400">12.5%</div>
+            <div class="text-2xl font-bold">{{ $absentCount }}</div>
+            <div class="text-sm text-gray-500 dark:text-gray-400">{{ $absentPercentage }}%</div>
           </div>
         </div>
       </div>
       
-      {{-- placeholder cards --}}
+      {{-- Total Classes Card --}}
       <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-5 border border-gray-100 dark:border-gray-700">
         <div class="flex items-center">
           <div class="bg-blue/10 dark:bg-blue/20 p-3 rounded-full mr-4">
@@ -64,7 +64,7 @@
           </div>
           <div>
             <div class="text-sm text-gray-500 dark:text-gray-400">Total Classes</div>
-            <div class="text-2xl font-bold">48</div>
+            <div class="text-2xl font-bold">{{ $totalScheduledClasses }}</div>
             <div class="text-sm text-gray-500 dark:text-gray-400">This Semester</div>
           </div>
         </div>
@@ -74,72 +74,47 @@
 
   {{-- Attendance Timeline --}}
   <section class="animate-fade-in" style="animation-delay: 200ms;">
-    <div class="month-divider">
-      <h2 class="px-4 text-lg font-semibold text-gray-700 dark:text-gray-300">March 2025</h2>
-    </div>
-    
-    <div class="space-y-4">
-      {{-- placeholder : Monday, March 8, 2025 --}}
-      <div class="flex items-center mb-2">
-        <div class="bg-gold/20 dark:bg-gold/30 rounded-full w-8 h-8 flex items-center justify-center mr-3">
-          <span class="text-gold font-medium">8</span>
-        </div>
-        <h3 class="text-md font-medium">Monday, March 8, 2025</h3>
+    @foreach($groupedAttendances as $month => $days)
+      <div class="month-divider mb-4">
+        <h2 class="px-4 text-lg font-semibold text-gray-700 dark:text-gray-300">{{ $month }}</h2>
       </div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {{-- placeholder card --}}
-        <div class="attendance-card attendance-card-absent group">
-          <div class="attendance-day">Monday, March 8, 2025</div>
-          <div class="attendance-subject">History</div>
-          <div class="attendance-time">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            4:00 PM - 5:30 PM
+
+      <div class="space-y-4 mb-8">
+        @foreach($days as $day => $dayData)
+          <div class="flex items-center mb-2 {{ !$loop->first ? 'mt-8' : '' }}">
+            <div class="{{ $dayData['is_today'] ? 'bg-gold/20 dark:bg-gold/30' : 'bg-gray-200 dark:bg-gray-700' }} rounded-full w-8 h-8 flex items-center justify-center mr-3">
+              <span class="{{ $dayData['is_today'] ? 'text-gold' : 'text-gray-700 dark:text-gray-300' }} font-medium">{{ $day }}</span>
+            </div>
+            <h3 class="text-md font-medium">{{ \Carbon\Carbon::parse($dayData['date'])->format('l, F j, Y') }}</h3>
           </div>
-          <div class="mt-3 flex justify-between items-center">
-            <span class="attendance-badge attendance-badge-absent">Absent</span>
-            <div class="text-sm text-gray-500 dark:text-gray-400">Room 108</div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            @foreach($dayData['entries'] as $entry)
+              <div class="attendance-card {{ $entry['attendance_status'] == 'Present' ? 'attendance-card-present' : 'attendance-card-absent' }} group">
+                <div class="attendance-day">{{ \Carbon\Carbon::parse($dayData['date'])->format('l, F j, Y') }}</div>
+                <div class="attendance-subject">{{ $entry['subject'] }}</div>
+                <div class="attendance-time">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  {{ $entry['time'] }}
+                </div>
+                <div class="mt-3 flex justify-between items-center">
+                  <span class="attendance-badge {{ $entry['attendance_status'] == 'Present' ? 'attendance-badge-present' : 'attendance-badge-absent' }}">
+                    {{ $entry['attendance_status'] }}
+                  </span>
+                  <div class="text-sm text-gray-500 dark:text-gray-400">{{ $entry['room'] }}</div>
+                </div>
+                <div class="tooltip">
+                  Instructor: {{ $entry['teacher'] }}<br>
+                  {{ $entry['subject'] }}
+                </div>
+              </div>
+            @endforeach
           </div>
-          <div class="tooltip">
-            Instructor: Dr. Thompson<br>
-            Topic: Industrial Revolution
-          </div>
-        </div>
+        @endforeach
       </div>
-      
-      {{-- placeholder : Friday, March 7, 2025 --}}
-      <div class="flex items-center mb-2 mt-8">
-        <div class="bg-gray-200 dark:bg-gray-700 rounded-full w-8 h-8 flex items-center justify-center mr-3">
-          <span class="text-gray-700 dark:text-gray-300 font-medium">7</span>
-        </div>
-        <h3 class="text-md font-medium">Friday, March 7, 2025</h3>
-      </div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {{-- placeholder card  --}}
-        <div class="attendance-card attendance-card-present group">
-          <div class="attendance-day">Friday, March 7, 2025</div>
-          <div class="attendance-subject">Literature</div>
-          <div class="attendance-time">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            8:00 AM - 9:30 AM
-          </div>
-          <div class="mt-3 flex justify-between items-center">
-            <span class="attendance-badge attendance-badge-present">Present</span>
-            <div class="text-sm text-gray-500 dark:text-gray-400">Room 203</div>
-          </div>
-          <div class="tooltip">
-            Instructor: Prof. Garcia<br>
-            Topic: Shakespeare Analysis
-          </div>
-        </div>
-      </div>
-    </div>
-    
+    @endforeach
   </section>
 </main>
 @endsection
