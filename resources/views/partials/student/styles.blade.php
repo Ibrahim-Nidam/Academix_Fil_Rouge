@@ -172,7 +172,7 @@
       }
 
       .attendance-card {
-        @apply bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 border-l-4 transition-all duration-200 hover:shadow-lg relative overflow-hidden;
+        @apply bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 border-l-4 transition-all duration-200 hover:shadow-lg relative;
       }
       .attendance-card-present {
         @apply border-l-present;
@@ -208,7 +208,7 @@
         @apply bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200;
       }
       .tooltip {
-        @apply absolute z-10 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gray-900 text-white text-sm rounded-md py-1 px-2 -mt-16 left-1/2 transform -translate-x-1/2 w-max max-w-xs;
+        @apply absolute z-10 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gray-900 text-white text-sm rounded-md py-1 px-2 -mt-16 top-11 transform translate-x-1/2 w-max max-w-xs;
       }
       .tooltip::after {
         @apply content-[''] absolute top-full left-1/2 transform -translate-x-1/2 border-8 border-t-gray-900 border-x-transparent border-b-transparent;
