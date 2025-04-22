@@ -8,7 +8,7 @@
   <section class="animate-fade-in mb-8">
     <div class="flex flex-col md:flex-row md:items-center md:justify-between">
       <div>
-        <h1 class="text-2xl md:text-3xl font-bold">Welcome back, <span class="text-primary-accent">{{ $user->gender == 'Male' ? 'Mr. ' : 'Ms. ' }} {{ ucfirst($user->first_name) . ' ' . ucfirst($user->last_name) }} </span></h1>
+        <h1 class="text-2xl md:text-3xl font-bold">Welcome back, <span class="text-primary-accent">{{Auth::user()->gender == 'Male' ? 'Mr. ' : 'Ms. '}} {{ucfirst(Auth::user()->first_name) . ' ' . ucfirst(Auth::user()->last_name)}} </span></h1>
         <p class="text-gray-600 dark:text-gray-300">Here's your academic overview for today. Keep up the good work!</p>
       </div>
       <div class="mt-4 md:mt-0">
