@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Student;
 use App\Http\Controllers\Controller;
 use App\Models\Resource;
 use App\Models\User;
-use App\Models\Student;
-use Illuminate\Support\Facades\Auth;
 
 class StudentResourceController extends Controller
 {
