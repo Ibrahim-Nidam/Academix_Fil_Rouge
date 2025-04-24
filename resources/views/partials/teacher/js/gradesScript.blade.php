@@ -121,10 +121,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <input type="number" min="0" max="20" step="0.01" value="${student.grade ?? ''}" class="grade-input form-input" data-student-id="${student.id}">
+                        <input type="number" min="0" max="20" step="0.01" value="${student.grade ?? ''}" class="grade-input form-input text-sm max-w-[5rem]" data-student-id="${student.id}">
                     </td>
                     <td class="px-6 py-4">
-                        <textarea class="form-textarea w-full" rows="2" data-student-id="${student.id}">${student.comment || ''}</textarea>
+                        <textarea class="form-textarea flex-shrink-0 w-full" rows="2" data-student-id="${student.id}">${student.comment || ''}</textarea>
                     </td>
                     `;
                     gradesTableBody.appendChild(tr);
