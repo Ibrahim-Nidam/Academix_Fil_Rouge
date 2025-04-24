@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Classroom;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ScheduleController extends Controller
 {
@@ -66,6 +67,19 @@ class ScheduleController extends Controller
 
         $schedule = Schedule::create($validated);
 
+        $teacherClassroom = DB::table('classroom_teacher')
+            ->where('teacher_id', $validated['teacher_id'])
+            ->where('classroom_id', $validated['classroom_id'])
+            ->first();
+
+        if (!$teacherClassroom) {
+            DB::table('classroom_teacher')->insert([
+                'teacher_id' => $validated['teacher_id'],
+                'classroom_id' => $validated['classroom_id'],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
         return response()->json(['success' => true, 'id' => $schedule->id]);
     }
 
