@@ -15,7 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const genderField = document.getElementById('Gender');
     const statusField = document.getElementById('status');
     const formTitle = document.getElementById('form-title');
-
+    const classroomList = document.getElementById('classroom-badges');
+    const noClassroomsMsg = document.getElementById('no-classrooms');
+    
     const deleteModal = document.getElementById('delete-modal');
     const deleteModalClose = deleteModal.querySelector('.delete-modal-close');
     const confirmDelete = document.getElementById('confirm-delete');
@@ -31,6 +33,10 @@ document.addEventListener('DOMContentLoaded', () => {
             methodInput.parentNode.removeChild(methodInput);
         }
         userForm.action = '/Admin/users';
+        
+        classroomList.innerHTML = '';
+        if (noClassroomsMsg) noClassroomsMsg.style.display = 'block';
+        
         editFormContainer.classList.remove('hidden');
     });
 
@@ -68,8 +74,26 @@ document.addEventListener('DOMContentLoaded', () => {
                     const response = await fetch(`/Admin/users/${userId}/assignments`);
                     const data = await response.json();
 
-                    document.getElementById('classroom').value = data.classroom_id || '';
-                    document.getElementById('subject').value = data.subject_id || '';
+                    if (classroomList && data.classrooms) {
+                        classroomList.innerHTML = '';
+                        
+                        if (data.classrooms.length > 0) {
+                            if (noClassroomsMsg) noClassroomsMsg.style.display = 'none';
+                            
+                            data.classrooms.forEach(classroom => {
+                                const badge = document.createElement('span');
+                                badge.className = 'badge badge-blue';
+                                badge.textContent = classroom.name;
+                                classroomList.appendChild(badge);
+                            });
+                        } else {
+                            if (noClassroomsMsg) noClassroomsMsg.style.display = 'block';
+                        }
+                    }
+
+                    if (data.subjects && data.subjects.length > 0) {
+                        document.getElementById('subject').value = data.subjects[0].subject_id || '';
+                    }
                 } catch (error) {
                     console.error('Error fetching assignments:', error);
                 }
