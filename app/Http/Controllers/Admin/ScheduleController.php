@@ -88,6 +88,34 @@ class ScheduleController extends Controller
         $validated = $this->validateSchedule($request);
 
         $schedule = Schedule::findOrFail($id);
+        
+        if ($schedule->teacher_id != $validated['teacher_id'] || $schedule->classroom_id != $validated['classroom_id']) {
+            $teacherClassroom = DB::table('classroom_teacher')
+                ->where('teacher_id', $validated['teacher_id'])
+                ->where('classroom_id', $validated['classroom_id'])
+                ->first();
+
+            if (!$teacherClassroom) {
+                DB::table('classroom_teacher')->insert([
+                    'teacher_id' => $validated['teacher_id'],
+                    'classroom_id' => $validated['classroom_id'],
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+
+            $otherSchedules = Schedule::where('teacher_id', $schedule->teacher_id)
+                ->where('classroom_id', $schedule->classroom_id)
+                ->where('id', '!=', $id)
+                ->exists();
+                
+            if (!$otherSchedules) {
+                DB::table('classroom_teacher')
+                    ->where('teacher_id', $schedule->teacher_id)
+                    ->where('classroom_id', $schedule->classroom_id)
+                    ->delete();
+            }
+        }
         $schedule->update($validated);
 
         return response()->json(['success' => true, 'message' => 'Schedule updated successfully.']);
