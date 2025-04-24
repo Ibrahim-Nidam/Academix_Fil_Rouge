@@ -233,7 +233,7 @@
       @apply border-gold dark:border-gold;
     }
     .resource-card {
-      @apply bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:shadow-md flex flex-col md:flex-row;
+      @apply bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:shadow-md flex flex-col sm:flex-row sm:items-start;
     }
     .download-btn {
       @apply px-3 py-1.5 bg-gold text-white rounded-md hover:bg-gold/90 transition-colors duration-200 flex items-center justify-center gap-1 text-sm font-medium;
