@@ -153,7 +153,7 @@
         @apply bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden mb-6 transition-all duration-300 hover:shadow-lg border border-gray-100 dark:border-gray-700;
     }
     .class-header {
-        @apply p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-700;
+        @apply p-4 border-b border-gray-200 flex-col gap-3 text-center sm:flex-row sm:text-left dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-700;
     }
     .student-row {
         @apply flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 last:border-0 transition-all duration-200 hover:bg-gray-50 dark:hover:bg-gray-700;
@@ -168,14 +168,13 @@
     .class-card.active {
         @apply border-gold dark:border-gold ring-2 ring-gold/30;
     }
-    .form-input {
-        @apply w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gold;
-    }
-    .form-select {
-        @apply w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gold;
+    .form-input,
+    .form-select,
+    .form-textarea {
+        @apply w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-gold;
     }
     .form-textarea {
-        @apply w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gold resize-none;
+        @apply resize-none min-w-[250px];
     }
     .grade-input {
         @apply w-20 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gold text-center;
