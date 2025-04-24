@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="text-xs text-gray-500 dark:text-gray-400">ID: ${student.user_id}</div>
                     </div>
                 </div>
-                <div class="flex items-center gap-3">
+                <div class="flex items-center flex-col sm:flex-row gap-3">
                     <span class="text-sm font-medium attendance-label ${isAbsent ? 'text-absent' : 'text-green-500'}">
                         ${isAbsent ? 'Absent' : 'Present'}
                     </span>
