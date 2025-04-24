@@ -103,7 +103,6 @@ class UserController extends Controller
             'role' => 'required|in:Student,Teacher,Admin',
             'status' => 'required|in:Active,Not Active',
             'gender' => 'required|in:Male,Female',
-            'classroom_id' => 'nullable|exists:classrooms,id',
             'subject_id' => 'nullable|exists:subjects,id',
         ]);
 
@@ -118,18 +117,13 @@ class UserController extends Controller
         $user->update($userData);
 
         if ($user->role === 'Teacher') {
-            DB::table('classroom_teacher')
-                ->updateOrInsert(
-                    ['teacher_id' => $user->id],
-                    ['classroom_id' => $request->classroom_id]
-                );
-
-            // Subject
-            DB::table('subject_teacher')
-                ->updateOrInsert(
-                    ['teacher_id' => $user->id],
-                    ['subject_id' => $request->subject_id]
-                );
+            if ($request->filled('subject_id')) {
+                DB::table('subject_teacher')
+                    ->updateOrInsert(
+                        ['teacher_id' => $user->id],
+                        ['subject_id' => $request->subject_id]
+                    );
+            }
         } else {
             DB::table('classroom_teacher')->where('teacher_id', $user->id)->delete();
             DB::table('subject_teacher')->where('teacher_id', $user->id)->delete();
@@ -151,12 +145,21 @@ class UserController extends Controller
 
     public function getTeacherAssignments($id)
     {
-        $classroomId = DB::table('classroom_teacher')->where('teacher_id', $id)->value('classroom_id');
-        $subjectId = DB::table('subject_teacher')->where('teacher_id', $id)->value('subject_id');
-
+        $classrooms = DB::table('classroom_teacher')
+            ->join('classrooms', 'classroom_teacher.classroom_id', '=', 'classrooms.id')
+            ->where('teacher_id', $id)
+            ->select('classroom_teacher.classroom_id', 'classrooms.name')
+            ->get();
+            
+        $subjects = DB::table('subject_teacher')
+            ->join('subjects', 'subject_teacher.subject_id', '=', 'subjects.id')
+            ->where('teacher_id', $id)
+            ->select('subject_teacher.subject_id', 'subjects.name')
+            ->get();
+    
         return response()->json([
-            'classroom_id' => $classroomId,
-            'subject_id' => $subjectId,
+            'classrooms' => $classrooms,
+            'subjects' => $subjects,
         ]);
     }
 }
