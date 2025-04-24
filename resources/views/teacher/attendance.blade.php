@@ -34,14 +34,14 @@
       </section>
 
       {{-- Submit Button --}}
-      <section class="animate-fade-in fixed bottom-4 right-4 md:static md:mt-8 md:flex md:justify-end" style="animation-delay: 250ms;">
+      <section class="animate-fade-in fixed bottom-4 inset-x-0 flex justify-center md:static md:justify-end w-full md:mt-8" style="animation-delay: 250ms;">
         <button id="submitAttendance" class="btn btn-primary flex items-center gap-2 px-6 py-3 md:px-8 md:py-3">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
           </svg>
           Submit Attendance
         </button>
-      </section>
+      </section>      
 
       {{-- Success Toast Notification --}}
       <div id="toast" class="toast">
