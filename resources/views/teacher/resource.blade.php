@@ -32,8 +32,8 @@
         </svg>
       </div>
       
-      <div class="flex gap-2">
-        <select id="typeFilter" class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gold">
+      <div class="flex gap-2 flex-col sm:flex-row">
+        <select id="typeFilter" class="px-4 py-2 w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gold">
           <option value="">All Types</option>
           <option value="pdf">PDF</option>
           <option value="docx">Word</option>
@@ -42,7 +42,7 @@
           <option value="video">Video</option>
         </select>
         
-        <select id="sortBy" class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gold">
+        <select id="sortBy" class="px-4 py-2 w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gold">
           <option value="newest">Newest First</option>
           <option value="oldest">Oldest First</option>
           <option value="name">Name (A-Z)</option>
@@ -88,7 +88,7 @@
 {{-- Upload Modal --}}
 <div id="uploadModal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
   <div class="absolute inset-0 bg-black bg-opacity-50 modal-overlay"></div>
-  <div class="relative bg-white dark:bg-gray-800 rounded-2xl shadow-xl max-w-2xl w-full mx-4 p-6 animate-fade-in">
+  <div class="relative bg-white dark:bg-gray-800 rounded shadow-xl w-full max-w-2xl mx-4 p-4 sm:p-6 animate-fade-in overflow-y-auto max-h-[90vh] sm:overflow-visible sm:max-h-none">
     <button id="closeModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
