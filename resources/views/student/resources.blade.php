@@ -20,7 +20,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       @forelse($teachers as $index => $teacher)
         <div class="teacher-card {{ $index === 0 ? 'teacher-card-active' : '' }}" data-teacher="{{ $teacher->id }}">
-          <div class="p-4">
+          <div class="p-4 h-full flex flex-col justify-between">
             <div class="flex items-center mb-3">
               <div class="bg-blue/10 dark:bg-blue/20 p-3 rounded-full mr-3">
                 @if($teacher->subjects->isNotEmpty())
@@ -52,7 +52,7 @@
                 </p>
               </div>
             </div>
-            <div class="text-sm text-gray-600 dark:text-gray-300">
+            <div class="text-sm text-gray-600 dark:text-gray-300 self-end">
               {{ $teacher->resources->count() }} {{ Str::plural('resource', $teacher->resources->count()) }} available
             </div>
           </div>
@@ -91,8 +91,8 @@
               <div class="space-y-4">
                 @foreach($resources as $resource)
                   <div class="resource-card">
-                    <div class="p-4 flex items-center justify-between w-full ">
-                      <div class="resource-icon 
+                    <div class="p-4 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 w-full">
+                      <div class="resource-icon w-fit 
                         @if(Str::contains($resource->file_type, 'pdf'))
                           bg-red-500/10 dark:bg-red-500/20
                         @elseif(Str::contains($resource->file_type, 'video') || Str::contains($resource->file_type, 'mp4'))
@@ -138,7 +138,7 @@
                         <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ $resource->description }}</p>
                         <div class="flex flex-wrap gap-1 mt-2">
                           @foreach($resource->tags as $tag)
-                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-100 text-black">
                               {{ $tag->tag_name }}
                             </span>
                           @endforeach
@@ -147,7 +147,7 @@
                           Uploaded: {{ $resource->created_at->format('F j, Y') }} • Size: {{ $resource->file_size }} • Downloads: {{ $resource->downloads }}
                         </p>
                       </div>
-                      <div class="ml-4 flex items-center">
+                      <div class="sm:ml-4 flex items-center justify-end sm:justify-start mt-4 sm:mt-0">
                         <a href="{{ route('student.resource.download', $resource->id) }}" class="download-btn">
                           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
