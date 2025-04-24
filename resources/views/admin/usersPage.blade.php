@@ -145,13 +145,12 @@
           </div>
 
           <div class="mb-4 teacher-only hidden">
-            <label for="classroom" class="form-label">Classroom</label>
-            <select id="classroom" name="classroom_id" class="form-select">
-              <option value="">Select Classroom</option>
-              @foreach($classrooms as $classroom)
-                <option value="{{ $classroom->id }}">{{ $classroom->name }}</option>
-              @endforeach
-            </select>
+            <label class="form-label">Assigned Classrooms</label>
+            <div id="classroom-list" class="mt-2 p-3 bg-gray-50 dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600">
+              <p class="text-gray-500 dark:text-gray-400 text-sm italic" id="no-classrooms">No classrooms assigned yet.</p>
+              <div id="classroom-badges" class="flex flex-wrap gap-2"></div>
+            </div>
+            <p class="text-xs text-gray-500 mt-1">Classes are assigned through scheduling.</p>
           </div>
           
           <div class="mb-4 teacher-only hidden">
