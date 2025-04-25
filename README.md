@@ -9,6 +9,7 @@
 ## Links
 
 - **Link For all:** [View all Links](https://linktr.ee/File_Rouge);
+- **Live Application Link :** [View Live Application](https://academix-main-i48wzd.laravel.cloud/)
 - **Cahier Charge Link :** [View Cahier Charge](https://docs.google.com/document/d/1pBDmOu85xV_cRApyiOfCaoxyoeNwIs5aZCUvQey0KdU/edit?usp=sharing)
 - **Presentation Link :** [View Presentation](https://www.canva.com/design/DAGaGEgqC3U/US-EUtYLaKpGtz_Kn2ezQw/view?utm_content=DAGaGEgqC3U&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h588869fb5c)
 - **UML USE CASE Link :** [View UML USE CASE](https://asset.cloudinary.com/dgrkuq5an/7b97c5c643e4d956e4398ae52ba1ebdd)
