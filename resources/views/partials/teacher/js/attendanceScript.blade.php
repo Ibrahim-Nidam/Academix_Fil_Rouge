@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let selectedDate = new Date();
     let selectedClassId = '';
+    let selectedScheduleId = '';
     let classes = [];
     let students = {};
     let attendanceRecords = {};
@@ -99,6 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
         classes.forEach(classItem => {
             const option = document.createElement('option');
             option.value = classItem.classroom_id;
+            option.dataset.scheduleId = classItem.id;
             
             const startTime = formatTime(classItem.start_time);
             const endTime = formatTime(classItem.end_time);
@@ -111,6 +113,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle class selection change
     function handleClassChange() {
         selectedClassId = classSelector.value;
+        
+        const selectedOption = classSelector.options[classSelector.selectedIndex];
+        selectedScheduleId = selectedOption ? selectedOption.dataset.scheduleId : '';
+        
         if (selectedClassId) {
             fetchStudentsForClass(selectedClassId);
         } else {
@@ -125,13 +131,30 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 students[classId] = data;
                 const dateKey = formatDateForAPI(selectedDate);
-                const recordKey = `${classId}_${dateKey}`;
+                
+                const selectedClass = classes.find(c => c.classroom_id == classId);
+                if (!selectedClass) return;
+                
+                const recordKey = `${classId}_${dateKey}_${selectedClass.id}`;
                 
                 if (!attendanceRecords[recordKey]) {
                     attendanceRecords[recordKey] = {};
                     
                     students[classId].forEach(student => {
                         attendanceRecords[recordKey][student.user_id] = 'present';
+                    });
+
+                    students[classId].forEach(student => {
+                        if (student.attendance) {
+                            const existingRecord = student.attendance.find(record => 
+                                record.date === dateKey && 
+                                record.schedule_id == selectedClass.id
+                            );
+                            
+                            if (existingRecord) {
+                                attendanceRecords[recordKey][student.user_id] = existingRecord.status;
+                            }
+                        }
                     });
                 }
                 
@@ -143,12 +166,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Render the attendance list for a class
     function renderAttendanceList(classId, date) {
         const selectedClass = classes.find(c => c.classroom_id == classId);
-        const dateKey = formatDateForAPI(date);
-        const recordKey = `${classId}_${dateKey}`;
         
         if (!selectedClass || !students[classId]) {
             return;
         }
+        
+        const dateKey = formatDateForAPI(date);
+        const recordKey = `${classId}_${dateKey}_${selectedClass.id}`;
         
         const classCard = document.createElement('div');
         classCard.className = 'class-card';
@@ -327,7 +351,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         const dateKey = formatDateForAPI(selectedDate);
-        const recordKey = `${selectedClassId}_${dateKey}`;
+        
+        const selectedSchedule = classes.find(c => c.classroom_id == selectedClassId);
+        if (!selectedSchedule) {
+            showToast("Could not find selected class schedule");
+            return;
+        }
+        
+        const recordKey = `${selectedClassId}_${dateKey}_${selectedSchedule.id}`;
         
         const records = [];
         
@@ -336,7 +367,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 classroom_id: parseInt(selectedClassId),
                 student_id: student.user_id,
                 status: attendanceRecords[recordKey][student.user_id] || 'present',
-                date: dateKey
+                date: dateKey,
+                schedule_id: selectedSchedule.id
             });
         });
         
@@ -352,9 +384,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
-            const selectedClass = classes.find(c => c.classroom_id == selectedClassId);
-            const className = selectedClass ? selectedClass.classroom.name : 'Class';
-            
+            const className = selectedSchedule ? selectedSchedule.classroom.name : 'Class';
             showToast(data.message || `${className} attendance submitted successfully`);
         })
         .catch(error => {
