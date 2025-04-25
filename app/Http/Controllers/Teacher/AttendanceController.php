@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers\Teacher;
-
 use App\Http\Controllers\Controller;
 use App\Models\Student;
 use App\Models\Attendance;
@@ -28,7 +26,13 @@ class AttendanceController extends Controller
         $students = Student::with('user')
                     ->where('classroom_id', $classroom_id)
                     ->get();
-
+                    
+        foreach ($students as $student) {
+            $student->attendance = Attendance::where('student_id', $student->user_id)
+                                    ->where('classroom_id', $classroom_id)
+                                    ->orderBy('date', 'desc')
+                                    ->get();
+        }
         return response()->json($students);
     }
 
@@ -40,6 +44,7 @@ class AttendanceController extends Controller
             'records.*.student_id' => 'required|uuid',
             'records.*.status' => 'required|in:present,absent',
             'records.*.date' => 'required|date',
+            'records.*.schedule_id' => 'required|integer',
         ]);
 
         foreach ($data['records'] as $record) {
@@ -47,7 +52,8 @@ class AttendanceController extends Controller
                 [
                     'classroom_id' => $record['classroom_id'],
                     'student_id' => $record['student_id'],
-                    'date' => $record['date']
+                    'date' => $record['date'],
+                    'schedule_id' => $record['schedule_id']
                 ],
                 [
                     'status' => $record['status']
