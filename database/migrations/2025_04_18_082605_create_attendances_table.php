@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreign('student_id')->references('id')->on('users')->onDelete('cascade');
             $table->date('date');
             $table->enum('status', ['present', 'absent'])->default('present');
+            $table->foreignId('schedule_id')->nullable()->after('classroom_id')->constrained('schedules')->onDelete('cascade');
             $table->timestamps();
         });        
     }
