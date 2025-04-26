@@ -7,7 +7,6 @@ use App\Models\Attendance;
 use App\Models\Schedule;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class StudentAttendanceController extends Controller
 {
@@ -22,18 +21,12 @@ class StudentAttendanceController extends Controller
             ->orderBy('start_time')
             ->get();
             
-        $attendances = Attendance::where('student_id', $user->id)
-            ->whereExists(function($query) use ($student) {
-                $query->select(DB::raw(1))
-                    ->from('schedules')
-                    ->where('classroom_id', $student->classroom_id)
-                    ->where('day_of_week', '!=', 'Sunday')
-                    ->whereRaw("TRIM(TO_CHAR(attendances.date, 'Day')) = schedules.day_of_week");
-            })
+        $attendances = Attendance::with('schedule.teacher')
+            ->where('student_id', $user->id)
+            ->where('classroom_id', $student->classroom_id)
             ->orderBy('date', 'desc')
             ->get();
 
-            
         $totalAttendances = $attendances->count();
         $presentCount = $attendances->where('status', 'present')->count();
         $absentCount = $attendances->where('status', 'absent')->count();
@@ -41,7 +34,6 @@ class StudentAttendanceController extends Controller
         $presentPercentage = $totalAttendances > 0 ? round(($presentCount / $totalAttendances) * 100, 1) : 0;
         $absentPercentage = $totalAttendances > 0 ? round(($absentCount / $totalAttendances) * 100, 1) : 0;
         
-        // group attendances by month and day for display
         $groupedAttendances = [];
 
         foreach ($attendances as $attendance) {
@@ -50,18 +42,7 @@ class StudentAttendanceController extends Controller
             $day = $date->format('d');
             $dayOfWeek = $date->format('l');
 
-            // Skip Sundays
             if ($dayOfWeek === 'Sunday') {
-                continue;
-            }
-
-            // find schedules for this day of week
-            $daySchedules = $schedules->filter(function($schedule) use ($dayOfWeek) {
-                return $schedule->day_of_week === $dayOfWeek;
-            });
-
-            // skip if no schedules for this day
-            if ($daySchedules->isEmpty()) {
                 continue;
             }
 
@@ -77,7 +58,8 @@ class StudentAttendanceController extends Controller
                 ];
             }
 
-            foreach ($daySchedules as $schedule) {
+            $schedule = $attendance->schedule;
+            if ($schedule) {
                 $teacher = $schedule->teacher ? $schedule->teacher->first_name . ' ' . $schedule->teacher->last_name : 'N/A';
 
                 $groupedAttendances[$month][$day]['entries'][] = [
