@@ -21,10 +21,10 @@
 - **UML Diagrams:** [View in public/UML]()
 ___
 ### UML USE CASE:
-![Diagram](public/UML/Academix-Use-Case-UML-V2.svg)
+![Diagram](public/UML/Academix-Use-Case-UML.svg)
 ___
 ### UML CLASS DIAGRAM:
-![Diagram](public/UML/File_Rouge_Academix_UML_CLASS_DIAGRAM.svg)
+![Diagram](public/UML/Academix-UML-class-diagram.svg)
 ___
 ### COLOR PALLETE:
 ![Diagram](public/PALLETE/palette.svg)
