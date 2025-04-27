@@ -8,6 +8,7 @@ use App\Models\Classroom;
 use App\Models\Attendance;
 use App\Models\Grade;
 use App\Models\Subject;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -42,8 +43,6 @@ class DashboardController extends Controller
         }
         $today = now();
         
-        $totalStudents = User::where('role', 'Student')->count();
-        
         foreach ($days as $index => $day) {
             $date = $startOfWeek->copy()->addDays($index);
         
@@ -65,6 +64,17 @@ class DashboardController extends Controller
 
         $subjects = Subject::all();
 
+        $grades = Grade::join('exam_assignments', 'grades.exam_assignment_id', '=', 'exam_assignments.id')
+            ->join('subject_teacher', 'exam_assignments.teacher_id', '=', 'subject_teacher.teacher_id')
+            ->selectRaw('exam_assignments.classroom_id, subject_teacher.subject_id, AVG(grades.score) as avg_score')
+            ->groupBy('exam_assignments.classroom_id', 'subject_teacher.subject_id')
+            ->get();
+
+        $gradeMap = [];
+        foreach ($grades as $grade) {
+            $gradeMap[$grade->subject_id][$grade->classroom_id] = round($grade->avg_score);
+        }
+
         $performanceData = [];
         foreach ($subjects as $subject) {
             $subjectData = ['name' => $subject->name, 'grades' => []];
@@ -73,13 +83,8 @@ class DashboardController extends Controller
                 $subjectData['grades'][$grade] = [];
                 
                 foreach ($classroomGroup->sortBy('name') as $classroom) {
-                    $avgScore = Grade::join('exam_assignments', 'grades.exam_assignment_id', '=', 'exam_assignments.id')
-                        ->where('exam_assignments.classroom_id', $classroom->id)
-                        ->join('subject_teacher', 'exam_assignments.teacher_id', '=', 'subject_teacher.teacher_id')
-                        ->where('subject_teacher.subject_id', $subject->id)
-                        ->avg('grades.score');
-
-                    $subjectData['grades'][$grade][$classroom->name] = round($avgScore ?: rand(70, 90));
+                    $score = $gradeMap[$subject->id][$classroom->id] ?? rand(70, 90);
+                    $subjectData['grades'][$grade][$classroom->name] = $score;
                 }
             }
 
