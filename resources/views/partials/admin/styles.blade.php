@@ -33,7 +33,7 @@
                   setting:'#718EBF',
                   performance: {
                       high: '#4260a6',
-                      medium: '#5c7aa4',
+                      medium: '#4CAF50',
                       low: '#d4af37'
                     }
               }

@@ -72,7 +72,7 @@ class DashboardController extends Controller
 
         $gradeMap = [];
         foreach ($grades as $grade) {
-            $gradeMap[$grade->subject_id][$grade->classroom_id] = round($grade->avg_score);
+            $gradeMap[$grade->subject_id][$grade->classroom_id] = round(($grade->avg_score / 20) * 100);
         }
 
         $performanceData = [];
