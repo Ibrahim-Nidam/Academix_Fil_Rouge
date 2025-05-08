@@ -20,12 +20,6 @@
 - **GitHub Repository Link :** [View on GitHub](https://github.com/Ibrahim-Nidam/Academix_Fil_Rouge.git)
 - **UML Diagrams:** [View in public/UML]()
 ___
-### UML USE CASE:
-![Diagram](public/UML/Academix-Use-Case-UML.svg)
-___
-### UML CLASS DIAGRAM:
-![Diagram](public/UML/Academix-UML-class-diagram.svg)
-___
 ### COLOR PALLETE:
 ![Diagram](public/PALLETE/palette.svg)
 
